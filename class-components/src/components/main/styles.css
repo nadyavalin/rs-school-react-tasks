@@ -1,4 +1,10 @@
-.main-container {
+.main {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+}
+
+hr {
   width: 100%;
-  border: 1px solid #000000;
 }

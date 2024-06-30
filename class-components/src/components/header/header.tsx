@@ -3,6 +3,6 @@ import "./styles.css";
 
 export class Header extends React.Component {
   render(): React.ReactNode {
-    return <header>Header</header>;
+    return <header className="header">Header</header>;
   }
 }
