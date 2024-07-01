@@ -24,7 +24,7 @@ export interface FilmsResponse {
 export interface ResultsComponentState {
   errorMessage: string;
   isLoaded: boolean;
-  items: FilmItem[];
+  films: FilmItem[];
   resultsTerm: string;
 }
 
@@ -33,5 +33,13 @@ export interface ResultsComponentProps {}
 export interface SearchSectionProps {
   fetchFilms: (resultsTerm: string) => Promise<void>;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  resultsTerm: string;
+  searchTerm: string;
+}
+
+export interface SearchInputState {
+  searchTerm: string;
+}
+
+export interface SearchInputProps {
+  onSearch: (term: string) => void;
 }

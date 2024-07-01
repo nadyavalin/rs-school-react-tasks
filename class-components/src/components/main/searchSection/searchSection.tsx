@@ -1,14 +1,12 @@
 import React from "react";
-
 import "./styles.css";
-import { ResultsComponent } from "../../../api/resultsComponent";
+// import { SearchInput } from "./searchInput";
 
 export class SearchSection extends React.Component {
   render(): React.ReactNode {
     return (
       <section className="search-section">
-        <ResultsComponent />
-        <form className="search-form"></form>
+        <form className="search-form">{/* <SearchInput /> */}</form>
       </section>
     );
   }

@@ -17,3 +17,15 @@
 .results-section ul li {
   text-align: start;
 }
+
+.film-title__text,
+.film-date__text,
+.film-description__text {
+  font-weight: 500;
+}
+
+.film-title__item,
+.film-date__item,
+.film-description__item {
+  font-weight: 300;
+}
