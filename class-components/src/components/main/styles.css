@@ -1,10 +1,17 @@
 .main {
-  margin: 10px 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 80vh;
+  flex-grow: 1;
 }
 
-hr {
+.hr-line {
   width: 100%;
+  height: 1px;
+  background-color: var(--main-light);
+  margin: 10px 0;
+}
+
+.results-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 20px;
 }

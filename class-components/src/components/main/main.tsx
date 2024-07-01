@@ -1,15 +1,12 @@
 import React from "react";
 import "./styles.css";
-import { SearchSection } from "./searchSection/searchSection";
-import { ResultsSection } from "./resultsSection/resultsSection";
+import { MainContent } from "./mainContent";
 
 export class Main extends React.Component {
   render(): React.ReactNode {
     return (
       <main className="main">
-        <SearchSection />
-        <hr />
-        <ResultsSection />
+        <MainContent />
       </main>
     );
   }

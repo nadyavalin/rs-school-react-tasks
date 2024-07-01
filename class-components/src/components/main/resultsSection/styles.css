@@ -1,11 +1,4 @@
-.results-section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 10px;
-}
-
-.results-section ul {
+.results {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -14,7 +7,7 @@
   gap: 20px;
 }
 
-.results-section ul li {
+.results li {
   text-align: start;
 }
 

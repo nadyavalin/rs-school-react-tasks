@@ -6,7 +6,7 @@ export interface FilmItem {
   release_date: string;
   characters: string[];
   planets: string[];
-  starships: string[];
+  starShips: string[];
   vehicles: string[];
   species: string[];
   created: string;
@@ -29,12 +29,6 @@ export interface ResultsComponentState {
 }
 
 export interface ResultsComponentProps {}
-
-export interface SearchSectionProps {
-  fetchFilms: (resultsTerm: string) => Promise<void>;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  searchTerm: string;
-}
 
 export interface SearchInputState {
   searchTerm: string;

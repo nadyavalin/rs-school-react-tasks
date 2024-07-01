@@ -1,3 +1,4 @@
+import "./styles.css";
 import { Component } from "react";
 import { FilmItem } from "../../../types/types";
 import { Film } from "./filmItem";
@@ -10,7 +11,7 @@ export class FilmList extends Component<IFilmListProps> {
   render() {
     const { films } = this.props;
     return (
-      <ul>
+      <ul className="results">
         {films.map((film) => (
           <Film key={film.episode_id} film={film} />
         ))}

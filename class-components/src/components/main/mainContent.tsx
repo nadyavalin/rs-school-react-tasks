@@ -1,10 +1,11 @@
+import "./styles.css";
 import { Component } from "react";
-import { fetchFilms } from "../../../api/api";
-import { ResultsComponentProps, ResultsComponentState } from "../../../types/types";
-import { SearchInput } from "../searchSection/searchInput";
-import { FilmList } from "./filmList";
+import { fetchFilms } from "../../api/api";
+import { ResultsComponentProps, ResultsComponentState } from "../../types/types";
+import { SearchForm } from "./searchSection/searchForm";
+import { FilmList } from "./resultsSection/filmList";
 
-export class ResultsComponent extends Component<ResultsComponentProps, ResultsComponentState> {
+export class MainContent extends Component<ResultsComponentProps, ResultsComponentState> {
   constructor(props: ResultsComponentProps) {
     super(props);
     this.state = {
@@ -47,8 +48,13 @@ export class ResultsComponent extends Component<ResultsComponentProps, ResultsCo
     }
     return (
       <>
-        <SearchInput onSearch={this.fetchFilms} />
-        <FilmList films={films} />
+        <section className="search-section">
+          <SearchForm onSearch={this.fetchFilms} />
+        </section>
+        <div className="hr-line"></div>
+        <section className="results-section">
+          <FilmList films={films} />
+        </section>
       </>
     );
   }
