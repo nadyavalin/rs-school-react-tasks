@@ -1,12 +1,13 @@
 import "./styles.css";
 import React, { Component } from "react";
 import { SearchInputProps, SearchInputState } from "../../../types/types";
+import { getItemFromLocalStorage, setItemToLocalStorage } from "../../../utils/utils";
 
 export class SearchForm extends Component<SearchInputProps, SearchInputState> {
   constructor(props: SearchInputProps) {
     super(props);
     this.state = {
-      searchTerm: "",
+      searchTerm: getItemFromLocalStorage<string>("searchTerm") || "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,6 +16,7 @@ export class SearchForm extends Component<SearchInputProps, SearchInputState> {
 
   handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     this.setState({ searchTerm: event.target.value });
+    setItemToLocalStorage("searchTerm", event.target.value);
   }
 
   handleSubmit(
@@ -36,7 +38,7 @@ export class SearchForm extends Component<SearchInputProps, SearchInputState> {
         <input
           className="search-input"
           type="text"
-          placeholder="Find..."
+          placeholder=""
           value={this.state.searchTerm}
           onChange={this.handleChange}
           onKeyDown={this.handleKeyDown}

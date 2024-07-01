@@ -6,7 +6,7 @@ export class Footer extends React.Component {
     return (
       <footer className="footer">
         <div className="hr-line"></div>
-        <a href="https://github.com" target="_blank">
+        <a href="https://github.com/nadyavalin" target="_blank">
           nadyavalin GitHub
         </a>
       </footer>
