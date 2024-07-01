@@ -21,10 +21,10 @@ export interface FilmsResponse {
   results: FilmItem[];
 }
 
-export interface SearchComponentState {
+export interface ResultsComponentState {
   error: Error | null;
   isLoaded: boolean;
   items: FilmItem[];
 }
 
-export interface SearchComponentProps {}
+export interface ResultsComponentProps {}

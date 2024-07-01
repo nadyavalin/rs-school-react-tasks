@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./styles.css";
-import { FilmsResponse, SearchComponentProps, SearchComponentState } from "../types/types";
+import { FilmsResponse, ResultsComponentProps, ResultsComponentState } from "../types/types";
 
-export class SearchComponent extends Component<SearchComponentProps, SearchComponentState> {
-  constructor(props: SearchComponentProps) {
+export class ResultsComponent extends Component<ResultsComponentProps, ResultsComponentState> {
+  constructor(props: ResultsComponentProps) {
     super(props);
     this.state = {
       error: null,
@@ -42,6 +42,9 @@ export class SearchComponent extends Component<SearchComponentProps, SearchCompo
             <li key={item.title}>
               <p className="film-title__text">
                 Film title: <span className="film-title__item">{item.title}</span>
+              </p>
+              <p className="film-date__text">
+                Release date: <span className="film-date__item">{item.release_date}</span>
               </p>
               <p className="film-description__text">
                 Film description:{" "}
