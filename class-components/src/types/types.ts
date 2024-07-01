@@ -22,9 +22,16 @@ export interface FilmsResponse {
 }
 
 export interface ResultsComponentState {
-  error: Error | null;
+  errorMessage: string;
   isLoaded: boolean;
   items: FilmItem[];
+  resultsTerm: string;
 }
 
 export interface ResultsComponentProps {}
+
+export interface SearchSectionProps {
+  fetchFilms: (resultsTerm: string) => Promise<void>;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  resultsTerm: string;
+}
