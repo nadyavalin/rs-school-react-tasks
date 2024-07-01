@@ -2,5 +2,18 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 10px;
+  margin: 10px;
+}
+
+.results-section ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  list-style: none;
+  margin: 0;
+  gap: 20px;
+}
+
+.results-section ul li {
+  text-align: start;
 }

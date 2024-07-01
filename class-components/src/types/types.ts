@@ -1,54 +1,30 @@
-export interface InitialResponse {
-  people: string;
-  planets: string;
-  films: string;
-  species: string;
-  vehicles: string;
-  starShips: string;
+export interface FilmItem {
+  title: string;
+  episode_id: number;
+  opening_crawl: string;
+  director: string;
+  release_date: string;
+  characters: string[];
+  planets: string[];
+  starships: string[];
+  vehicles: string[];
+  species: string[];
+  created: string;
+  edited: string;
+  url: string;
 }
 
-export interface ResourceResponse<T> {
+export interface FilmsResponse {
   count: number;
   next: string | null;
   previous: string | null;
-  results: T[];
+  results: FilmItem[];
 }
-
-export interface SearchComponentProps {}
 
 export interface SearchComponentState {
   error: Error | null;
   isLoaded: boolean;
-  items: (
-    | ResourceResponse<Person>
-    | ResourceResponse<Planet>
-    | ResourceResponse<Film>
-    | ResourceResponse<Species>
-    | ResourceResponse<Vehicle>
-    | ResourceResponse<StarShip>
-  )[];
+  items: FilmItem[];
 }
 
-export interface Person {
-  name: string;
-}
-
-export interface Planet {
-  name: string;
-}
-
-export interface Film {
-  name: string;
-}
-
-export interface Species {
-  name: string;
-}
-
-export interface Vehicle {
-  name: string;
-}
-
-export interface StarShip {
-  name: string;
-}
+export interface SearchComponentProps {}

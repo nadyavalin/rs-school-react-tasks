@@ -1,16 +1,6 @@
 import React, { Component } from "react";
-import {
-  InitialResponse,
-  ResourceResponse,
-  SearchComponentProps,
-  SearchComponentState,
-  Person,
-  Planet,
-  Film,
-  Species,
-  Vehicle,
-  StarShip,
-} from "../types/types";
+import "./styles.css";
+import { FilmsResponse, SearchComponentProps, SearchComponentState } from "../types/types";
 
 export class SearchComponent extends Component<SearchComponentProps, SearchComponentState> {
   constructor(props: SearchComponentProps) {
@@ -23,54 +13,13 @@ export class SearchComponent extends Component<SearchComponentProps, SearchCompo
   }
 
   componentDidMount(): void {
-    fetch("https://swapi.dev/api/")
+    fetch("https://swapi.dev/api/films/")
       .then((res) => res.json())
-      .then((result: InitialResponse) => {
-        Promise.all([
-          fetch(result.people).then((res) => res.json() as Promise<ResourceResponse<Person>>),
-          fetch(result.planets).then((res) => res.json() as Promise<ResourceResponse<Planet>>),
-          fetch(result.films).then((res) => res.json() as Promise<ResourceResponse<Film>>),
-          fetch(result.species).then((res) => res.json() as Promise<ResourceResponse<Species>>),
-          fetch(result.vehicles).then((res) => res.json() as Promise<ResourceResponse<Vehicle>>),
-          fetch(result.starShips).then((res) => res.json() as Promise<ResourceResponse<StarShip>>),
-        ])
-          .then(
-            ([
-              peopleResponse,
-              planetsResponse,
-              filmsResponse,
-              speciesResponse,
-              vehiclesResponse,
-              starShipsResponse,
-            ]) => {
-              const allItems: (
-                | ResourceResponse<Person>
-                | ResourceResponse<Planet>
-                | ResourceResponse<Film>
-                | ResourceResponse<Species>
-                | ResourceResponse<Vehicle>
-                | ResourceResponse<StarShip>
-              )[] = [
-                peopleResponse,
-                planetsResponse,
-                filmsResponse,
-                speciesResponse,
-                vehiclesResponse,
-                starShipsResponse,
-              ];
-
-              this.setState({
-                isLoaded: true,
-                items: allItems,
-              });
-            },
-          )
-          .catch((error) => {
-            this.setState({
-              isLoaded: true,
-              error,
-            });
-          });
+      .then((result: FilmsResponse) => {
+        this.setState({
+          isLoaded: true,
+          items: result.results,
+        });
       })
       .catch((error: Error) => {
         this.setState({
@@ -89,9 +38,17 @@ export class SearchComponent extends Component<SearchComponentProps, SearchCompo
     } else {
       return (
         <ul>
-          {items.flatMap((item) =>
-            item.results.map((result) => <li key={result.name}>{result.name}</li>),
-          )}
+          {items.map((item) => (
+            <li key={item.title}>
+              <p className="film-title__text">
+                Film title: <span className="film-title__item">{item.title}</span>
+              </p>
+              <p className="film-description__text">
+                Film description:{" "}
+                <span className="film-description__item">{item.opening_crawl}</span>
+              </p>
+            </li>
+          ))}
         </ul>
       );
     }

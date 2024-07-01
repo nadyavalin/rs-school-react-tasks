@@ -1,0 +1,9 @@
+.film-title__text,
+.film-description__text {
+  font-weight: 500;
+}
+
+.film-title__item,
+.film-description__item {
+  font-weight: 300;
+}
