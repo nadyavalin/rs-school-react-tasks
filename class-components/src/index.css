@@ -6,10 +6,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
   --main-dark: #090033;
   --transparent-dark: rgb(9, 0, 51, 0.7);
   --main-light: #dff8fa;
+  --accent-blue: #9597c2;
   --links: #646cff;
   --links-hover: #a0a5ff;
   --main-buttons: #646cff;
@@ -63,6 +63,10 @@ button {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+p {
+  margin: 2px;
 }
 
 @media (hover: hover) {

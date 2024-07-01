@@ -15,7 +15,7 @@ export class SearchForm extends Component<SearchInputProps, SearchInputState> {
   }
 
   handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    this.setState({ searchTerm: event.target.value });
+    this.setState({ searchTerm: event.target.value.trim() });
     setItemToLocalStorage("searchTerm", event.target.value);
   }
 
