@@ -61,6 +61,14 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
         <div className="hr-line"></div>
         <section className="results-section">
           <ErrorBoundary>
+            <button
+              className="trigger-error-button"
+              onClick={() => {
+                throw new Error("error");
+              }}
+            >
+              Trigger Error
+            </button>
             <FilmList films={films} />
           </ErrorBoundary>
         </section>
