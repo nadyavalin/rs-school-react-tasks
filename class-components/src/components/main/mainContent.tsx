@@ -5,6 +5,7 @@ import { ResultsComponentProps, ResultsComponentState } from "../../types/types"
 import { SearchForm } from "./searchSection/searchForm";
 import { FilmList } from "./resultsSection/filmList";
 import { getItemFromLocalStorage } from "../../utils/utils";
+import { ErrorBoundary } from "../../ErrorBoundary";
 
 export class MainContent extends Component<ResultsComponentProps, ResultsComponentState> {
   constructor(props: ResultsComponentProps) {
@@ -59,7 +60,9 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
         </section>
         <div className="hr-line"></div>
         <section className="results-section">
-          <FilmList films={films} />
+          <ErrorBoundary>
+            <FilmList films={films} />
+          </ErrorBoundary>
         </section>
       </>
     );

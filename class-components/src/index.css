@@ -14,11 +14,12 @@
   --links-hover: #a0a5ff;
   --main-buttons: #646cff;
   --main-buttons-hover: #a0a5ff;
+  --accent-red: #ff0000;
 }
 
 body {
   margin: 0;
-  background-image: url("../public/fon.jpg");
+  background-image: url("../fon.jpg");
   background-color: var(--transparent-dark);
   background-blend-mode: darken;
   background-attachment: fixed;
@@ -67,6 +68,11 @@ button:focus-visible {
 
 p {
   margin: 2px;
+}
+
+.error-message {
+  color: var(--accent-red);
+  font-weight: 500;
 }
 
 @media (hover: hover) {
