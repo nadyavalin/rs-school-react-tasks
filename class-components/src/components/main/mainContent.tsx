@@ -70,7 +70,7 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
                 try {
                   throw new Error("error");
                 } catch (error) {
-                  console.error("Произошла ошибка:", error);
+                  console.error("An error has occurred:", error);
                 }
               }}
             >
