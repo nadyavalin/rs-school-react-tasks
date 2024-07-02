@@ -23,7 +23,3 @@ export interface ResultsComponentProps {}
 export interface SearchFormState {
   searchTerm: string;
 }
-
-export interface SearchFormProps {
-  onSearch: (term: string) => void;
-}

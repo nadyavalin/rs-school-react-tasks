@@ -1,5 +1,5 @@
 import "./styles.css";
-import { Component } from "react";
+import React, { Component } from "react";
 import { fetchFilms } from "../../api/api";
 import { ResultsComponentProps, ResultsComponentState } from "../../types/types";
 import { SearchForm } from "./searchSection/searchForm";

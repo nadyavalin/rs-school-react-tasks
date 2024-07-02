@@ -1,4 +1,5 @@
 import "./styles.css";
+import React from "react";
 import { Component } from "react";
 import { FilmItem } from "../../../types/types";
 import { Film } from "./filmItem";
