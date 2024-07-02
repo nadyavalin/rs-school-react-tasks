@@ -1,20 +1,20 @@
-export interface FilmItem {
-  title: string;
-  episode_id: number;
-  opening_crawl: string;
+export interface PeopleItem {
+  name: string;
+  height: string;
+  mass: string;
 }
 
-export interface FilmsResponse {
+export interface PeopleResponse {
   count: number;
   next: string | null;
   previous: string | null;
-  results: FilmItem[];
+  results: PeopleItem[];
 }
 
 export interface ResultsComponentState {
   errorMessage: string;
   isLoaded: boolean;
-  films: FilmItem[];
+  people: PeopleItem[];
   resultsTerm: string;
 }
 

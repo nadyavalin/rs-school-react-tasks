@@ -11,24 +11,21 @@
   text-align: start;
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
-.film-title__text,
-.film-date__text,
-.film-description__text {
+.name__text,
+.params__text {
   font-weight: 500;
   color: var(--accent-blue);
 }
 
-.film-title__item,
-.film-date__item,
-.film-description__item {
+.name__item,
+.params__item {
   font-weight: 300;
   color: var(--main-light);
 }
 
-.film-description__item {
+.params__item {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

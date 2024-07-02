@@ -1,9 +1,9 @@
 import "./styles.css";
 import React, { Component } from "react";
-import { fetchFilms } from "../../api/api";
+import { fetchPeople } from "../../api/api";
 import { ResultsComponentProps, ResultsComponentState } from "../../types/types";
 import { SearchForm } from "./searchSection/searchForm";
-import { FilmList } from "./resultsSection/filmList";
+import { PeopleList } from "./resultsSection/peopleList";
 import { getItemFromLocalStorage } from "../../utils/utils";
 import { ErrorBoundary } from "../../ErrorBoundary";
 
@@ -13,7 +13,7 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
     this.state = {
       errorMessage: "",
       isLoaded: false,
-      films: [],
+      people: [],
       resultsTerm: "",
     };
   }
@@ -21,17 +21,17 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
   componentDidMount(): void {
     const storedSearchTerm = getItemFromLocalStorage<string>("searchTerm");
     if (storedSearchTerm) {
-      this.fetchFilms(storedSearchTerm);
+      this.fetchPeople(storedSearchTerm);
     } else {
-      this.fetchFilms();
+      this.fetchPeople();
     }
   }
 
-  fetchFilms = async (resultsTerm?: string) => {
+  fetchPeople = async (resultsTerm?: string) => {
     try {
-      const data = await fetchFilms(resultsTerm);
+      const data = await fetchPeople(resultsTerm);
       this.setState({
-        films: data.results,
+        people: data.results,
         errorMessage: "",
       });
     } catch (error) {
@@ -46,7 +46,7 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
   };
 
   render(): React.ReactNode {
-    const { errorMessage, isLoaded, films } = this.state;
+    const { errorMessage, isLoaded, people: people } = this.state;
     if (errorMessage) {
       return <p>Error: {errorMessage}</p>;
     }
@@ -56,7 +56,7 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
     return (
       <>
         <section className="search-section">
-          <SearchForm onSearch={this.fetchFilms} />
+          <SearchForm onSearch={this.fetchPeople} />
         </section>
         <div className="hr-line"></div>
         <section className="results-section">
@@ -69,7 +69,7 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
             >
               Trigger Error
             </button>
-            <FilmList films={films} />
+            <PeopleList people={people} />
           </ErrorBoundary>
         </section>
       </>

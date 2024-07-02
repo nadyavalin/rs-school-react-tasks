@@ -1,0 +1,20 @@
+import "./styles.css";
+import React, { Component } from "react";
+import { PeopleItem } from "../../../types/types";
+
+export class Person extends Component<{ person: PeopleItem }> {
+  render(): React.ReactNode {
+    const { person } = this.props;
+    return (
+      <li>
+        <p className="name__text">
+          &#10066; Person name: <span className="name__item">{person.name}</span>
+        </p>
+        <p className="params__text">
+          <span className="params__item">Height: {person.height}</span>
+          <span className="params__item">Mass: {person.mass}</span>
+        </p>
+      </li>
+    );
+  }
+}
