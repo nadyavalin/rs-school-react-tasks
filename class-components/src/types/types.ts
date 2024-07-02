@@ -20,10 +20,10 @@ export interface ResultsComponentState {
 
 export interface ResultsComponentProps {}
 
-export interface SearchInputState {
+export interface SearchFormState {
   searchTerm: string;
 }
 
-export interface SearchInputProps {
+export interface SearchFormProps {
   onSearch: (term: string) => void;
 }

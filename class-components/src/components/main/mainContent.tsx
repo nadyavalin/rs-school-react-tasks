@@ -4,6 +4,7 @@ import { fetchFilms } from "../../api/api";
 import { ResultsComponentProps, ResultsComponentState } from "../../types/types";
 import { SearchForm } from "./searchSection/searchForm";
 import { FilmList } from "./resultsSection/filmList";
+import { getItemFromLocalStorage } from "../../utils/utils";
 
 export class MainContent extends Component<ResultsComponentProps, ResultsComponentState> {
   constructor(props: ResultsComponentProps) {
@@ -17,7 +18,12 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
   }
 
   componentDidMount(): void {
-    this.fetchFilms();
+    const storedSearchTerm = getItemFromLocalStorage<string>("searchTerm");
+    if (storedSearchTerm) {
+      this.fetchFilms(storedSearchTerm);
+    } else {
+      this.fetchFilms();
+    }
   }
 
   fetchFilms = async (resultsTerm?: string) => {

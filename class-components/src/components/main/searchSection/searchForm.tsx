@@ -1,10 +1,10 @@
 import "./styles.css";
 import React, { Component } from "react";
-import { SearchInputProps, SearchInputState } from "../../../types/types";
+import { SearchFormProps, SearchFormState } from "../../../types/types";
 import { getItemFromLocalStorage, setItemToLocalStorage } from "../../../utils/utils";
 
-export class SearchForm extends Component<SearchInputProps, SearchInputState> {
-  constructor(props: SearchInputProps) {
+export class SearchForm extends Component<SearchFormProps, SearchFormState> {
+  constructor(props: SearchFormProps) {
     super(props);
     this.state = {
       searchTerm: getItemFromLocalStorage<string>("searchTerm") || "",
