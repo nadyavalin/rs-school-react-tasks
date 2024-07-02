@@ -6,6 +6,7 @@ import { SearchForm } from "./searchSection/searchForm";
 import { PeopleList } from "./resultsSection/peopleList";
 import { getItemFromLocalStorage } from "../../utils/utils";
 import { ErrorBoundary } from "../../ErrorBoundary";
+// import { TriggerErrorButton } from "../../triggerErrorButton";
 
 export class MainContent extends Component<ResultsComponentProps, ResultsComponentState> {
   constructor(props: ResultsComponentProps) {
@@ -61,15 +62,20 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
         <div className="hr-line"></div>
         <section className="results-section">
           <ErrorBoundary>
+            <PeopleList people={people} />
+            {/* <TriggerErrorButton /> */}
             <button
               className="trigger-error-button"
               onClick={() => {
-                throw new Error("error");
+                try {
+                  throw new Error("error");
+                } catch (error) {
+                  console.error("Произошла ошибка:", error);
+                }
               }}
             >
               Trigger Error
             </button>
-            <PeopleList people={people} />
           </ErrorBoundary>
         </section>
       </>
