@@ -29,14 +29,20 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
 
   fetchPeople = async (resultsTerm?: string) => {
     try {
+      this.setState({
+        isLoaded: false,
+        isError: false,
+      });
       const data = await fetchPeople(resultsTerm);
       this.setState({
         people: data.results,
         errorMessage: "",
+        isLoaded: true,
       });
     } catch (error) {
       this.setState({
         errorMessage: (error as Error).message,
+        isLoaded: true,
       });
     } finally {
       this.setState({
@@ -51,9 +57,6 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
     if (errorMessage) {
       return <p>Error: {errorMessage}</p>;
     }
-    if (!isLoaded) {
-      return <p>Loading...</p>;
-    }
     if (isError) {
       throw new Error("An error occurred");
     }
@@ -67,7 +70,12 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
         </section>
         <div className="hr-line"></div>
         <section className="results-section">
-          <PeopleList people={people} />
+          {!isLoaded && (
+            <div className="loader-container">
+              <div className="loader"></div>
+            </div>
+          )}
+          {isLoaded && <PeopleList people={people} />}
         </section>
       </>
     );
