@@ -16,6 +16,7 @@ export interface ResultsComponentState {
   isLoaded: boolean;
   people: PeopleItem[];
   resultsTerm: string;
+  isError: boolean;
 }
 
 export interface ResultsComponentProps {}

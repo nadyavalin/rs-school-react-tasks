@@ -5,8 +5,6 @@ import { ResultsComponentProps, ResultsComponentState } from "../../types/types"
 import { SearchForm } from "./searchSection/searchForm";
 import { PeopleList } from "./resultsSection/peopleList";
 import { getItemFromLocalStorage } from "../../utils/utils";
-import { ErrorBoundary } from "../../ErrorBoundary";
-// import { TriggerErrorButton } from "../../triggerErrorButton";
 
 export class MainContent extends Component<ResultsComponentProps, ResultsComponentState> {
   constructor(props: ResultsComponentProps) {
@@ -16,6 +14,7 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
       isLoaded: false,
       people: [],
       resultsTerm: "",
+      isError: false,
     };
   }
 
@@ -47,36 +46,28 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
   };
 
   render(): React.ReactNode {
-    const { errorMessage, isLoaded, people: people } = this.state;
+    const { errorMessage, isLoaded, people, isError } = this.state;
+
     if (errorMessage) {
       return <p>Error: {errorMessage}</p>;
     }
     if (!isLoaded) {
       return <p>Loading...</p>;
     }
+    if (isError) {
+      throw new Error("An error occurred");
+    }
     return (
       <>
         <section className="search-section">
+          <button className="trigger-error-button" onClick={() => this.setState({ isError: true })}>
+            Trigger Error
+          </button>
           <SearchForm onSearch={this.fetchPeople} />
         </section>
         <div className="hr-line"></div>
         <section className="results-section">
-          <ErrorBoundary>
-            <PeopleList people={people} />
-            {/* <TriggerErrorButton /> */}
-            <button
-              className="trigger-error-button"
-              onClick={() => {
-                try {
-                  throw new Error("error");
-                } catch (error) {
-                  console.error("An error has occurred:", error);
-                }
-              }}
-            >
-              Trigger Error
-            </button>
-          </ErrorBoundary>
+          <PeopleList people={people} />
         </section>
       </>
     );
