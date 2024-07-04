@@ -11,7 +11,7 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
     super(props);
     this.state = {
       errorMessage: "",
-      isLoaded: false,
+      isLoading: false,
       people: [],
       resultsTerm: "",
       isError: false,
@@ -30,29 +30,27 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
   fetchPeople = async (resultsTerm?: string) => {
     try {
       this.setState({
-        isLoaded: false,
+        isLoading: true,
         isError: false,
       });
       const data = await fetchPeople(resultsTerm);
       this.setState({
         people: data.results,
         errorMessage: "",
-        isLoaded: true,
       });
     } catch (error) {
       this.setState({
         errorMessage: (error as Error).message,
-        isLoaded: true,
       });
     } finally {
       this.setState({
-        isLoaded: true,
+        isLoading: false,
       });
     }
   };
 
   render(): React.ReactNode {
-    const { errorMessage, isLoaded, people, isError } = this.state;
+    const { errorMessage, isLoading, people, isError } = this.state;
 
     if (errorMessage) {
       return <p>Error: {errorMessage}</p>;
@@ -68,14 +66,14 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
           </button>
           <SearchForm onSearch={this.fetchPeople} />
         </section>
-        <div className="hr-line"></div>
         <section className="results-section">
-          {!isLoaded && (
+          {isLoading ? (
             <div className="loader-container">
-              <div className="loader"></div>
+              <div className="loader" />
             </div>
+          ) : (
+            <PeopleList people={people} />
           )}
-          {isLoaded && <PeopleList people={people} />}
         </section>
       </>
     );

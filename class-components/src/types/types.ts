@@ -13,7 +13,7 @@ export interface PeopleResponse {
 
 export interface ResultsComponentState {
   errorMessage: string;
-  isLoaded: boolean;
+  isLoading: boolean;
   people: PeopleItem[];
   resultsTerm: string;
   isError: boolean;
@@ -23,4 +23,8 @@ export interface ResultsComponentProps {}
 
 export interface SearchFormState {
   searchTerm: string;
+}
+
+export interface SearchFormProps {
+  onSearch: (searchTerm: string) => void;
 }
