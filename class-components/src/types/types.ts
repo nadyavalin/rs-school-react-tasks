@@ -10,21 +10,3 @@ export interface PeopleResponse {
   previous: string | null;
   results: PeopleItem[];
 }
-
-export interface ResultsComponentState {
-  errorMessage: string;
-  isLoading: boolean;
-  people: PeopleItem[];
-  resultsTerm: string;
-  isError: boolean;
-}
-
-export interface ResultsComponentProps {}
-
-export interface SearchFormState {
-  searchTerm: string;
-}
-
-export interface SearchFormProps {
-  onSearch: (searchTerm: string) => void;
-}

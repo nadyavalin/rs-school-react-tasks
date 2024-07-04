@@ -9,7 +9,7 @@ interface PeopleListProps {
 
 export class PeopleList extends Component<PeopleListProps> {
   render() {
-    const { people: people } = this.props;
+    const { people } = this.props;
     return (
       <ul className="results">
         {people.map((person) => (

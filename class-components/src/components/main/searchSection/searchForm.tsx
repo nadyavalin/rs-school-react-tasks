@@ -1,36 +1,40 @@
 import "./styles.css";
 import React, { Component } from "react";
-import { SearchFormProps, SearchFormState } from "../../../types/types";
 import { getItemFromLocalStorage, setItemToLocalStorage } from "../../../utils/utils";
+
+interface SearchFormState {
+  searchTerm: string;
+}
+
+interface SearchFormProps {
+  onSearch: (searchTerm: string) => void;
+}
 
 export class SearchForm extends Component<SearchFormProps, SearchFormState> {
   constructor(props: SearchFormProps) {
     super(props);
     this.state = {
-      searchTerm: getItemFromLocalStorage<string>("searchTerm") || "",
+      searchTerm: getItemFromLocalStorage<string>("searchTerm") ?? "",
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
-  handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     this.setState({ searchTerm: event.target.value.trim() });
-    setItemToLocalStorage("searchTerm", event.target.value);
-  }
+  };
 
-  handleSubmit(
+  handleSubmit = (
     event: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLInputElement>,
-  ): void {
+  ): void => {
     event.preventDefault();
+    setItemToLocalStorage("searchTerm", this.state.searchTerm);
     this.props.onSearch(this.state.searchTerm);
-  }
+  };
 
-  handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>): void {
+  handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === "Enter") {
       this.handleSubmit(event);
     }
-  }
+  };
 
   render(): React.ReactNode {
     return (

@@ -1,42 +1,43 @@
 import "./styles.css";
 import React, { Component } from "react";
 import { fetchPeople } from "../../api/api";
-import { ResultsComponentProps, ResultsComponentState } from "../../types/types";
+import { PeopleItem } from "../../types/types";
 import { SearchForm } from "./searchSection/searchForm";
 import { PeopleList } from "./resultsSection/peopleList";
 import { getItemFromLocalStorage } from "../../utils/utils";
 
-export class MainContent extends Component<ResultsComponentProps, ResultsComponentState> {
-  constructor(props: ResultsComponentProps) {
-    super(props);
+export interface ResultsComponentState {
+  errorMessage: string;
+  isLoading: boolean;
+  people: PeopleItem[];
+  isError: boolean;
+}
+
+export class MainContent extends Component<object, ResultsComponentState> {
+  constructor() {
+    super({});
     this.state = {
       errorMessage: "",
       isLoading: false,
       people: [],
-      resultsTerm: "",
       isError: false,
     };
   }
 
   componentDidMount(): void {
-    const storedSearchTerm = getItemFromLocalStorage<string>("searchTerm");
-    if (storedSearchTerm) {
-      this.fetchPeople(storedSearchTerm);
-    } else {
-      this.fetchPeople();
-    }
+    this.fetchPeople(getItemFromLocalStorage<string>("searchTerm") ?? "");
   }
 
-  fetchPeople = async (resultsTerm?: string) => {
+  fetchPeople = async (searchTerm?: string) => {
     try {
       this.setState({
         isLoading: true,
+        errorMessage: "",
         isError: false,
       });
-      const data = await fetchPeople(resultsTerm);
+      const data = await fetchPeople(searchTerm);
       this.setState({
         people: data.results,
-        errorMessage: "",
       });
     } catch (error) {
       this.setState({
@@ -47,6 +48,10 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
         isLoading: false,
       });
     }
+  };
+
+  triggerError = () => {
+    this.setState({ isError: true });
   };
 
   render(): React.ReactNode {
@@ -61,7 +66,7 @@ export class MainContent extends Component<ResultsComponentProps, ResultsCompone
     return (
       <>
         <section className="search-section">
-          <button className="trigger-error-button" onClick={() => this.setState({ isError: true })}>
+          <button className="trigger-error-button" onClick={this.triggerError}>
             Trigger Error
           </button>
           <SearchForm onSearch={this.fetchPeople} />
