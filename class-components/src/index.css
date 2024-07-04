@@ -8,6 +8,8 @@
   -moz-osx-font-smoothing: grayscale;
   --main-dark: #090033;
   --transparent-dark: rgb(9, 0, 51, 0.7);
+  --transparent-dark-hover: rgba(119, 94, 229, 0.2);
+  --border-shadow: rgba(255, 255, 255, 0.5);
   --main-light: #dff8fa;
   --accent-blue: #6a71ec;
   --links: #646cff;
@@ -39,6 +41,7 @@ ul {
 
 h1 {
   line-height: 1.5;
+  margin-top: 40px;
 }
 
 input {
