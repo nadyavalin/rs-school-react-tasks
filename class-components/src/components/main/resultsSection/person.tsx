@@ -1,8 +1,8 @@
 import "./styles.css";
 import React, { Component } from "react";
-import { PeopleItem } from "../../../types/types";
+import { IPerson } from "../../../types/types";
 
-export class Person extends Component<{ person: PeopleItem }> {
+export class Person extends Component<{ person: IPerson }> {
   render(): React.ReactNode {
     const { person } = this.props;
     return (

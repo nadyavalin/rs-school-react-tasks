@@ -1,13 +1,15 @@
-import React from "react";
 import "./styles.css";
 import { MainContent } from "./mainContent";
+import { ErrorBoundary } from "../errorBoundary/errorBoundary";
 
-export class Main extends React.Component {
-  render(): React.ReactNode {
-    return (
-      <main className="main">
+export const Main = () => {
+  return (
+    <main className="main">
+      <ErrorBoundary>
         <MainContent />
-      </main>
-    );
-  }
-}
+      </ErrorBoundary>
+    </main>
+  );
+};
+
+export default Main;
