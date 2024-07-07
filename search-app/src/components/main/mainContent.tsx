@@ -23,10 +23,10 @@ export class MainContent extends Component<object, ResultsComponentState> {
   }
 
   componentDidMount(): void {
-    this.fetchPeople(getItemFromLocalStorage<string>("searchTerm") ?? "");
+    this.fetchData(getItemFromLocalStorage<string>("searchTerm") ?? "");
   }
 
-  fetchPeople = async (searchTerm?: string) => {
+  fetchData = async (searchTerm?: string) => {
     try {
       this.setState({
         isLoading: true,
@@ -56,7 +56,7 @@ export class MainContent extends Component<object, ResultsComponentState> {
     return (
       <>
         <section className="search-section">
-          <SearchForm onSearch={this.fetchPeople} />
+          <SearchForm onSearch={this.fetchData} />
         </section>
         <section className="results-section">
           {isLoading ? (
