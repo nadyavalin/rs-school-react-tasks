@@ -1,46 +1,31 @@
-import { Component } from "react";
-import { Person } from "./person";
+import { useState } from "react";
 import { IPerson } from "../../../types/types";
+import { Person } from "./person";
 
-interface PeopleListProps {
+interface PeopleList {
   people: IPerson[];
 }
 
-interface PeopleListState {
-  isError: boolean;
-}
-
-export class PeopleList extends Component<PeopleListProps, PeopleListState> {
-  constructor(props: PeopleListProps) {
-    super(props);
-    this.state = {
-      isError: false,
-    };
-  }
-
-  triggerError = () => {
-    this.setState({ isError: true });
+export const PeopleList = ({ people }: PeopleList) => {
+  const [isError, setIsError] = useState(false);
+  const triggerError = () => {
+    setIsError(true);
   };
 
-  render() {
-    const { isError } = this.state;
-    const { people } = this.props;
-
-    if (isError) {
-      throw new Error("An error has occurred");
-    }
-
-    return (
-      <>
-        <ul className="results">
-          {people.map((person: IPerson) => (
-            <Person key={person.name} person={person} />
-          ))}
-        </ul>
-        <button className="trigger-error-button" onClick={this.triggerError}>
-          Trigger Error
-        </button>
-      </>
-    );
+  if (isError) {
+    throw new Error("An error has occurred");
   }
-}
+
+  return (
+    <>
+      <ul className="results">
+        {people.map((person: IPerson) => (
+          <Person key={person.name} person={person} />
+        ))}
+      </ul>
+      <button className="trigger-error-button" onClick={triggerError}>
+        Trigger Error
+      </button>
+    </>
+  );
+};

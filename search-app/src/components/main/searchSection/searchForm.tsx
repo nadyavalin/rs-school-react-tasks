@@ -1,56 +1,47 @@
 import "./styles.css";
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { getItemFromLocalStorage, setItemToLocalStorage } from "../../../utils/utils";
 
-interface SearchFormState {
-  searchTerm: string;
-}
-
-interface SearchFormProps {
+interface SearchForm {
   onSearch: (searchTerm: string) => void;
 }
 
-export class SearchForm extends Component<SearchFormProps, SearchFormState> {
-  constructor(props: SearchFormProps) {
-    super(props);
-    this.state = {
-      searchTerm: getItemFromLocalStorage<string>("searchTerm") ?? "",
-    };
-  }
+export const SearchForm = ({ onSearch }: SearchForm) => {
+  const [searchTerm, setSearchTerm] = useState<string>(
+    getItemFromLocalStorage<string>("searchTerm") ?? "",
+  );
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ searchTerm: event.target.value.trim() });
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setSearchTerm(event.target.value.trim());
   };
 
-  handleSubmit = (
+  const handleSubmit = (
     event: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLInputElement>,
   ): void => {
     event.preventDefault();
-    setItemToLocalStorage("searchTerm", this.state.searchTerm);
-    this.props.onSearch(this.state.searchTerm);
+    setItemToLocalStorage("searchTerm", searchTerm);
+    onSearch(searchTerm);
   };
 
-  handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === "Enter") {
-      this.handleSubmit(event);
+      handleSubmit(event);
     }
   };
 
-  render(): React.ReactNode {
-    return (
-      <form onSubmit={this.handleSubmit} className="search-form">
-        <input
-          className="search-input"
-          type="text"
-          placeholder=""
-          value={this.state.searchTerm}
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-        />
-        <button type="submit" className="search-button">
-          Search
-        </button>
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={handleSubmit} className="search-form">
+      <input
+        className="search-input"
+        type="text"
+        placeholder=""
+        value={searchTerm}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+      />
+      <button type="submit" className="search-button">
+        Search
+      </button>
+    </form>
+  );
+};

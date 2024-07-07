@@ -1,73 +1,49 @@
 import "./styles.css";
-import React, { Component } from "react";
-import { fetchPeople } from "../../api/api";
+import { useEffect, useState } from "react";
 import { SearchForm } from "./searchSection/searchForm";
 import { PeopleList } from "./resultsSection/peopleList";
 import { getItemFromLocalStorage } from "../../utils/utils";
-import { IPerson } from "../../types/types";
+import { IPerson, PeopleResponse } from "../../types/types";
+import { fetchPeople } from "../../api/api";
 
-export interface ResultsComponentState {
-  errorMessage: string;
-  isLoading: boolean;
-  people: IPerson[];
-}
+export const MainContent = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [people, setPeople] = useState<IPerson[]>([]);
 
-export class MainContent extends Component<object, ResultsComponentState> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      errorMessage: "",
-      isLoading: false,
-      people: [],
-    };
-  }
+  useEffect(() => {
+    fetchData(getItemFromLocalStorage<string>("searchTerm") ?? "");
+  }, []);
 
-  componentDidMount(): void {
-    this.fetchPeople(getItemFromLocalStorage<string>("searchTerm") ?? "");
-  }
-
-  fetchPeople = async (searchTerm?: string) => {
+  const fetchData = async (searchTerm?: string) => {
     try {
-      this.setState({
-        isLoading: true,
-        errorMessage: "",
-      });
-      const data = await fetchPeople(searchTerm);
-      this.setState({
-        people: data.results,
-      });
+      setIsLoading(true);
+      setErrorMessage("");
+      const data: PeopleResponse = await fetchPeople(searchTerm);
+      setPeople(data.results);
     } catch (error) {
-      this.setState({
-        errorMessage: (error as Error).message,
-      });
+      setErrorMessage((error as Error).message);
     } finally {
-      this.setState({
-        isLoading: false,
-      });
+      setIsLoading(false);
     }
   };
 
-  render(): React.ReactNode {
-    const { isLoading, errorMessage } = this.state;
-    if (errorMessage) {
-      return <p>Error: {errorMessage}</p>;
-    }
-
-    return (
-      <>
-        <section className="search-section">
-          <SearchForm onSearch={this.fetchPeople} />
-        </section>
-        <section className="results-section">
-          {isLoading ? (
-            <div className="loader-container">
-              <div className="loader" />
-            </div>
-          ) : (
-            <PeopleList people={this.state.people} />
-          )}
-        </section>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <section className="search-section">
+        <SearchForm onSearch={fetchData} />
+      </section>
+      <section className="results-section">
+        {errorMessage ? (
+          <p>Error: {errorMessage}</p>
+        ) : isLoading ? (
+          <div className="loader-container">
+            <div className="loader" />
+          </div>
+        ) : (
+          <PeopleList people={people} />
+        )}
+      </section>
+    </>
+  );
+};
