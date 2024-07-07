@@ -4,7 +4,6 @@ import { fetchPeople } from "../../api/api";
 import { SearchForm } from "./searchSection/searchForm";
 import { PeopleList } from "./resultsSection/peopleList";
 import { getItemFromLocalStorage } from "../../utils/utils";
-import { ErrorBoundary } from "../errorBoundary/errorBoundary";
 import { IPerson } from "../../types/types";
 
 export interface ResultsComponentState {
@@ -65,9 +64,7 @@ export class MainContent extends Component<object, ResultsComponentState> {
               <div className="loader" />
             </div>
           ) : (
-            <ErrorBoundary>
-              <PeopleList people={this.state.people} />
-            </ErrorBoundary>
+            <PeopleList people={this.state.people} />
           )}
         </section>
       </>
