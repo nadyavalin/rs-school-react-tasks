@@ -1,12 +1,10 @@
-import React from "react";
 import "./styles.css";
+import { ReactElement } from "react";
 
-export class Header extends React.Component {
-  render(): React.ReactNode {
-    return (
-      <header className="header">
-        <h1>Search Star Wars People</h1>
-      </header>
-    );
-  }
-}
+export const Header = (): ReactElement => {
+  return (
+    <header className="header">
+      <h1>Search Star Wars People</h1>
+    </header>
+  );
+};
