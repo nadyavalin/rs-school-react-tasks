@@ -10,5 +10,3 @@ export const Main = (): ReactElement => (
     </ErrorBoundary>
   </main>
 );
-
-export default Main;

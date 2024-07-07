@@ -27,7 +27,7 @@ export class PeopleList extends Component<PeopleListProps, PeopleListState> {
     const { people } = this.props;
 
     if (isError) {
-      throw new Error("An error occurred");
+      throw new Error("An error has occurred");
     }
 
     return (
