@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 
 export const Footer = (): ReactElement => {
   return (
-    <footer className="footer">
+    <footer className="footer" data-testid="footer">
       <a href="https://github.com/nadyavalin" target="_blank" rel="noreferrer">
         nadyavalin GitHub
       </a>
