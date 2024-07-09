@@ -1,10 +1,15 @@
+import "../../../index.css";
 import "./styles.css";
 import { PaginationNumberItem } from "./paginationNumberItem";
 
 export const Pagination = () => {
   return (
-    <ul className="pagination">
-      <PaginationNumberItem />
-    </ul>
+    <>
+      <div className="pagination">
+        <ul className="pagination-numbers">
+          <PaginationNumberItem />
+        </ul>
+      </div>
+    </>
   );
 };
