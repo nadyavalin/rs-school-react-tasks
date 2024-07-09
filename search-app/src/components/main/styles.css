@@ -10,14 +10,6 @@
   margin: 10px 0;
 }
 
-.results-section {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin: 0 20px;
-}
-
 .trigger-error-button {
   position: absolute;
   right: 10px;
