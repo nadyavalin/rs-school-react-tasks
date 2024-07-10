@@ -17,6 +17,7 @@
   --main-buttons: #646cff;
   --main-buttons-hover: #a0a5ff;
   --accent-red: #ff0000;
+  --loader-mask: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
 }
 
 body {

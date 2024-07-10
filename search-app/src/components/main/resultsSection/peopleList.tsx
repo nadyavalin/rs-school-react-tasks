@@ -3,10 +3,10 @@ import { IPerson } from "../../../types/types";
 import { Person } from "./person";
 
 interface PeopleList {
-  people: IPerson[];
+  persons?: IPerson[];
 }
 
-export const PeopleList = ({ people }: PeopleList) => {
+export const PeopleList = ({ persons }: PeopleList) => {
   const [isError, setIsError] = useState(false);
   const triggerError = () => {
     setIsError(true);
@@ -18,11 +18,15 @@ export const PeopleList = ({ people }: PeopleList) => {
 
   return (
     <>
-      <ul className="results">
-        {people.map((person: IPerson) => (
-          <Person key={person.name} person={person} />
-        ))}
-      </ul>
+      {persons && persons.length > 0 ? (
+        <ul className="results">
+          {persons.map((person) => (
+            <Person key={person.name} person={person} />
+          ))}
+        </ul>
+      ) : (
+        <p>Список пуст</p>
+      )}
       <button className="trigger-error-button" onClick={triggerError}>
         Trigger Error
       </button>
