@@ -1,16 +1,4 @@
 import "./index.css";
-
-// export function ErrorPage() {
-//   const error: Error = useRouteError() as Error;
-//   console.error(error);
-
-//   return (
-//     <>
-
-//     </>
-//   );
-// }
-
 import { useRouteError } from "react-router-dom";
 
 interface Error {
@@ -18,7 +6,7 @@ interface Error {
   message: string;
 }
 
-export default function ErrorPage() {
+export function ErrorPage() {
   const error: Error = useRouteError() as Error;
   console.error(error);
 
@@ -32,6 +20,9 @@ export default function ErrorPage() {
       <p>
         <i>{error.statusText || error.message}</i>
       </p>
+      <a href="/" className="turn-to-main-page-link">
+        Turn to main page! ======&gt;&gt;&gt;
+      </a>
     </div>
   );
 }

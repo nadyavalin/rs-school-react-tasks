@@ -7,3 +7,12 @@
   display: flex;
   gap: 20px;
 }
+
+.side-section {
+  width: 300px;
+  height: 93%;
+  padding: 10px;
+  margin: 10px;
+  border: var(--main-light) solid 1px;
+  border-radius: 10px;
+}

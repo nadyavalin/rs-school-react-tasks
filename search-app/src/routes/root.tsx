@@ -1,5 +1,12 @@
 import "./styles.css";
 import { App } from "../App";
+import { Link } from "react-router-dom";
+import { SideSection } from "./sideSection";
+
+export async function loader() {
+  const sideSection = await SideSection();
+  return { sideSection };
+}
 
 export function Root() {
   return (
@@ -8,16 +15,15 @@ export function Root() {
         <nav className="nav">
           <ul className="navigation">
             <li>
-              <a href={`/`}>Main</a>
+              <Link to={``}>Main</Link>
             </li>
             <li>
-              <a href={`/pages/404`}>Page 404</a>
+              <Link to={`pages/side-section`}>Side Section</Link>
             </li>
           </ul>
         </nav>
       </div>
       <App />
-      <div id="detail"></div>
     </>
   );
 }

@@ -6,6 +6,7 @@ import { getItemFromLocalStorage } from "../../utils/utils";
 import { PeopleResponse } from "../../types/types";
 import { fetchPeople } from "../../api/api";
 import { Pagination } from "./resultsSection/pagination";
+import { Outlet } from "react-router-dom";
 
 export const MainContent = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -36,21 +37,26 @@ export const MainContent = () => {
       <section className="search-section">
         <SearchForm onSearch={getPeople} />
       </section>
-      <section className="results-section">
-        {errorMessage ? (
-          <p>Error: {errorMessage}</p>
-        ) : isLoading ? (
-          <div className="loader-container">
-            <div className="loader" />
-          </div>
-        ) : (
-          <PeopleList persons={peopleResponse?.results} />
-        )}
-        <Pagination
-          peopleResponse={peopleResponse}
-          getPeople={(pageNumber) => getPeople(searchTerm, pageNumber)}
-        />
-      </section>
+      <div className="result-section-with-detail">
+        <section className="results-section">
+          {errorMessage ? (
+            <p>Error: {errorMessage}</p>
+          ) : isLoading ? (
+            <div className="loader-container">
+              <div className="loader" />
+            </div>
+          ) : (
+            <PeopleList persons={peopleResponse?.results} />
+          )}
+          <Pagination
+            peopleResponse={peopleResponse}
+            getPeople={(pageNumber) => getPeople(searchTerm, pageNumber)}
+          />
+        </section>
+        <div id="detail">
+          <Outlet />
+        </div>
+      </div>
     </>
   );
 };

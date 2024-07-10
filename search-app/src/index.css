@@ -77,17 +77,6 @@ p {
   transform: translate(-50%, -50%);
 }
 
-@media (hover: hover) {
-  a:hover {
-    color: var(--links-hover);
-  }
-
-  button:hover {
-    background-color: var(--main-buttons-hover);
-  }
-}
-
-/* error-page */
 .error-page {
   display: flex;
   flex-direction: column;
@@ -123,10 +112,24 @@ p {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
   color: var(--main-light);
   font-size: 450px;
   padding: 0;
   margin: 0;
 }
-/* error-page */
+
+.turn-to-main-page-link {
+  position: relative;
+  z-index: 2;
+  font-size: 20px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    color: var(--links-hover);
+  }
+
+  button:hover {
+    background-color: var(--main-buttons-hover);
+  }
+}
