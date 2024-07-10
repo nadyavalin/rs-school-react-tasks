@@ -2,17 +2,17 @@ import "./styles.css";
 import { useEffect, useState } from "react";
 import { SearchForm } from "./searchSection/searchForm";
 import { PeopleList } from "./resultsSection/peopleList";
-import { getItemFromLocalStorage } from "../../utils/utils";
 import { PeopleResponse } from "../../types/types";
 import { fetchPeople } from "../../api/api";
 import { Pagination } from "./resultsSection/pagination";
 import { Outlet } from "react-router-dom";
+import { useSearchTermLocalStorage } from "./useSearchTermLocalStorage";
 
 export const MainContent = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [peopleResponse, setPeopleResponse] = useState<PeopleResponse | undefined>();
-  const [searchTerm, setSearchTerm] = useState(getItemFromLocalStorage<string>("searchTerm") ?? "");
+  const { searchTerm, setSearchTerm } = useSearchTermLocalStorage();
 
   useEffect(() => {
     getPeople(searchTerm);

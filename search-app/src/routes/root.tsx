@@ -1,12 +1,6 @@
 import "./styles.css";
 import { App } from "../App";
 import { Link } from "react-router-dom";
-import { SideSection } from "./sideSection";
-
-export async function loader() {
-  const sideSection = await SideSection();
-  return { sideSection };
-}
 
 export function Root() {
   return (
@@ -19,6 +13,9 @@ export function Root() {
             </li>
             <li>
               <Link to={`pages/side-section`}>Side Section</Link>
+            </li>
+            <li>
+              <Link to={`page-404`}>Page 404</Link>
             </li>
           </ul>
         </nav>

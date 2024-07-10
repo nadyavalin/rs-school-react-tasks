@@ -1,6 +1,6 @@
 import "./styles.css";
 import React, { useState } from "react";
-import { getItemFromLocalStorage, setItemToLocalStorage } from "../../../utils/utils";
+import { getItemFromLocalStorage } from "../../../utils/utils";
 
 interface SearchForm {
   onSearch: (searchTerm: string) => void;
@@ -19,7 +19,6 @@ export const SearchForm = ({ onSearch }: SearchForm) => {
     event: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLInputElement>,
   ): void => {
     event.preventDefault();
-    setItemToLocalStorage("searchTerm", searchTerm);
     onSearch(searchTerm);
   };
 

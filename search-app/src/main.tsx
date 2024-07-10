@@ -2,7 +2,8 @@ import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Root, loader as rootLoader } from "./routes/root";
+import { Root } from "./routes/root";
+import { loader as rootLoader } from "./routes/loader";
 import { ErrorPage } from "./error-page";
 import { SideSection } from "./routes/sideSection";
 const router = createBrowserRouter([
