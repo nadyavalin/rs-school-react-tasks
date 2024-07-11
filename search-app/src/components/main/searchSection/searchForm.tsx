@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { getItemFromLocalStorage } from "../../../utils/utils";
 import { useNavigate } from "react-router-dom";
 
-export const SearchForm = ({ searchParams }: { searchParams: URLSearchParams }) => {
+export const SearchForm = () => {
   const [searchTerm, setSearchTerm] = useState<string>(
     getItemFromLocalStorage<string>("searchTerm") ?? "",
   );
@@ -18,9 +18,11 @@ export const SearchForm = ({ searchParams }: { searchParams: URLSearchParams }) 
     event: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLInputElement>,
   ): void => {
     event.preventDefault();
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("search", searchTerm);
-    navigate(`/?${newSearchParams.toString()}`);
+    if (searchTerm === "") {
+      navigate("/");
+    } else {
+      navigate(`/?${new URLSearchParams({ search: searchTerm })}`);
+    }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {

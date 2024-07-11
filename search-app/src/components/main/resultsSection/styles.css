@@ -28,6 +28,7 @@
   background-color: var(--transparent-dark);
   padding: 10px;
   width: 260px;
+  height: 115px;
   cursor: pointer;
 }
 
@@ -53,17 +54,35 @@
   gap: 10px;
 }
 
-.pagination-item {
-  background-color: transparent;
-  border: 1px solid var(--main-light);
-  border-radius: 5px;
-  padding: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.pagination-numbers {
+  display: flex;
+  gap: 10px;
 }
 
-.pagination-item.active {
+.pagination-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  color: var(--main-light);
+  border-radius: 5px;
+  border: 1px solid var(--main-light);
+  font-size: 1em;
+  font-weight: 400;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+}
+
+.pagination-link_active {
   background-color: var(--main-buttons);
+  color: #000000;
+}
+
+.pagination-link_disabled {
+  pointer-events: none;
+  color: var(--transparent-dark-hover);
+  border: 1px solid var(--transparent-dark-hover);
 }
 
 @media (hover: hover) {
@@ -72,7 +91,8 @@
     box-shadow: 4px 4px 20px var(--border-shadow);
   }
 
-  .pagination-item:hover {
+  .pagination-link:hover {
     background-color: var(--main-buttons);
+    color: #000000;
   }
 }
