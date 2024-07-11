@@ -1,15 +1,14 @@
 import "./styles.css";
 import React, { useState } from "react";
 import { getItemFromLocalStorage } from "../../../utils/utils";
+import { useNavigate } from "react-router-dom";
 
-interface SearchForm {
-  onSearch: (searchTerm: string) => void;
-}
-
-export const SearchForm = ({ onSearch }: SearchForm) => {
+export const SearchForm = ({ searchParams }: { searchParams: URLSearchParams }) => {
   const [searchTerm, setSearchTerm] = useState<string>(
     getItemFromLocalStorage<string>("searchTerm") ?? "",
   );
+
+  const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(event.target.value.trim());
@@ -19,7 +18,9 @@ export const SearchForm = ({ onSearch }: SearchForm) => {
     event: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLInputElement>,
   ): void => {
     event.preventDefault();
-    onSearch(searchTerm);
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("search", searchTerm);
+    navigate(`/?${newSearchParams.toString()}`);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {

@@ -5,7 +5,7 @@ import { PeopleList } from "./resultsSection/peopleList";
 import { PeopleResponse } from "../../types/types";
 import { fetchPeople } from "../../api/api";
 import { Pagination } from "./resultsSection/pagination";
-import { Outlet } from "react-router-dom";
+import { Outlet, useSearchParams } from "react-router-dom";
 import { useSearchTermLocalStorage } from "./useSearchTermLocalStorage";
 
 export const MainContent = () => {
@@ -13,29 +13,30 @@ export const MainContent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [peopleResponse, setPeopleResponse] = useState<PeopleResponse | undefined>();
   const { searchTerm, setSearchTerm } = useSearchTermLocalStorage();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    getPeople(searchTerm);
-  }, []);
+    const getPeople = async (searchParams: URLSearchParams) => {
+      try {
+        setIsLoading(true);
+        setErrorMessage("");
+        const data = await fetchPeople(searchParams);
+        setPeopleResponse(data);
+        setSearchTerm(searchTerm);
+      } catch (error) {
+        setErrorMessage((error as Error).message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const getPeople = async (searchTerm = "", pageNumber = 1) => {
-    try {
-      setIsLoading(true);
-      setErrorMessage("");
-      const data = await fetchPeople(searchTerm, pageNumber);
-      setPeopleResponse(data);
-      setSearchTerm(searchTerm);
-    } catch (error) {
-      setErrorMessage((error as Error).message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    getPeople(searchParams);
+  }, [searchParams]);
 
   return (
     <>
       <section className="search-section">
-        <SearchForm onSearch={getPeople} />
+        <SearchForm searchParams={searchParams} />
       </section>
       <div className="result-section-with-detail">
         <section className="results-section">
@@ -48,10 +49,7 @@ export const MainContent = () => {
           ) : (
             <PeopleList persons={peopleResponse?.results} />
           )}
-          <Pagination
-            peopleResponse={peopleResponse}
-            getPeople={(pageNumber) => getPeople(searchTerm, pageNumber)}
-          />
+          <Pagination peopleResponse={peopleResponse} searchParams={searchParams} />
         </section>
         <div id="detail">
           <Outlet />
