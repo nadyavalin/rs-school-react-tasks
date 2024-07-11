@@ -1,0 +1,93 @@
+:root {
+  font-family: Inter, system-ui, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --main-dark: #090033;
+  --transparent-dark: rgb(9, 0, 51, 0.7);
+  --transparent-dark-hover: rgba(119, 94, 229, 0.2);
+  --border-shadow: rgba(255, 255, 255, 0.5);
+  --main-light: #dff8fa;
+  --accent-blue: #6a71ec;
+  --links: #646cff;
+  --links-hover: #a0a5ff;
+  --main-buttons: #646cff;
+  --main-buttons-hover: #a0a5ff;
+  --accent-red: #ff0000;
+}
+
+body {
+  margin: 0;
+  background-image: url("../fon.jpg");
+  background-color: var(--transparent-dark);
+  background-blend-mode: darken;
+  background-attachment: fixed;
+  color: var(--main-light);
+}
+
+a {
+  font-weight: 500;
+  color: var(--links);
+  text-decoration: inherit;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+h1 {
+  line-height: 1.5;
+  margin-top: 40px;
+}
+
+input {
+  border-radius: 8px;
+  padding: 0px 5px;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 400;
+  font-family: inherit;
+  background-color: var(--main-buttons);
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+p {
+  margin: 2px;
+}
+
+.error-message {
+  color: var(--accent-red);
+  font-weight: 300;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media (hover: hover) {
+  a:hover {
+    color: var(--links-hover);
+  }
+
+  button:hover {
+    background-color: var(--main-buttons-hover);
+  }
+}
