@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     loader: rootLoader,
     children: [
       {
-        path: "pages/:sideId",
+        path: "/:sideId",
         element: <SideSection />,
       },
     ],

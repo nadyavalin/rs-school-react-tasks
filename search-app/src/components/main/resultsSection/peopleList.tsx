@@ -25,7 +25,7 @@ export const PeopleList = ({ persons }: PeopleList) => {
           ))}
         </ul>
       ) : (
-        <p>Список пуст</p>
+        <p>The list is empty</p>
       )}
       <button className="trigger-error-button" onClick={triggerError}>
         Trigger Error

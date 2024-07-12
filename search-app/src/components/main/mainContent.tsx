@@ -16,7 +16,7 @@ export const MainContent = () => {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    const getPeople = async (searchParams: URLSearchParams) => {
+    const getPeople = async (searchParams: URLSearchParams, searchTerm: string) => {
       try {
         setIsLoading(true);
         setErrorMessage("");
@@ -30,13 +30,13 @@ export const MainContent = () => {
       }
     };
 
-    getPeople(searchParams);
-  }, [searchParams]);
+    getPeople(searchParams, searchTerm);
+  }, [searchParams, searchTerm, setSearchTerm]);
 
   return (
     <>
       <section className="search-section">
-        <SearchForm searchParams={searchParams} />
+        <SearchForm />
       </section>
       <div className="result-section-with-detail">
         <section className="results-section">
@@ -51,7 +51,7 @@ export const MainContent = () => {
           )}
           <Pagination peopleResponse={peopleResponse} searchParams={searchParams} />
         </section>
-        <div id="detail">
+        <div id="details">
           <Outlet />
         </div>
       </div>

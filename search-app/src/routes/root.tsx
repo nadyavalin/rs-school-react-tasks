@@ -12,9 +12,6 @@ export function Root() {
               <Link to={``}>Main</Link>
             </li>
             <li>
-              <Link to={`pages/side-section`}>Side Section</Link>
-            </li>
-            <li>
               <Link to={`page-404`}>Page 404</Link>
             </li>
           </ul>
