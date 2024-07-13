@@ -51,7 +51,7 @@ export const MainContent = () => {
           )}
           <Pagination peopleResponse={peopleResponse} searchParams={searchParams} />
         </section>
-        <div id="details">
+        <div id="details" className="details">
           <Outlet />
         </div>
       </div>

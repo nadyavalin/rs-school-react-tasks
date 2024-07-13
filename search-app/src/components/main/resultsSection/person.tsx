@@ -3,8 +3,6 @@ import { IPerson } from "../../../types/types";
 import { Link } from "react-router-dom";
 
 export const Person = ({ person }: { person: IPerson }) => {
-  const searchParams = new URLSearchParams();
-  searchParams.append("searchQuery", "");
   return (
     <Link to={`/${person.name}`}>
       <li key={person.name} className="results_item">
