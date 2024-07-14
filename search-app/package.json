@@ -14,6 +14,11 @@
     "test": "vitest --coverage",
     "ui": "vitest --ui"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run test"
+    }
+  },
   "dependencies": {
     "classnames": "^2.5.1",
     "react": "^18.3.1",
