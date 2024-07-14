@@ -15,9 +15,7 @@
     "ui": "vitest --ui"
   },
   "husky": {
-    "hooks": {
-      "pre-push": "npm run test"
-    }
+    "pre-push": "npm run test"
   },
   "dependencies": {
     "classnames": "^2.5.1",
