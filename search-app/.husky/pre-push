@@ -1,4 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
- npm --run test
+ cd search-app && npm --run test
+ 
