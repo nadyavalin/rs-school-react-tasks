@@ -12,6 +12,7 @@
     "preview": "vite preview",
     "prepare": "cd .. && husky search-app/.husky",
     "test": "vitest --coverage",
+    "pre-push-test": "vitest run",
     "ui": "vitest --ui"
   },
   "dependencies": {
