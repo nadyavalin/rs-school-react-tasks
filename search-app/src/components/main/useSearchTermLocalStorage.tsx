@@ -5,7 +5,6 @@ export const useSearchTermLocalStorage = () => {
   const [searchTerm, setSearchTerm] = useState(getItemFromLocalStorage("searchTerm") ?? "");
 
   useEffect(() => {
-    console.log(searchTerm);
     return () => {
       setItemToLocalStorage("searchTerm", searchTerm);
     };
