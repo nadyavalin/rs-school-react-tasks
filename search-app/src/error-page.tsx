@@ -1,5 +1,5 @@
 import "./index.css";
-import { useRouteError } from "react-router-dom";
+import { Link, useRouteError } from "react-router-dom";
 
 interface Error {
   statusText: string;
@@ -20,9 +20,7 @@ export function ErrorPage() {
       <p>
         <i>{error.statusText || error.message}</i>
       </p>
-      <a href="/" className="turn-to-main-page-link">
-        Turn to main page! ======&gt;&gt;&gt;
-      </a>
+      <Link to={`/`}>Turn to main page! ======&gt;&gt;&gt;</Link>
     </div>
   );
 }
