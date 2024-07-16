@@ -6,6 +6,7 @@ import { App } from "./routes/App";
 import { loader as rootLoader } from "./routes/loader";
 import { ErrorPage } from "./error-page";
 import { SideSection } from "./routes/sideSection";
+
 const router = createBrowserRouter([
   {
     path: "/",
