@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export const Person = ({ person }: { person: IPerson }) => {
   return (
-    <Link to={`/${person.name}`}>
+    <Link key={`${person.name}`} to={`/${person.name}${location.search}`}>
       <li key={person.name} className="results_item">
         <p className="name__text">
           &#10066; Person name: <span className="name__item">{person.name}</span>
