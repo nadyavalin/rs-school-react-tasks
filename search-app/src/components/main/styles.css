@@ -20,25 +20,6 @@
   height: 30px;
 }
 
-.loader-container {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-}
-
-.loader {
-  width: 50px;
-  padding: 8px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--accent-blue);
-  -webkit-mask: var(--loader-mask);
-  mask: var(--loader-mask);
-  -webkit-mask-composite: source-out;
-  mask-composite: subtract;
-  animation: loader 1s infinite linear;
-}
-
 .result-section-with-detail {
   display: flex;
   gap: 10px;
@@ -50,10 +31,4 @@
   flex-direction: column;
   align-items: flex-end;
   margin: 5px;
-}
-
-@keyframes loader {
-  to {
-    transform: rotate(1turn);
-  }
 }

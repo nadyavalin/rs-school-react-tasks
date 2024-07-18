@@ -4,12 +4,13 @@ import { IPerson } from "../../types/types";
 
 interface PersonDetailsProp {
   personDetails: IPerson;
+  handleClickCard: (id: string) => void;
 }
 
-export function SideSectionItem({ personDetails }: PersonDetailsProp) {
+export function SideSectionItem({ personDetails, handleClickCard }: PersonDetailsProp) {
   return (
     <>
-      <Link to={`/`} className="close-button">
+      <Link to={`/`} className="close-button" onClick={() => handleClickCard(personDetails.name)}>
         Close
       </Link>
       <aside className="side-section">

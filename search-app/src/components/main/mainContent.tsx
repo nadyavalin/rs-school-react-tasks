@@ -6,7 +6,8 @@ import { PeopleResponse } from "../../types/types";
 import { fetchPeople } from "../../api/api";
 import { Pagination } from "./resultsSection/pagination";
 import { Outlet, useSearchParams } from "react-router-dom";
-import { useSearchTermLocalStorage } from "./useSearchTermLocalStorage";
+import { useSearchTermLocalStorage } from "../../hooks/useSearchTermLocalStorage";
+import { Loader } from "../loader/loader";
 
 export const MainContent = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -43,9 +44,7 @@ export const MainContent = () => {
           {errorMessage ? (
             <p>Error: {errorMessage}</p>
           ) : isLoading ? (
-            <div className="loader-container">
-              <div className="loader" />
-            </div>
+            <Loader />
           ) : (
             <PeopleList persons={peopleResponse?.results} />
           )}

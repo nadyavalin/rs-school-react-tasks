@@ -11,9 +11,18 @@ vitest.mock("./person", () => ({
 describe("PeopleList component", () => {
   it("renders a list of people cards", () => {
     const people = [
-      { name: "Luke Skywalker", height: "172", mass: "77", birth_year: "19BBY" },
-      { name: "C-3PO", height: "167", mass: "75", birth_year: "112BBY" },
-      { name: "R2-D2", height: "96", mass: "32", birth_year: "33BBY" },
+      {
+        name: "Luke Skywalker",
+        birth_year: "19BBY",
+        eye_color: "blue",
+        gender: "male",
+        hair_color: "blond",
+        height: "172",
+        mass: "77",
+        skin_color: "fair",
+        created: "2014-12-09T13:50:51.644000Z",
+        edited: "2014-12-20T21:17:56.891000Z",
+      },
     ];
 
     const { getAllByTestId } = render(<PeopleList persons={people} />);
