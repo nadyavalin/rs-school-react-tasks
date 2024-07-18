@@ -21,12 +21,19 @@ export const SideSection = () => {
   const [loading, setLoading] = useState(false);
 
   const location = useLocation();
+
   const getPeople = async (searchParams: URLSearchParams) => {
     try {
       setLoading(true);
       const data: PeopleResponse = await fetchPeople(searchParams);
       if (data) {
-        setPersonDetails(data.results[0]);
+        const name = searchParams.get("name");
+        if (name) {
+          const selectedPerson = data.results.find((result) => result.name === name);
+          if (selectedPerson) {
+            setPersonDetails(selectedPerson);
+          }
+        }
       }
       setLoading(false);
     } catch (error) {
@@ -36,13 +43,14 @@ export const SideSection = () => {
   };
 
   const handleClickCard = (name: string) => {
-    const searchParams = new URLSearchParams();
-    searchParams.append("name", name);
+    const searchParams = new URLSearchParams({
+      name: name,
+    });
     getPeople(searchParams);
   };
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
+    const searchParams = new URLSearchParams(location.search);
     getPeople(searchParams);
   }, [location]);
 
