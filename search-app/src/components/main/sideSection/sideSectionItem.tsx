@@ -1,10 +1,10 @@
 import "./styles.css";
+import { IPerson } from "../../../types/types";
 import { Link } from "react-router-dom";
-import { IPerson } from "../../types/types";
 
 interface PersonDetailsProp {
   personDetails: IPerson;
-  handleClickCard: (id: string) => void;
+  handleClickCard: (name: string) => void;
 }
 
 export function SideSectionItem({ personDetails, handleClickCard }: PersonDetailsProp) {

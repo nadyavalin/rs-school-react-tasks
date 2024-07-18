@@ -5,7 +5,7 @@ import { ReactElement } from "react";
 import { Route, Routes } from "react-router-dom";
 import { RouteOutlet } from "./routes/outlet";
 import { ErrorPage } from "./error-page";
-import { SideSection } from "./components/sideSection/sideSection";
+import { SideSection } from "./components/main/sideSection/sideSection";
 
 export const App = (): ReactElement => {
   return (

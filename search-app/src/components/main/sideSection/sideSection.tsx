@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { IPerson, PeopleResponse } from "../../types/types";
 import { SideSectionItem } from "./sideSectionItem";
 import { useLocation } from "react-router-dom";
-import { fetchPeople } from "../../api/api";
-import { Loader } from "../loader/loader";
+import { IPerson, PeopleResponse } from "../../../types/types";
+import { fetchPeople } from "../../../api/api";
+import { Loader } from "../../loader/loader";
 
 export const SideSection = () => {
   const [personDetails, setPersonDetails] = useState<IPerson>({
