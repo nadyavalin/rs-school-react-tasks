@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SideSectionItem } from "./sideSectionItem";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { IPerson, PeopleResponse } from "../../../types/types";
 import { fetchPeople } from "../../../api/api";
 import { Loader } from "../../loader/loader";
@@ -20,19 +20,17 @@ export const SideSection = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  const location = useLocation();
+  const { key } = useParams();
 
   const getPeople = async (searchParams: URLSearchParams) => {
     try {
       setLoading(true);
       const data: PeopleResponse = await fetchPeople(searchParams);
-      if (data) {
+      if (data && key) {
         const name = searchParams.get("name");
-        if (name) {
-          const selectedPerson = data.results.find((result) => result.name === name);
-          if (selectedPerson) {
-            setPersonDetails(selectedPerson);
-          }
+        const selectedPerson = data.results.find((result) => result.name === name);
+        if (selectedPerson) {
+          setPersonDetails(selectedPerson);
         }
       }
       setLoading(false);
@@ -50,9 +48,13 @@ export const SideSection = () => {
   };
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    getPeople(searchParams);
-  }, [location]);
+    if (key) {
+      const searchParams = new URLSearchParams({
+        name: key,
+      });
+      getPeople(searchParams);
+    }
+  }, [key]);
 
   return (
     <>
