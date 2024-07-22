@@ -1,12 +1,9 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { PeopleList } from "./peopleList";
-import { IPerson } from "../../../types/types";
-
-vitest.mock("./person", () => ({
-  Person: vitest.fn(({ person }: { person: IPerson }) => (
-    <p data-testid="person-test-id">{person.name}</p>
-  )),
-}));
+import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
+import { store } from "../../../store/store";
+import { getPeople } from "../../../store/searchSlice";
 
 describe("PeopleList component", () => {
   it("renders a list of people cards", () => {
@@ -25,15 +22,44 @@ describe("PeopleList component", () => {
       },
     ];
 
-    const { getAllByTestId } = render(<PeopleList persons={people} />);
+    store.dispatch(
+      getPeople({
+        count: 1,
+        next: null,
+        previous: null,
+        results: people,
+      }),
+    );
 
-    const renderedNames = getAllByTestId("person-test-id");
-    expect(renderedNames).toHaveLength(people.length);
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <PeopleList />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    expect(screen.getByText("Luke Skywalker")).toBeInTheDocument();
   });
 
   it("renders 'The list is empty' message if the array is empty", () => {
-    const { getByText } = render(<PeopleList persons={[]} />);
+    store.dispatch(
+      getPeople({
+        count: 0,
+        next: null,
+        previous: null,
+        results: [],
+      }),
+    );
 
-    expect(getByText("The list is empty")).toBeInTheDocument();
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <PeopleList />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    expect(screen.getByText("The list is empty")).toBeInTheDocument();
   });
 });

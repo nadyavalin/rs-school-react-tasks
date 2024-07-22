@@ -1,8 +1,9 @@
 import "./styles.css";
 import { IPerson } from "../../../types/types";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const Person = ({ person }: { person: IPerson }) => {
+  const location = useLocation();
   return (
     <Link key={`${person.name}`} to={`/${person.name}${location.search}`}>
       <li key={person.name} className="results_item">

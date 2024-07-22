@@ -1,12 +1,9 @@
 import { useState } from "react";
-import { IPerson } from "../../../types/types";
 import { Person } from "./person";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 
-interface PeopleList {
-  persons?: IPerson[];
-}
-
-export const PeopleList = ({ persons }: PeopleList) => {
+export const PeopleList = () => {
   const [isError, setIsError] = useState(false);
   const triggerError = () => {
     setIsError(true);
@@ -16,11 +13,13 @@ export const PeopleList = ({ persons }: PeopleList) => {
     throw new Error("An error has occurred");
   }
 
+  const people = useSelector((state: RootState) => state.search.peopleResponse);
+
   return (
     <>
-      {persons && persons.length > 0 ? (
+      {people.results.length > 0 ? (
         <ul className="results">
-          {persons.map((person) => (
+          {people.results.map((person) => (
             <Person key={person.name} person={person} />
           ))}
         </ul>

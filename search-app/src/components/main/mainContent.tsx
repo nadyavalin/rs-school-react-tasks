@@ -2,37 +2,42 @@ import "./styles.css";
 import { useEffect, useState } from "react";
 import { SearchForm } from "./searchSection/searchForm";
 import { PeopleList } from "./resultsSection/peopleList";
-import { PeopleResponse } from "../../types/types";
 import { fetchPeople } from "../../api/api";
 import { Pagination } from "./resultsSection/pagination";
 import { Outlet, useSearchParams } from "react-router-dom";
 import { useSearchTermLocalStorage } from "../../hooks/useSearchTermLocalStorage";
 import { Loader } from "../loader/loader";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store/store";
+import { setIsLoading } from "../../store/searchSlice";
+import { getPeople } from "../../store/searchSlice";
 
 export const MainContent = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [peopleResponse, setPeopleResponse] = useState<PeopleResponse | undefined>();
   const { searchTerm, setSearchTerm } = useSearchTermLocalStorage();
   const [searchParams] = useSearchParams();
 
+  const peopleResponse = useSelector((state: RootState) => state.search.peopleResponse);
+  const isLoading = useSelector((state: RootState) => state.search.isLoading);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    const getPeople = async (searchParams: URLSearchParams, searchTerm: string) => {
+    const getPeopleData = async (searchParams: URLSearchParams, searchTerm: string) => {
       try {
-        setIsLoading(true);
+        dispatch(setIsLoading(true));
         setErrorMessage("");
         const data = await fetchPeople(searchParams);
-        setPeopleResponse(data);
+        dispatch(getPeople(data));
         setSearchTerm(searchTerm);
       } catch (error) {
         setErrorMessage((error as Error).message);
       } finally {
-        setIsLoading(false);
+        dispatch(setIsLoading(false));
       }
     };
 
-    getPeople(searchParams, searchTerm);
-  }, [searchParams, searchTerm, setSearchTerm]);
+    getPeopleData(searchParams, searchTerm);
+  }, [searchParams, searchTerm, setSearchTerm, dispatch]);
 
   return (
     <>
@@ -41,13 +46,7 @@ export const MainContent = () => {
       </section>
       <div className="result-section-with-detail">
         <section className="results-section">
-          {errorMessage ? (
-            <p>Error: {errorMessage}</p>
-          ) : isLoading ? (
-            <Loader />
-          ) : (
-            <PeopleList persons={peopleResponse?.results} />
-          )}
+          {errorMessage ? <p>Error: {errorMessage}</p> : isLoading ? <Loader /> : <PeopleList />}
           <Pagination peopleResponse={peopleResponse} searchParams={searchParams} />
         </section>
         <div id="details" className="details">
