@@ -9,16 +9,16 @@ import { useSearchTermLocalStorage } from "../../hooks/useSearchTermLocalStorage
 import { Loader } from "../loader/loader";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/store";
-import { setIsLoading } from "../../store/searchSlice";
-import { getPeople } from "../../store/searchSlice";
+import { setIsLoading } from "../../store/stateSlice";
+import { getPeople } from "../../store/stateSlice";
 
 export const MainContent = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const { searchTerm, setSearchTerm } = useSearchTermLocalStorage();
   const [searchParams] = useSearchParams();
 
-  const peopleResponse = useSelector((state: RootState) => state.search.peopleResponse);
-  const isLoading = useSelector((state: RootState) => state.search.isLoading);
+  const peopleResponse = useSelector((state: RootState) => state.state.peopleResponse);
+  const isLoading = useSelector((state: RootState) => state.state.isLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {

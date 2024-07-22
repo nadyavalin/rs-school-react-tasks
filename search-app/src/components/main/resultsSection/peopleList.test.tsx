@@ -3,7 +3,7 @@ import { PeopleList } from "./peopleList";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import { store } from "../../../store/store";
-import { getPeople } from "../../../store/searchSlice";
+import { getPeople } from "../../../store/stateSlice";
 
 describe("PeopleList component", () => {
   it("renders a list of people cards", () => {

@@ -13,7 +13,7 @@ export const PeopleList = () => {
     throw new Error("An error has occurred");
   }
 
-  const people = useSelector((state: RootState) => state.search.peopleResponse);
+  const people = useSelector((state: RootState) => state.state.peopleResponse);
 
   return (
     <>

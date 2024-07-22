@@ -1,14 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice as createStateSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IPerson, PeopleResponse } from "../types/types";
 
-type Search = IPerson;
-
-type ResultState = {
+type ResponseState = {
   peopleResponse: PeopleResponse;
   isLoading: boolean;
 };
 
-const initialState: ResultState = {
+const initialResponseState: ResponseState = {
   peopleResponse: {
     count: 0,
     next: null,
@@ -18,9 +16,9 @@ const initialState: ResultState = {
   isLoading: false,
 };
 
-const searchSlice = createSlice({
-  name: "search",
-  initialState,
+const stateSlice = createStateSlice({
+  name: "name",
+  initialState: initialResponseState,
   reducers: {
     getPeople(state, action: PayloadAction<PeopleResponse>) {
       state.peopleResponse = action.payload;
@@ -32,9 +30,9 @@ const searchSlice = createSlice({
   },
 });
 
-export const { getPeople, setIsLoading } = searchSlice.actions;
+export const { getPeople, setIsLoading } = stateSlice.actions;
 
-export const createSearchArray = (searchTerm: string): Search[] => {
+export const createSearchArray = (searchTerm: string): IPerson[] => {
   return [
     {
       name: searchTerm,
@@ -51,4 +49,4 @@ export const createSearchArray = (searchTerm: string): Search[] => {
   ];
 };
 
-export default searchSlice.reducer;
+export default stateSlice.reducer;
