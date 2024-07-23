@@ -1,6 +1,17 @@
 import { PeopleResponse } from "../types/types";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const fetchPeople = async (searchParams: URLSearchParams): Promise<PeopleResponse> => {
-  const response = await fetch(`https://swapi.dev/api/people/?${searchParams.toString()}`);
-  return response.json();
-};
+export const peopleApi = createApi({
+  reducerPath: "peopleApi",
+  baseQuery: fetchBaseQuery({ baseUrl: "https://swapi.dev/api/" }),
+  endpoints: (builder) => ({
+    getPeople: builder.query<PeopleResponse, string>({
+      query: (searchParams) => {
+        const params = new URLSearchParams(searchParams);
+        return `people/?${params.toString()}`;
+      },
+    }),
+  }),
+});
+
+export const { useGetPeopleQuery } = peopleApi;

@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Person } from "./person";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
+import { PeopleResponse } from "../../../types/types";
 
-export const PeopleList = () => {
+export const PeopleList = ({ people }: { people: PeopleResponse["results"] }) => {
   const [isError, setIsError] = useState(false);
   const triggerError = () => {
     setIsError(true);
@@ -13,13 +12,11 @@ export const PeopleList = () => {
     throw new Error("An error has occurred");
   }
 
-  const people = useSelector((state: RootState) => state.state.peopleResponse);
-
   return (
     <>
-      {people.results.length > 0 ? (
+      {people.length > 0 ? (
         <ul className="results">
-          {people.results.map((person) => (
+          {people.map((person) => (
             <Person key={person.name} person={person} />
           ))}
         </ul>

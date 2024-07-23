@@ -21,7 +21,7 @@ export const SearchForm = () => {
     if (searchTerm === "") {
       navigate("/");
     } else {
-      navigate(`/?${new URLSearchParams({ search: searchTerm })}`);
+      navigate(`/people?search=${searchTerm}`);
     }
   };
 

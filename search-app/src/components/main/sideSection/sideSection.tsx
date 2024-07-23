@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { SideSectionItem } from "./sideSectionItem";
-import { useParams, useSearchParams } from "react-router-dom";
-import { IPerson, PeopleResponse } from "../../../types/types";
-import { fetchPeople } from "../../../api/api";
+import { useParams } from "react-router-dom";
+import { IPerson } from "../../../types/types";
 import { Loader } from "../../loader/loader";
+import { useGetPeopleQuery } from "../../../api/api";
 
-export const SideSection = () => {
+export const SideSection = ({ searchTerm }: { searchTerm: string }) => {
   const [personDetails, setPersonDetails] = useState<IPerson>({
     name: "",
     birth_year: "",
@@ -18,24 +18,22 @@ export const SideSection = () => {
     created: "",
     edited: "",
   });
-  const [loading, setLoading] = useState(false);
-  const [searchParams] = useSearchParams();
+
   const { key } = useParams();
+  const { data, isLoading, error } = useGetPeopleQuery(
+    searchTerm ? `?search=${searchTerm}` : undefined,
+  );
 
   const getPeople = async (searchParams: URLSearchParams) => {
     try {
-      setLoading(true);
-      const data: PeopleResponse = await fetchPeople(searchParams);
       if (data) {
         const name = searchParams.get("name");
-        const selectedPerson = data.results.find((result) => result.name === name);
+        const selectedPerson = data.results.find((result: IPerson) => result.name === name);
         if (selectedPerson) {
           setPersonDetails(selectedPerson);
         }
       }
-      setLoading(false);
     } catch (error) {
-      setLoading(false);
       throw new Error("Failed to load data");
     }
   };
@@ -48,18 +46,20 @@ export const SideSection = () => {
   };
 
   useEffect(() => {
-    if (key) {
-      const searchParams = new URLSearchParams({
-        name: key,
-      });
-      getPeople(searchParams);
+    if (data && data.results) {
+      const selectedPerson = data.results.find((result: IPerson) => result.name === key);
+      if (selectedPerson) {
+        setPersonDetails(selectedPerson);
+      }
     }
-  }, [key, searchParams]);
+  }, [data, key]);
 
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <Loader />
+      ) : error ? (
+        <p>Error: {error.message}</p>
       ) : (
         <SideSectionItem personDetails={personDetails} handleClickCard={handleClickCard} />
       )}

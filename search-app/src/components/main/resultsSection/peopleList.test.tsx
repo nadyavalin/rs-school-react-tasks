@@ -34,7 +34,7 @@ describe("PeopleList component", () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <PeopleList />
+          <PeopleList people={people} />
         </MemoryRouter>
       </Provider>,
     );
@@ -55,7 +55,7 @@ describe("PeopleList component", () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <PeopleList />
+          <PeopleList people={[]} />
         </MemoryRouter>
       </Provider>,
     );
