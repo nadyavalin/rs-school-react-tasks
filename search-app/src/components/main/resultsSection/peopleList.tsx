@@ -4,7 +4,7 @@ import { PeopleResponse } from "../../../types/types";
 import { useDispatch } from "react-redux";
 import { selectItem } from "../../../store/peopleSlice";
 import { useAppSelector } from "../../../hooks/hooks";
-import { Flyout } from "../flyout/flyout";
+import { Flyout } from "./flyout/flyout";
 
 export const PeopleList = ({ people }: { people: PeopleResponse["results"] }) => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import "./styles.css";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
-import { selectItem } from "../../../store/peopleSlice";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
+import { selectItem } from "../../../../store/peopleSlice";
 
 export const Flyout = () => {
   const dispatch = useAppDispatch();
