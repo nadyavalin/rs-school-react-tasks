@@ -2,18 +2,19 @@ import "./styles.css";
 import { useEffect, useState } from "react";
 import { SearchForm } from "./searchSection/searchForm";
 import { PeopleList } from "./resultsSection/peopleList";
-import { Pagination } from "./resultsSection/pagination";
+import { Pagination } from "./resultsSection/pagination/pagination";
 import { Outlet, useSearchParams } from "react-router-dom";
 import { Loader } from "../loader/loader";
-import { useGetPeopleQuery } from "../../api/api";
+import { peopleApi } from "../../api/api";
 import { useSearchTermLocalStorage } from "../../hooks/useSearchTermLocalStorage";
+import { ThemeToggle } from "./toggleTheme/themeToggle";
 
 export const MainContent = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const { searchTerm, setSearchTerm } = useSearchTermLocalStorage();
   const [searchParams] = useSearchParams();
   const searchParamsString = searchParams.toString();
-  const { data = [], isLoading, error } = useGetPeopleQuery(searchParamsString);
+  const { data = [], isLoading, error } = peopleApi.useGetPeopleQuery(searchParamsString);
 
   useEffect(() => {
     const getPeopleData = async (searchTerm: string) => {
@@ -48,6 +49,7 @@ export const MainContent = () => {
           <Outlet />
         </div>
       </div>
+      <ThemeToggle />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { createSlice as createStateSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IPerson, PeopleResponse } from "../types/types";
 
-type ResponseState = {
+export type ResponseState = {
   peopleResponse: PeopleResponse;
   isLoading: boolean;
 };

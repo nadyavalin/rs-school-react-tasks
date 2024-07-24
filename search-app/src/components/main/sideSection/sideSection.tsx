@@ -20,9 +20,7 @@ export const SideSection = ({ searchTerm }: { searchTerm: string }) => {
   });
 
   const { key } = useParams();
-  const { data, isLoading, error } = useGetPeopleQuery(
-    searchTerm ? `?search=${searchTerm}` : undefined,
-  );
+  const { data, isLoading } = useGetPeopleQuery(searchTerm ? `?search=${searchTerm}` : undefined);
 
   const getPeople = async (searchParams: URLSearchParams) => {
     try {
@@ -58,8 +56,6 @@ export const SideSection = ({ searchTerm }: { searchTerm: string }) => {
     <>
       {isLoading ? (
         <Loader />
-      ) : error ? (
-        <p>Error: {error.message}</p>
       ) : (
         <SideSectionItem personDetails={personDetails} handleClickCard={handleClickCard} />
       )}

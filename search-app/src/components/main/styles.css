@@ -9,15 +9,23 @@
 .footer::before {
   content: "";
   display: block;
-  border-bottom: 1px solid var(--main-light);
   margin: 10px 0;
+}
+
+.dark .search-section::after,
+.dark .footer::before {
+  border-bottom: 1px solid var(--main-light);
+}
+
+.light .search-section::after,
+.light .footer::before {
+  border-bottom: 1px solid var(--main-dark);
 }
 
 .trigger-error-button {
   position: absolute;
   left: 10px;
   top: 10px;
-  height: 30px;
 }
 
 .result-section-with-detail {

@@ -13,8 +13,16 @@
   height: 90%;
   padding: 10px;
   margin: 10px;
-  border: var(--main-light) solid 1px;
   border-radius: 10px;
+}
+
+.dark .side-section {
+  border: var(--main-light) solid 1px;
+}
+
+.light .side-section {
+  border: var(--main-dark) solid 1px;
+  background-color: var(--transparent-light);
 }
 
 .close-button {
@@ -25,14 +33,22 @@
   justify-content: center;
   align-items: center;
   padding: 5px;
-  color: var(--main-light);
   border-radius: 8px;
-  border: 1px solid var(--main-light);
   font-size: 1em;
   font-weight: 400;
   font-family: inherit;
   cursor: pointer;
   transition: background-color 0.4s ease;
+}
+
+.dark .close-button {
+  color: var(--main-light);
+  border: 1px solid var(--main-light);
+}
+
+.light .close-button {
+  color: var(--main-dark);
+  border: 1px solid var(--main-dark);
 }
 
 @media (hover: hover) {
