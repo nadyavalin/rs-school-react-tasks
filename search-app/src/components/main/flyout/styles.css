@@ -1,0 +1,17 @@
+.flyout {
+  position: fixed;
+  bottom: 200px;
+  width: 300px;
+  background-color: var(--dark);
+  border: 1px solid var(--main-light);
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 1;
+}
+
+.flyout__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 0;
+}

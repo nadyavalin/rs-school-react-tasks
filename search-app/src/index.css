@@ -7,6 +7,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   --main-dark: #1d009e;
+  --dark: #090033;
   --transparent-dark: rgb(9, 0, 51, 0.7);
   --transparent-dark-hover: rgba(119, 94, 229, 0.2);
   --transparent-dark-disabled: rgba(119, 94, 229, 0.2);

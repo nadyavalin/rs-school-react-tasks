@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Person } from "./person";
 import { PeopleResponse } from "../../../types/types";
-// import { useDispatch } from "react-redux";
-// import { selectItem } from "../../../store/peopleSlice";
-// import { useAppSelector } from "../../../hooks/hooks";
+import { useDispatch } from "react-redux";
+import { selectItem } from "../../../store/peopleSlice";
+import { useAppSelector } from "../../../hooks/hooks";
+import { Flyout } from "../flyout/flyout";
 
 export const PeopleList = ({ people }: { people: PeopleResponse["results"] }) => {
-  // const dispatch = useDispatch();
-  // const selectedItems = useAppSelector((state) => state.people.selectedItems);
+  const dispatch = useDispatch();
+  const selectedItems = useAppSelector((state) => state.people.selectedItems);
 
   const [isError, setIsError] = useState(false);
   const triggerError = () => {
@@ -26,14 +27,15 @@ export const PeopleList = ({ people }: { people: PeopleResponse["results"] }) =>
             <Person
               key={person.name}
               person={person}
-              // isSelected={selectedItems.includes(person.name)}
-              // onSelectionChange={(checked) => dispatch(selectItem({ itemId: person.name }))}
+              isSelected={selectedItems.includes(person.name)}
+              onSelectionChange={() => dispatch(selectItem({ itemId: person.name }))}
             />
           ))}
         </ul>
       ) : (
         <p>The list is empty</p>
       )}
+      <Flyout />
       <button className="trigger-error-button" onClick={triggerError}>
         Trigger Error
       </button>
