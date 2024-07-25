@@ -4,13 +4,12 @@ import { Link } from "react-router-dom";
 
 interface PersonDetailsProp {
   personDetails: IPerson;
-  handleClickCard: (name: string) => void;
 }
 
-export function SideSectionItem({ personDetails, handleClickCard }: PersonDetailsProp) {
+export function SideSectionItem({ personDetails }: PersonDetailsProp) {
   return (
     <>
-      <Link to={`/`} className="close-button" onClick={() => handleClickCard(personDetails.name)}>
+      <Link to={`/`} className="close-button">
         Close
       </Link>
       <aside className="side-section">

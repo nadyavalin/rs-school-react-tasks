@@ -13,8 +13,15 @@ export const MainContent = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const { searchTerm, setSearchTerm } = useSearchTermLocalStorage();
   const [searchParams] = useSearchParams();
-  const searchParamsString = searchParams.toString();
-  const { data = [], isLoading, error } = peopleApi.useGetPeopleQuery(searchParamsString);
+
+  const {
+    data = [],
+    isLoading,
+    error,
+  } = peopleApi.useGetPeopleQuery({
+    searchTerm: searchParams.get("search") || "",
+    page: Number(searchParams.get("page")) || 1,
+  });
 
   useEffect(() => {
     const getPeopleData = async (searchTerm: string) => {
@@ -37,11 +44,11 @@ export const MainContent = () => {
       <div className="result-section-with-detail">
         <section className="results-section">
           {errorMessage ? (
-            <p>Error: {error.message}</p>
+            <p>Error: {error?.message}</p>
           ) : isLoading ? (
             <Loader />
           ) : (
-            <PeopleList people={data.results} />
+            <PeopleList people={data?.results || []} />
           )}
           <Pagination peopleResponse={data} searchParams={searchParams} />
         </section>

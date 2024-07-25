@@ -21,7 +21,7 @@ export const PeopleList = ({ people }: { people: PeopleResponse["results"] }) =>
 
   return (
     <>
-      {people.length > 0 ? (
+      {people && people.length > 0 ? (
         <ul className="results">
           {people.map((person) => (
             <Person
