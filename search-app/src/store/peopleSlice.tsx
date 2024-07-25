@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { useEffect } from "react";
-import { useAppDispatch } from "../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { getItemFromLocalStorage, setItemToLocalStorage } from "../utils/utils";
 
 interface PeopleState {
@@ -22,7 +22,7 @@ export const peopleSlice = createSlice({
       } else if (state.selectedItems.includes(itemId)) {
         state.selectedItems = state.selectedItems.filter((id) => id !== itemId);
       } else {
-        state.selectedItems.push(itemId);
+        state.selectedItems = [...state.selectedItems, itemId];
       }
       setItemToLocalStorage("selectedItems", state.selectedItems);
     },
@@ -35,6 +35,7 @@ export const peopleSliceReducer = peopleSlice.reducer;
 
 export const usePeopleSlice = () => {
   const dispatch = useAppDispatch();
+  const selectedItems = useAppSelector((state) => state.people.selectedItems);
   useEffect(() => {
     const storedItems = getItemFromLocalStorage<string[]>("selectedItems");
     if (storedItems && Array.isArray(storedItems)) {
@@ -44,6 +45,6 @@ export const usePeopleSlice = () => {
 
   return {
     selectItem,
-    selectedItems: peopleSlice.getInitialState().selectedItems,
+    selectedItems,
   };
 };

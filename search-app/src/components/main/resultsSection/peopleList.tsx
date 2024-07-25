@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { Person } from "./person";
 import { PeopleResponse } from "../../../types/types";
-import { useDispatch } from "react-redux";
-import { selectItem } from "../../../store/peopleSlice";
 import { useAppSelector } from "../../../hooks/hooks";
 import { Flyout } from "./flyout/flyout";
 
 export const PeopleList = ({ people }: { people: PeopleResponse["results"] }) => {
-  const dispatch = useDispatch();
   const selectedItems = useAppSelector((state) => state.people.selectedItems);
 
   const [isError, setIsError] = useState(false);
@@ -28,7 +25,6 @@ export const PeopleList = ({ people }: { people: PeopleResponse["results"] }) =>
               key={person.name}
               person={person}
               isSelected={selectedItems.includes(person.name)}
-              onSelectionChange={() => dispatch(selectItem({ itemId: person.name }))}
             />
           ))}
         </ul>

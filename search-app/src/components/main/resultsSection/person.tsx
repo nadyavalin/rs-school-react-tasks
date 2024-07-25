@@ -1,30 +1,22 @@
 import "./styles.css";
 import { IPerson } from "../../../types/types";
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useAppDispatch } from "../../../hooks/hooks";
+import { selectItem } from "../../../store/peopleSlice";
+import React, { useCallback } from "react";
 
-export const Person = ({
-  person,
-  isSelected,
-  onSelectionChange,
-}: {
-  person: IPerson;
-  isSelected: boolean;
-  onSelectionChange: (checked: boolean) => void;
-}) => {
-  const [isChecked, setIsChecked] = useState(isSelected);
-
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newChecked = event.target.checked;
-    setIsChecked(newChecked);
-    onSelectionChange(newChecked);
-  };
-
+const PersonComponent = ({ person, isSelected }: { person: IPerson; isSelected: boolean }) => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
+
+  const handleCheckboxChange = useCallback(() => {
+    dispatch(selectItem({ itemId: person.name }));
+  }, [dispatch, person.name]);
+
   return (
     <Link key={`${person.name}`} to={`/${person.name}${location.search}`}>
       <li key={person.name} className="results__item">
-        <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
+        <input type="checkbox" checked={isSelected} onChange={handleCheckboxChange} />
         <p className="name__text">
           &#10066; Person name: <span className="name__item">{person.name}</span>
         </p>
@@ -37,3 +29,7 @@ export const Person = ({
     </Link>
   );
 };
+
+export const Person = React.memo(PersonComponent);
+
+Person.displayName = "Person";
