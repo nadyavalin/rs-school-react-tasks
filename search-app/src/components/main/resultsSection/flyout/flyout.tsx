@@ -1,10 +1,13 @@
 import "./styles.css";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { selectItem } from "../../../../store/peopleSlice";
+import { useContext } from "react";
+import { PeopleContext } from "../peopleList";
 
 export const Flyout = () => {
   const dispatch = useAppDispatch();
   const selectedItems = useAppSelector((state) => state.people.selectedItems);
+  const people = useContext(PeopleContext);
 
   if (selectedItems.length === 0) {
     return null;
@@ -15,7 +18,39 @@ export const Flyout = () => {
   };
 
   const handleDownload = () => {
-    console.log("Download button clicked!");
+    if (!people) {
+      return;
+    }
+
+    const selectedPeopleData = selectedItems
+      .map((itemId) => {
+        const item = people.find((person) => person.name === itemId);
+
+        if (!item) {
+          return null;
+        }
+
+        return [
+          item.name,
+          item.birth_year,
+          item.eye_color,
+          item.gender,
+          item.hair_color,
+          item.height,
+          item.mass,
+          item.skin_color,
+          item.created,
+          item.edited,
+        ];
+      })
+      .filter(Boolean);
+
+    const csv = selectedPeopleData.map((row) => row?.join(",")).join("\n");
+
+    const link = document.createElement("a");
+    link.href = `data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`;
+    link.download = `${selectedItems.length}_people.csv`;
+    link.click();
   };
 
   return (

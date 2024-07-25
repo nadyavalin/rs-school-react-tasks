@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { peopleSlice } from "../../../../store/peopleSlice";
 import { AppDispatch } from "../../../../store/store";
+import { PeopleContext } from "../peopleList";
 
 describe("Flyout Component", () => {
   let store: ReturnType<typeof configureStore>;
@@ -28,9 +29,38 @@ describe("Flyout Component", () => {
       payload: { itemId: "2" },
     });
 
+    const peopleData = [
+      {
+        name: "1",
+        birth_year: "19BBY",
+        eye_color: "blue",
+        gender: "male",
+        hair_color: "blond",
+        height: "172",
+        mass: "77",
+        skin_color: "fair",
+        created: "2014-12-09T13:50:51.644000Z",
+        edited: "2014-12-20T21:17:50.313000Z",
+      },
+      {
+        name: "2",
+        birth_year: "112BBY",
+        eye_color: "blue",
+        gender: "male",
+        hair_color: "brown",
+        height: "170",
+        mass: "75",
+        skin_color: "fair",
+        created: "2014-12-10T15:10:51.357000Z",
+        edited: "2014-12-20T21:17:50.315000Z",
+      },
+    ];
+
     render(
       <Provider store={store}>
-        <Flyout />
+        <PeopleContext.Provider value={peopleData}>
+          <Flyout />
+        </PeopleContext.Provider>
       </Provider>,
     );
 
@@ -42,7 +72,9 @@ describe("Flyout Component", () => {
   test("renders null if no items are selected", () => {
     render(
       <Provider store={store}>
-        <Flyout />
+        <PeopleContext.Provider value={[]}>
+          <Flyout />
+        </PeopleContext.Provider>
       </Provider>,
     );
 
