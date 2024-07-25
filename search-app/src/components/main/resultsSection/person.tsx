@@ -3,9 +3,9 @@ import { IPerson } from "../../../types/types";
 import { Link, useLocation } from "react-router-dom";
 import { useAppDispatch } from "../../../hooks/hooks";
 import { selectItem } from "../../../store/peopleSlice";
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 
-const PersonComponent = ({ person, isSelected }: { person: IPerson; isSelected: boolean }) => {
+export const Person = ({ person, isSelected }: { person: IPerson; isSelected: boolean }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
@@ -29,7 +29,3 @@ const PersonComponent = ({ person, isSelected }: { person: IPerson; isSelected: 
     </Link>
   );
 };
-
-export const Person = React.memo(PersonComponent);
-
-Person.displayName = "Person";

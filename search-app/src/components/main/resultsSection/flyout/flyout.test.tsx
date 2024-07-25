@@ -4,7 +4,6 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { peopleSlice } from "../../../../store/peopleSlice";
 import { AppDispatch } from "../../../../store/store";
-import { PeopleContext } from "../peopleList";
 
 describe("Flyout Component", () => {
   let store: ReturnType<typeof configureStore>;
@@ -20,14 +19,8 @@ describe("Flyout Component", () => {
   test("renders correctly with selected items", () => {
     const dispatch: AppDispatch = store.dispatch;
 
-    dispatch({
-      type: "people/selectItem",
-      payload: { itemId: "1" },
-    });
-    dispatch({
-      type: "people/selectItem",
-      payload: { itemId: "2" },
-    });
+    dispatch(peopleSlice.actions.selectItem({ itemId: "1" }));
+    dispatch(peopleSlice.actions.selectItem({ itemId: "2" }));
 
     const peopleData = [
       {
@@ -58,9 +51,7 @@ describe("Flyout Component", () => {
 
     render(
       <Provider store={store}>
-        <PeopleContext.Provider value={peopleData}>
-          <Flyout />
-        </PeopleContext.Provider>
+        <Flyout people={peopleData} />
       </Provider>,
     );
 
@@ -72,9 +63,7 @@ describe("Flyout Component", () => {
   test("renders null if no items are selected", () => {
     render(
       <Provider store={store}>
-        <PeopleContext.Provider value={[]}>
-          <Flyout />
-        </PeopleContext.Provider>
+        <Flyout people={[]} />
       </Provider>,
     );
 

@@ -1,13 +1,11 @@
 import "./styles.css";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { selectItem } from "../../../../store/peopleSlice";
-import { useContext } from "react";
-import { PeopleContext } from "../peopleList";
+import { PeopleResponse } from "../../../../types/types";
 
-export const Flyout = () => {
+export const Flyout = ({ people }: { people: PeopleResponse["results"] }) => {
   const dispatch = useAppDispatch();
   const selectedItems = useAppSelector((state) => state.people.selectedItems);
-  const people = useContext(PeopleContext);
 
   if (selectedItems.length === 0) {
     return null;
@@ -18,10 +16,6 @@ export const Flyout = () => {
   };
 
   const handleDownload = () => {
-    if (!people) {
-      return;
-    }
-
     const selectedPeopleData = selectedItems
       .map((itemId) => {
         const item = people.find((person) => person.name === itemId);

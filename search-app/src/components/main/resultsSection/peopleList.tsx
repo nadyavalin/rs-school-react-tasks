@@ -1,13 +1,12 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
 import { Person } from "./person";
 import { PeopleResponse } from "../../../types/types";
 import { useAppSelector } from "../../../hooks/hooks";
 import { Flyout } from "./flyout/flyout";
 
-export const PeopleContext = createContext<PeopleResponse["results"] | null>(null);
-
 export const PeopleList = ({ people }: { people: PeopleResponse["results"] }) => {
   const selectedItems = useAppSelector((state) => state.people.selectedItems);
+  console.log();
 
   const [isError, setIsError] = useState(false);
   const triggerError = () => {
@@ -19,7 +18,7 @@ export const PeopleList = ({ people }: { people: PeopleResponse["results"] }) =>
   }
 
   return (
-    <PeopleContext.Provider value={people}>
+    <>
       {people && people.length > 0 ? (
         <ul className="results">
           {people.map((person) => (
@@ -33,10 +32,10 @@ export const PeopleList = ({ people }: { people: PeopleResponse["results"] }) =>
       ) : (
         <p>The list is empty</p>
       )}
-      <Flyout />
+      <Flyout people={people} />
       <button className="trigger-error-button" onClick={triggerError}>
         Trigger Error
       </button>
-    </PeopleContext.Provider>
+    </>
   );
 };
