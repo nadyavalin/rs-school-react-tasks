@@ -19,7 +19,7 @@ test("Person component renders person data correctly", () => {
 
   const { getByText } = render(
     <Router>
-      <Person person={personData} />
+      <Person person={personData} isSelected={false} onSelectionChange={() => {}} />
     </Router>,
   );
 
