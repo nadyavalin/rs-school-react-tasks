@@ -1,40 +1,35 @@
 import "./styles.css";
-import { useEffect, useState } from "react";
 import { SearchForm } from "./searchSection/searchForm";
 import { PeopleList } from "./resultsSection/peopleList";
 import { Pagination } from "./resultsSection/pagination/pagination";
 import { Outlet, useSearchParams } from "react-router-dom";
 import { Loader } from "../loader/loader";
-import { peopleApi } from "../../api/api";
-import { useSearchTermLocalStorage } from "../../hooks/useSearchTermLocalStorage";
+import { useGetPeopleQuery } from "../../api/api";
 import { ThemeToggle } from "./toggleTheme/themeToggle";
 
 export const MainContent = () => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const { searchTerm, setSearchTerm } = useSearchTermLocalStorage();
   const [searchParams] = useSearchParams();
 
-  const {
-    data = [],
-    isLoading,
-    error,
-  } = peopleApi.useGetPeopleQuery({
+  const { data, isLoading, error } = useGetPeopleQuery({
     searchTerm: searchParams.get("search") || "",
     page: Number(searchParams.get("page")) || 1,
   });
 
-  useEffect(() => {
-    const getPeopleData = async (searchTerm: string) => {
-      try {
-        setErrorMessage("");
-        setSearchTerm(searchTerm);
-      } catch (error) {
-        setErrorMessage((error as Error).message);
-      }
-    };
+  if (error) {
+    if ("status" in error) {
+      return (
+        <p>
+          Error: {error.status} - {JSON.stringify(error.data)}
+        </p>
+      );
+    } else {
+      return <p>Error: {error.message}</p>;
+    }
+  }
 
-    getPeopleData(searchTerm);
-  }, [searchTerm, setSearchTerm]);
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -43,13 +38,7 @@ export const MainContent = () => {
       </section>
       <div className="result-section-with-detail">
         <section className="results-section">
-          {errorMessage ? (
-            <p>Error: {error?.message}</p>
-          ) : isLoading ? (
-            <Loader />
-          ) : (
-            <PeopleList people={data?.results || []} />
-          )}
+          <PeopleList people={data?.results || []} />
           <Pagination peopleResponse={data} searchParams={searchParams} />
         </section>
         <div id="details" className="details">
