@@ -6,8 +6,6 @@ import { Flyout } from "./flyout/flyout";
 
 export const PeopleList = ({ people }: { people: PeopleResponse["results"] }) => {
   const selectedItems = useAppSelector((state) => state.people.selectedItems);
-  console.log();
-
   const [isError, setIsError] = useState(false);
   const triggerError = () => {
     setIsError(true);

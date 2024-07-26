@@ -29,7 +29,6 @@ export const SideSection = () => {
 
   useEffect(() => {
     if (data && data.results) {
-      console.log(data.results);
       if (key) {
         const selectedPerson = data.results.find((result: IPerson) => result.name === key);
         if (selectedPerson) {

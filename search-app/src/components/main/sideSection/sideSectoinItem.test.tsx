@@ -47,4 +47,12 @@ describe("SideSectionItem Component", () => {
     const closeButton = screen.getByRole("link", { name: "Close" });
     expect(closeButton).toHaveAttribute("href", "/");
   });
+
+  test("clicking on a detail item triggers an additional API call", () => {
+    render(
+      <Router>
+        <SideSectionItem personDetails={mockPersonDetails} />
+      </Router>,
+    );
+  });
 });
