@@ -16,7 +16,12 @@ export const Person = ({ person, isSelected }: { person: IPerson; isSelected: bo
   return (
     <Link key={`${person.name}`} to={`/${person.name}${location.search}`}>
       <li key={person.name} className="results__item">
-        <input type="checkbox" checked={isSelected} onChange={handleCheckboxChange} />
+        <input
+          type="checkbox"
+          checked={isSelected}
+          onChange={handleCheckboxChange}
+          onClick={(e) => e.stopPropagation()}
+        />
         <p className="name__text">
           &#10066; Person name: <span className="name__item">{person.name}</span>
         </p>
