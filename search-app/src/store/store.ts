@@ -1,10 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { peopleApi } from "../api/api";
-import stateReducer from "./stateSlice";
-import { themeSlice } from "./themeSlice";
-import { peopleSlice } from "./peopleSlice";
+import stateReducer, { ResponseState } from "./stateSlice";
+import { themeSlice, ThemeState } from "./themeSlice";
+import { peopleSlice, PeopleState } from "./peopleSlice";
 
-export const store = configureStore({
+export interface IRootState {
+  state: ResponseState;
+  [peopleApi.reducerPath]: ReturnType<typeof peopleApi.reducer>;
+  theme: ThemeState;
+  people: PeopleState;
+}
+
+export const store = configureStore<IRootState>({
   reducer: {
     state: stateReducer,
     [peopleApi.reducerPath]: peopleApi.reducer,

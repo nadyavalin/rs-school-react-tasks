@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { getItemFromLocalStorage, setItemToLocalStorage } from "../utils/utils";
 
-interface PeopleState {
+export interface PeopleState {
   selectedItems: string[];
 }
 
