@@ -41,4 +41,14 @@ describe("People Slice Tests", () => {
     expect(store.getState().people.selectedItems).toEqual([]);
     expect(setItemToLocalStorage).toHaveBeenCalledWith("selectedItems", []);
   });
+
+  it("should remove an existing itemId", () => {
+    const itemId = "1";
+    store.dispatch(selectItem({ itemId }));
+    expect(store.getState().people.selectedItems).toEqual([itemId]);
+
+    store.dispatch(selectItem({ itemId }));
+    expect(store.getState().people.selectedItems).toEqual([]);
+    expect(setItemToLocalStorage).toHaveBeenCalledWith("selectedItems", []);
+  });
 });

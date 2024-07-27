@@ -8,6 +8,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "preserveSymlinks": true,
+    "allowSyntheticDefaultImports": true,
 
     /* Bundler mode */
     "moduleResolution": "Node",

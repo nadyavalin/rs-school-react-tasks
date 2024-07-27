@@ -32,7 +32,7 @@ export const SearchForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="search-form">
+    <form onSubmit={handleSubmit} className="search-form" data-testid="search-form">
       <input
         className="search-input"
         type="text"

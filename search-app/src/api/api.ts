@@ -1,17 +1,9 @@
 import { PeopleResponse } from "../types/types";
-import {
-  BaseQueryFn,
-  createApi,
-  FetchArgs,
-  fetchBaseQuery,
-  FetchBaseQueryError,
-} from "@reduxjs/toolkit/query/react";
-
-type CustomBaseQuery = BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError>;
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const peopleApi = createApi({
   reducerPath: "peopleApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://swapi.dev/api/" }) as CustomBaseQuery,
+  baseQuery: fetchBaseQuery({ baseUrl: "https://swapi.dev/api/" }),
   endpoints: (builder) => ({
     getPeople: builder.query<PeopleResponse, { searchTerm: string; page: number }>({
       query: ({ searchTerm, page }) => `people/?search=${searchTerm}&page=${page}`,

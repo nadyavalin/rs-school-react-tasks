@@ -10,7 +10,7 @@ import { ThemeToggle } from "./toggleTheme/themeToggle";
 export const MainContent = () => {
   const [searchParams] = useSearchParams();
 
-  const { data, isLoading, error } = useGetPeopleQuery({
+  const { data, isLoading, error, isFetching } = useGetPeopleQuery({
     searchTerm: searchParams.get("search") || "",
     page: Number(searchParams.get("page")) || 1,
   });
@@ -27,7 +27,7 @@ export const MainContent = () => {
     }
   }
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return <Loader />;
   }
 

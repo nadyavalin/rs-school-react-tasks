@@ -42,5 +42,13 @@ export const SideSection = () => {
     }
   }, [data, key]);
 
-  return <>{isLoading ? <Loader /> : <SideSectionItem personDetails={personDetails} />}</>;
+  return (
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <SideSectionItem personDetails={personDetails} data-testid="side-section" />
+      )}
+    </>
+  );
 };

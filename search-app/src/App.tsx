@@ -3,7 +3,7 @@ import { Header } from "./components/header/header";
 import { Footer } from "./components/footer/footer";
 import { ReactElement } from "react";
 import { Route, Routes } from "react-router-dom";
-import { ErrorPage } from "./error-page";
+import { ErrorPage } from "./errorPage";
 import { SideSection } from "./components/main/sideSection/sideSection";
 import { MainContent } from "./components/main/mainContent";
 import { ErrorBoundary } from "./components/errorBoundary/errorBoundary";
