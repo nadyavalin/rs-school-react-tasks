@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { IPerson } from "../../../types/types";
 import { Person } from "./person";
+import { PeopleResponse } from "../../../types/types";
+import { useAppSelector } from "../../../hooks/hooks";
+import { Flyout } from "./flyout/flyout";
 
-interface PeopleList {
-  persons?: IPerson[];
-}
-
-export const PeopleList = ({ persons }: PeopleList) => {
+export const PeopleList = ({ people }: { people: PeopleResponse["results"] }) => {
+  const selectedItems = useAppSelector((state) => state.people.selectedItems);
   const [isError, setIsError] = useState(false);
   const triggerError = () => {
     setIsError(true);
@@ -18,15 +17,20 @@ export const PeopleList = ({ persons }: PeopleList) => {
 
   return (
     <>
-      {persons && persons.length > 0 ? (
+      {people && people.length > 0 ? (
         <ul className="results">
-          {persons.map((person) => (
-            <Person key={person.name} person={person} />
+          {people.map((person) => (
+            <Person
+              key={person.name}
+              person={person}
+              isSelected={selectedItems.includes(person.name)}
+            />
           ))}
         </ul>
       ) : (
         <p>The list is empty</p>
       )}
+      <Flyout people={people} />
       <button className="trigger-error-button" onClick={triggerError}>
         Trigger Error
       </button>

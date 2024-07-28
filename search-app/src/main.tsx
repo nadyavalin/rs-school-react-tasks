@@ -1,28 +1,18 @@
 import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { App } from "./routes/App";
-import { loader as rootLoader } from "./routes/loader";
-import { ErrorPage } from "./error-page";
-import { SideSection } from "./routes/sideSection";
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />,
-    loader: rootLoader,
-    children: [
-      {
-        path: "/:sideId",
-        element: <SideSection />,
-      },
-    ],
-  },
-]);
+import { BrowserRouter } from "react-router-dom";
+import { App } from "./App";
+
+import { store } from "./store/store";
+import { Provider } from "react-redux";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>,
 );

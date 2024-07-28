@@ -5,15 +5,30 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --main-dark: #090033;
+
+  --main-dark: #1d009e;
+  --dark: #090033;
   --transparent-dark: rgb(9, 0, 51, 0.7);
   --transparent-dark-hover: rgba(119, 94, 229, 0.2);
-  --border-shadow: rgba(255, 255, 255, 0.5);
-  --main-light: #dedbff;
-  --accent-blue: #6a71ec;
-  --links: #646cff;
-  --links-hover: #a0a5ff;
+  --transparent-dark-disabled: rgba(119, 94, 229, 0.2);
+  --text-light: #dedbff;
+  --accent-blue-light: #6e75ff;
+  --links-dark-hover: #a0a5ff;
+  --main-dark-buttons: #7378d8;
+
+  --main-light: #ccc1ff;
+  --light: #b4a6f3;
+  --transparent-light: rgba(180, 166, 243, 0.7);
+  --transparent-light-hover: rgba(233, 233, 233, 0.5);
+  --transparent-light-disabled: rgba(233, 233, 233, 0.5);
+  --text-dark: #090033;
+  --accent-blue-dark: #0009b1;
+  --links-dark-hover: #4d54da;
+  --main-light-buttons: #7277ff;
+
   --main-buttons: #646cff;
+  --border-shadow: rgba(255, 255, 255, 0.5);
+  --links: #646cff;
   --main-buttons-hover: #a0a5ff;
   --accent-red: #ff0000;
   --loader-mask: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
@@ -21,17 +36,28 @@
 
 body {
   margin: 0;
-  background-image: url("../fon.jpg");
+  background-attachment: fixed;
+}
+
+.dark {
+  background-image: url("../dark-fon.jpg");
   background-color: var(--transparent-dark);
   background-blend-mode: darken;
-  background-attachment: fixed;
-  color: var(--main-light);
+  color: var(--text-light);
+}
+
+.light {
+  background-image: url("../light-fon.jpg");
+  background-color: var(--transparent-light);
+  background-blend-mode: darken;
+  color: var(--text-dark);
 }
 
 a {
   font-weight: 500;
   color: var(--links);
   text-decoration: inherit;
+  transition: color 0.3s ease;
 }
 
 ul {
@@ -112,7 +138,7 @@ p {
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--main-light);
+  color: var(--text-light);
   font-size: 450px;
   padding: 0;
   margin: 0;
@@ -125,8 +151,12 @@ p {
 }
 
 @media (hover: hover) {
-  a:hover {
-    color: var(--links-hover);
+  .dark a:hover {
+    color: var(--links-dark-hover);
+  }
+
+  .light a:hover {
+    color: var(--links-light-hover);
   }
 
   button:hover {

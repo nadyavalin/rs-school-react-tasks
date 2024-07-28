@@ -1,37 +1,35 @@
 import "./styles.css";
-import { useEffect, useState } from "react";
 import { SearchForm } from "./searchSection/searchForm";
 import { PeopleList } from "./resultsSection/peopleList";
-import { PeopleResponse } from "../../types/types";
-import { fetchPeople } from "../../api/api";
-import { Pagination } from "./resultsSection/pagination";
+import { Pagination } from "./resultsSection/pagination/pagination";
 import { Outlet, useSearchParams } from "react-router-dom";
-import { useSearchTermLocalStorage } from "./useSearchTermLocalStorage";
+import { Loader } from "../loader/loader";
+import { useGetPeopleQuery } from "../../api/api";
+import { ThemeToggle } from "./toggleTheme/themeToggle";
 
 export const MainContent = () => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [peopleResponse, setPeopleResponse] = useState<PeopleResponse | undefined>();
-  const { searchTerm, setSearchTerm } = useSearchTermLocalStorage();
   const [searchParams] = useSearchParams();
 
-  useEffect(() => {
-    const getPeople = async (searchParams: URLSearchParams, searchTerm: string) => {
-      try {
-        setIsLoading(true);
-        setErrorMessage("");
-        const data = await fetchPeople(searchParams);
-        setPeopleResponse(data);
-        setSearchTerm(searchTerm);
-      } catch (error) {
-        setErrorMessage((error as Error).message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const { data, isLoading, error } = useGetPeopleQuery({
+    searchTerm: searchParams.get("search") || "",
+    page: Number(searchParams.get("page")) || 1,
+  });
 
-    getPeople(searchParams, searchTerm);
-  }, [searchParams, searchTerm, setSearchTerm]);
+  if (error) {
+    if ("status" in error) {
+      return (
+        <p>
+          Error: {error.status} - {JSON.stringify(error.data)}
+        </p>
+      );
+    } else {
+      return <p>Error: {error.message}</p>;
+    }
+  }
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -40,21 +38,14 @@ export const MainContent = () => {
       </section>
       <div className="result-section-with-detail">
         <section className="results-section">
-          {errorMessage ? (
-            <p>Error: {errorMessage}</p>
-          ) : isLoading ? (
-            <div className="loader-container">
-              <div className="loader" />
-            </div>
-          ) : (
-            <PeopleList persons={peopleResponse?.results} />
-          )}
-          <Pagination peopleResponse={peopleResponse} searchParams={searchParams} />
+          <PeopleList people={data?.results || []} />
+          <Pagination peopleResponse={data} searchParams={searchParams} />
         </section>
         <div id="details" className="details">
           <Outlet />
         </div>
       </div>
+      <ThemeToggle />
     </>
   );
 };

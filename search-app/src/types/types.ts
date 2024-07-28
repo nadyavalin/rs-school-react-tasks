@@ -7,7 +7,13 @@ export interface PeopleResponse {
 
 export interface IPerson {
   name: string;
+  birth_year: string;
+  eye_color: string;
+  gender: string;
+  hair_color: string;
   height: string;
   mass: string;
-  birth_year: string;
+  skin_color: string;
+  created: string;
+  edited: string;
 }

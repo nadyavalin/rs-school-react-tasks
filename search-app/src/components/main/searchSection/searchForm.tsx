@@ -21,7 +21,7 @@ export const SearchForm = () => {
     if (searchTerm === "") {
       navigate("/");
     } else {
-      navigate(`/?${new URLSearchParams({ search: searchTerm })}`);
+      navigate(`/people?search=${searchTerm}`);
     }
   };
 
@@ -32,7 +32,7 @@ export const SearchForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="search-form">
+    <form onSubmit={handleSubmit} className="search-form" data-testid="search-form">
       <input
         className="search-input"
         type="text"
