@@ -23,8 +23,8 @@ describe("SideSection", () => {
     age: 30,
   };
 
-  const useGetPeopleQuery = vi.fn();
-  vi.spyOn(api, "useGetPeopleQuery").mockImplementation(useGetPeopleQuery);
+  const useGetPeopleQueryMock = vi.fn();
+  vi.spyOn(api, "useGetPeopleQuery").mockImplementation(useGetPeopleQueryMock);
 
   const useSearchParamsMock = vi.fn();
   vi.spyOn(reactRouterDom, "useSearchParams").mockImplementation(useSearchParamsMock);
@@ -35,17 +35,17 @@ describe("SideSection", () => {
   beforeEach(() => {
     useSearchParamsMock.mockReturnValue([new URLSearchParams()]);
     useParamsMock.mockReturnValue({});
-    useGetPeopleQuery.mockReturnValue({ data: { results: [mockPerson] }, isLoading: false });
+    useGetPeopleQueryMock.mockReturnValue({ data: { results: [mockPerson] }, isLoading: false });
   });
 
   afterEach(() => {
     useSearchParamsMock.mockClear();
     useParamsMock.mockClear();
-    useGetPeopleQuery.mockClear();
+    useGetPeopleQueryMock.mockClear();
   });
 
   test("renders loader while loading", () => {
-    useGetPeopleQuery.mockReturnValue({ data: null, isLoading: true });
+    useGetPeopleQueryMock.mockReturnValue({ data: null, isLoading: true });
 
     render(<SideSection />);
 
