@@ -12,7 +12,7 @@ export function SideSectionItem({ personDetails }: PersonDetailsProp) {
       <Link to={`/`} className="close-button">
         Close
       </Link>
-      <aside className="side-section">
+      <aside className="side-section" data-testid="side-section-item">
         <h2>Details</h2>
         <div>
           <h3>{personDetails?.name}</h3>

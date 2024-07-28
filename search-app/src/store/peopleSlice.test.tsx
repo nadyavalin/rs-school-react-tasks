@@ -6,7 +6,7 @@ import { themeSlice } from "./themeSlice";
 import { peopleApi } from "../api/api";
 import stateReducer from "./stateSlice";
 
-vitest.mock("../utils/utils");
+vi.mock("../utils/utils");
 
 describe("People Slice Tests", () => {
   let store: ReturnType<typeof configureStore<RootState>>;

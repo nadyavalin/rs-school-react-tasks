@@ -22,7 +22,6 @@ export const SideSection = () => {
       personDetails={
         key ? data?.results.find((result: IPerson) => result.name === key) : data?.results[0]
       }
-      data-testid="side-section"
     />
   );
 };

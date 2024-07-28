@@ -20,6 +20,7 @@ export const data: PeopleResponse = {
     },
   ],
 };
+
 describe("mockData", () => {
   it("should contain the correct data for Owen Lars", () => {
     const owenLars: IPerson | undefined = mockData.info.results.find(
