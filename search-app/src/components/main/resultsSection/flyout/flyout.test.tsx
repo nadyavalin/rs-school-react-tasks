@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { peopleSlice } from "../../../../store/peopleSlice";
 import { AppDispatch } from "../../../../store/store";
+import { MockInstance } from "vitest";
 
 describe("Flyout Component", () => {
   let store: ReturnType<typeof configureStore>;
@@ -71,7 +72,7 @@ describe("Flyout Component", () => {
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
   });
 
-  test('downloads a CSV file when "Download" button is clicked', () => {
+  test('downloads a CSV file when "Download" button is clicked', async () => {
     const dispatch: AppDispatch = store.dispatch;
 
     dispatch(peopleSlice.actions.selectItem({ itemId: "1" }));
@@ -111,9 +112,30 @@ describe("Flyout Component", () => {
     );
 
     const downloadButton = screen.getByRole("button", { name: "Download" });
-    fireEvent.click(downloadButton);
+    const mockClick = vi.fn();
 
-    expect(screen.getByText("You have selected 2 items.")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Download" })).toBeInTheDocument();
+    const mockCreateElement: MockInstance<
+      (
+        this: HTMLElement,
+        tagName: string,
+        options?: ElementCreationOptions | undefined,
+      ) => HTMLElement
+    > = vi.spyOn(document, "createElement").mockImplementation(() => {
+      const mockElement = {
+        click: mockClick,
+        href: "",
+        download: "",
+      };
+      return mockElement as unknown as HTMLElement;
+    });
+
+    fireEvent.click(downloadButton);
+    expect(mockCreateElement).toHaveBeenCalledWith("a");
+    expect(mockClick).toHaveBeenCalled();
+
+    expect(mockCreateElement.mock.results[0].value.href).toContain(
+      "data:text/csv;charset=utf-8,1%2C19BBY%2Cblue%2Cmale%2Cblond%2C172%2C77%2Cfair%2C2014-12-09T13%3A50%3A51.644000Z%2C2014-12-20T21%3A17%3A50.313000Z",
+    );
+    expect(mockCreateElement.mock.results[0].value.download).toBe("2_people.csv");
   });
 });
