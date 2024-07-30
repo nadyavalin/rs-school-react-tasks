@@ -40,14 +40,14 @@ body {
 }
 
 .dark {
-  background-image: url("../dark-fon.jpg");
+  background-image: url("../public/dark-fon.jpg");
   background-color: var(--transparent-dark);
   background-blend-mode: darken;
   color: var(--text-light);
 }
 
 .light {
-  background-image: url("../light-fon.jpg");
+  background-image: url("../public/light-fon.jpg");
   background-color: var(--transparent-light);
   background-blend-mode: darken;
   color: var(--text-dark);
