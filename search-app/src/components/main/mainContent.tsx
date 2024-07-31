@@ -1,14 +1,13 @@
-import "./styles.css";
 import { SearchForm } from "./searchSection/searchForm";
 import { PeopleList } from "./resultsSection/peopleList";
 import { Pagination } from "./resultsSection/pagination/pagination";
-import { Outlet, useSearchParams } from "react-router-dom";
 import { Loader } from "../loader/loader";
 import { useGetPeopleQuery } from "../../api/api";
 import { ThemeToggle } from "./toggleTheme/themeToggle";
+import { useSearchParams } from "next/navigation";
 
 export const MainContent = () => {
-  const [searchParams] = useSearchParams();
+  const searchParams = useSearchParams();
 
   const { data, isLoading, error } = useGetPeopleQuery({
     searchTerm: searchParams.get("search") || "",
@@ -41,9 +40,7 @@ export const MainContent = () => {
           <PeopleList people={data?.results || []} />
           <Pagination peopleResponse={data} searchParams={searchParams} />
         </section>
-        <div id="details" className="details">
-          <Outlet />
-        </div>
+        <div id="details" className="details"></div>
       </div>
       <ThemeToggle />
     </>

@@ -1,7 +1,6 @@
-import "./styles.css";
-import { PeopleResponse } from "../../../../types/types";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import classNames from "classnames";
+import { PeopleResponse } from "../../../../types/types";
 
 interface PaginationProps {
   peopleResponse?: PeopleResponse;
@@ -16,7 +15,7 @@ export const Pagination = ({ peopleResponse, searchParams }: PaginationProps) =>
   return (
     <div className="pagination">
       <Link
-        to={`/?${new URLSearchParams({ ...params, page: String(Number(params.page ?? 1) - 1) })}`}
+        href={`/?${new URLSearchParams({ ...params, page: String(Number(params.page ?? 1) - 1) })}`}
         className={classNames("pagination-link", {
           "pagination-link_disabled": !peopleResponse?.previous,
         })}
@@ -27,7 +26,7 @@ export const Pagination = ({ peopleResponse, searchParams }: PaginationProps) =>
         {pages.map((page) => (
           <li key={page} className="pagination-number">
             <Link
-              to={`/?${new URLSearchParams({ ...params, page: String(page) })}`}
+              href={`/?${new URLSearchParams({ ...params, page: String(page) })}`}
               className={classNames("pagination-link", {
                 "pagination-link_active": Number(params.page) === page,
               })}
@@ -38,7 +37,7 @@ export const Pagination = ({ peopleResponse, searchParams }: PaginationProps) =>
         ))}
       </ul>
       <Link
-        to={`/?${new URLSearchParams({ ...params, page: String(Number(params.page ?? 1) + 1) })}`}
+        href={`/?${new URLSearchParams({ ...params, page: String(Number(params.page ?? 1) + 1) })}`}
         className={classNames("pagination-link", {
           "pagination-link_disabled": !peopleResponse?.next,
         })}

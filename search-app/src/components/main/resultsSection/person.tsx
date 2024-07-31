@@ -1,12 +1,10 @@
-import "./styles.css";
+import Link from "next/link";
 import { IPerson } from "../../../types/types";
-import { Link, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { selectItem } from "../../../store/peopleSlice";
 
 export const Person = ({ person }: { person: IPerson }) => {
   const dispatch = useAppDispatch();
-  const location = useLocation();
   const selectedItems = useAppSelector((state) => state.people.selectedItems);
   const isChecked = selectedItems.some((item) => item.name === person.name);
 
@@ -15,7 +13,7 @@ export const Person = ({ person }: { person: IPerson }) => {
   };
 
   return (
-    <Link key={`${person.name}`} to={`/${person.name}${location.search}`}>
+    <Link key={`${person.name}`} href={`/${person.name}${location.search}`}>
       <li key={person.name} className="results__item">
         <input
           type="checkbox"

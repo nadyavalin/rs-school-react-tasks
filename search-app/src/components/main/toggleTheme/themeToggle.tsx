@@ -1,4 +1,3 @@
-import "./styles.css";
 import { RootState } from "../../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../../utils/themeUtils";

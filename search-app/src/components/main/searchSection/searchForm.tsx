@@ -1,14 +1,13 @@
-import "./styles.css";
 import React, { useState } from "react";
 import { getItemFromLocalStorage } from "../../../utils/utils";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 
 export const SearchForm = () => {
+  const router = useRouter();
+
   const [searchTerm, setSearchTerm] = useState<string>(
     getItemFromLocalStorage<string>("searchTerm") ?? "",
   );
-
-  const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(event.target.value.trim());
@@ -19,9 +18,9 @@ export const SearchForm = () => {
   ): void => {
     event.preventDefault();
     if (searchTerm === "") {
-      navigate("/");
+      router.push("/");
     } else {
-      navigate(`/people?search=${searchTerm}`);
+      router.push(`/people?search=${searchTerm}`);
     }
   };
 

@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { PeopleList } from "./peopleList";
 import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
 import { store } from "../../../store/store";
 import { getPeople } from "../../../store/stateSlice";
 
@@ -33,9 +32,7 @@ describe("PeopleList component", () => {
 
     render(
       <Provider store={store}>
-        <MemoryRouter>
-          <PeopleList people={people} />
-        </MemoryRouter>
+        <PeopleList people={people} />
       </Provider>,
     );
 
@@ -54,9 +51,7 @@ describe("PeopleList component", () => {
 
     render(
       <Provider store={store}>
-        <MemoryRouter>
-          <PeopleList people={[]} />
-        </MemoryRouter>
+        <PeopleList people={[]} />
       </Provider>,
     );
 

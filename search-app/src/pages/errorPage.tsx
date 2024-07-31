@@ -1,4 +1,3 @@
-import "./index.css";
 import { Link, useRouteError } from "react-router-dom";
 
 interface Error {
@@ -6,7 +5,7 @@ interface Error {
   message: string;
 }
 
-export function ErrorPage() {
+function ErrorPage() {
   const error: Error = useRouteError() as Error;
   console.error(error);
 
@@ -24,3 +23,5 @@ export function ErrorPage() {
     </div>
   );
 }
+
+export default ErrorPage;

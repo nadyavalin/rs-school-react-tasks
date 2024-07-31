@@ -1,4 +1,3 @@
-import "./styles.css";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { unselectAll } from "../../../../store/peopleSlice";
 

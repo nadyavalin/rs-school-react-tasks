@@ -1,4 +1,3 @@
-import "./styles.css";
 import { MainContent } from "./mainContent";
 import { ErrorBoundary } from "../errorBoundary/errorBoundary";
 import { ReactElement } from "react";

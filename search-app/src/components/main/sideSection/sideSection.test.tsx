@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { SideSection } from "./sideSection";
 import * as api from "../../../api/api";
-import * as reactRouterDom from "react-router-dom";
 
 vi.mock("react-router-dom", () => ({
   useParams: vi.fn(),
@@ -27,10 +26,10 @@ describe("SideSection", () => {
   vi.spyOn(api, "useGetPeopleQuery").mockImplementation(useGetPeopleQueryMock);
 
   const useSearchParamsMock = vi.fn();
-  vi.spyOn(reactRouterDom, "useSearchParams").mockImplementation(useSearchParamsMock);
+  // vi.spyOn(reactRouterDom, "useSearchParams").mockImplementation(useSearchParamsMock);
 
   const useParamsMock = vi.fn();
-  vi.spyOn(reactRouterDom, "useParams").mockImplementation(useParamsMock);
+  // vi.spyOn(reactRouterDom, "useParams").mockImplementation(useParamsMock);
 
   beforeEach(() => {
     useSearchParamsMock.mockReturnValue([new URLSearchParams()]);

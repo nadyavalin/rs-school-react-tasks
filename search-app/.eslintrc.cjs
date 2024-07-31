@@ -9,6 +9,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "eslint-config-prettier",
     "prettier",
+    "next/core-web-vitals",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
@@ -25,7 +26,7 @@ module.exports = {
     },
     ecmaVersion: 12,
     sourceType: "module",
-    project: ["tsconfig.app.json"],
+    project: ["tsconfig.json"],
   },
   settings: {
     react: {

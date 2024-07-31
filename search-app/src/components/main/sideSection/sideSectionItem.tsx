@@ -1,6 +1,5 @@
-import "./styles.css";
+import Link from "next/link";
 import { IPerson } from "../../../types/types";
-import { Link } from "react-router-dom";
 
 interface PersonDetailsProp {
   personDetails?: IPerson;
@@ -9,7 +8,7 @@ interface PersonDetailsProp {
 export function SideSectionItem({ personDetails }: PersonDetailsProp) {
   return (
     <>
-      <Link to={`/`} className="close-button">
+      <Link href={`/`} className="close-button">
         Close
       </Link>
       <aside className="side-section" data-testid="side-section-item">

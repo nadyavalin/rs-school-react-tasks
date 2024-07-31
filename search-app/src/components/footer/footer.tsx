@@ -1,4 +1,3 @@
-import "./styles.css";
 import { ReactElement } from "react";
 
 export const Footer = (): ReactElement => {
