@@ -5,6 +5,7 @@ import { Loader } from "../loader/loader";
 import { useGetPeopleQuery } from "../../api/api";
 import { ThemeToggle } from "./toggleTheme/themeToggle";
 import { useSearchParams } from "next/navigation";
+import { TriggerButton } from "../errorBoundary/triggerButton";
 
 export const MainContent = () => {
   const searchParams = useSearchParams();
@@ -42,6 +43,7 @@ export const MainContent = () => {
         </section>
         <div id="details" className="details"></div>
       </div>
+      <TriggerButton />
       <ThemeToggle />
     </>
   );

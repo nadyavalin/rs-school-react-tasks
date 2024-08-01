@@ -14,6 +14,7 @@ export const themeSlice = createSlice({
   reducers: {
     toggleTheme: (state) => {
       state.isLightMode = !state.isLightMode;
+      document.body.setAttribute("theme", state.isLightMode ? "light" : "dark");
     },
   },
 });
