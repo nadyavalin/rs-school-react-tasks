@@ -1,0 +1,46 @@
+.errorPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin: 20px;
+}
+
+.imageContainer {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgb(0, 0, 0) 10%,
+    rgb(0, 0, 0) 90%,
+    rgba(255, 255, 255, 0)
+  );
+}
+
+.img404 {
+  width: 40%;
+}
+
+.turnMainPageLink {
+  position: relative;
+  z-index: 2;
+  font-size: 20px;
+}
+
+.textOverContent {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text-color);
+  font-size: 450px;
+  padding: 0;
+  margin: 0;
+}

@@ -1,7 +1,8 @@
+import styles from "./styles.module.css";
 import Link from "next/link";
-import { IPerson } from "../../../types/types";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
-import { selectItem } from "../../../store/peopleSlice";
+import { IPerson } from "../../../../types/types";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
+import { selectItem } from "../../../../store/peopleSlice";
 
 export const Person = ({ person }: { person: IPerson }) => {
   const dispatch = useAppDispatch();
@@ -14,21 +15,17 @@ export const Person = ({ person }: { person: IPerson }) => {
 
   return (
     <Link key={`${person.name}`} href={`/${person.name}${location.search}`}>
-      <li key={person.name} className="results__item">
+      <li key={person.name} className={styles.resultsItem}>
         <input
           type="checkbox"
           checked={isChecked}
           onChange={handleCheckboxChange}
           onClick={(e) => e.stopPropagation()}
         />
-        <p className="name__text">
-          &#10066; Person name: <span className="name__item">{person.name}</span>
-        </p>
-        <p className="params__text">
-          <span className="params__item">Height: {person.height}</span>
-          <span className="params__item">Mass: {person.mass}</span>
-          <span className="params__item">Birth Year: {person.birth_year}</span>
-        </p>
+        <p>&#10066; Person name: {person.name}</p>
+        <p className={styles.text}>Height: {person.height}</p>
+        <p className={styles.text}>Mass: {person.mass}</p>
+        <p className={styles.text}>Birth Year: {person.birth_year}</p>
       </li>
     </Link>
   );

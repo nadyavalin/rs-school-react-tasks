@@ -1,3 +1,4 @@
+import styles from "./styles.module.css";
 import Link from "next/link";
 import classNames from "classnames";
 import { PeopleResponse } from "../../../../types/types";
@@ -13,37 +14,39 @@ export const Pagination = ({ peopleResponse, searchParams }: PaginationProps) =>
   const pages = Array.from({ length: pageCount }, (_, i) => i + 1);
 
   return (
-    <div className="pagination">
-      <Link
-        href={`/?${new URLSearchParams({ ...params, page: String(Number(params.page ?? 1) - 1) })}`}
-        className={classNames("pagination-link", {
-          "pagination-link_disabled": !peopleResponse?.previous,
-        })}
-      >
-        Prev
-      </Link>
-      <ul className="pagination-numbers">
-        {pages.map((page) => (
-          <li key={page} className="pagination-number">
-            <Link
-              href={`/?${new URLSearchParams({ ...params, page: String(page) })}`}
-              className={classNames("pagination-link", {
-                "pagination-link_active": Number(params.page) === page,
-              })}
-            >
-              {page}
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <Link
-        href={`/?${new URLSearchParams({ ...params, page: String(Number(params.page ?? 1) + 1) })}`}
-        className={classNames("pagination-link", {
-          "pagination-link_disabled": !peopleResponse?.next,
-        })}
-      >
-        Next
-      </Link>
-    </div>
+    <>
+      <div className={styles.pagination}>
+        <Link
+          href={`/?${new URLSearchParams({ ...params, page: String(Number(params.page ?? 1) - 1) })}`}
+          className={classNames(styles.paginationLink, {
+            [styles.paginationLinkDisabled]: !peopleResponse?.previous,
+          })}
+        >
+          Prev
+        </Link>
+        <ul className={styles.paginationNumbers}>
+          {pages.map((page) => (
+            <li key={page}>
+              <Link
+                href={`/?${new URLSearchParams({ ...params, page: String(page) })}`}
+                className={classNames(styles.paginationLink, {
+                  [styles.paginationLinkActive]: Number(params.page) === page,
+                })}
+              >
+                {page}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <Link
+          href={`/?${new URLSearchParams({ ...params, page: String(Number(params.page ?? 1) + 1) })}`}
+          className={classNames(styles.paginationLink, {
+            [styles.paginationLinkDisabled]: !peopleResponse?.next,
+          })}
+        >
+          Next
+        </Link>
+      </div>
+    </>
   );
 };

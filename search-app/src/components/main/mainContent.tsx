@@ -1,5 +1,6 @@
+import styles from "./styles.module.css";
 import { SearchForm } from "./searchSection/searchForm";
-import { PeopleList } from "./resultsSection/peopleList";
+import { PeopleList } from "./resultsSection/peopleList/peopleList";
 import { Pagination } from "./resultsSection/pagination/pagination";
 import { Loader } from "../loader/loader";
 import { useGetPeopleQuery } from "../../api/api";
@@ -33,15 +34,15 @@ export const MainContent = () => {
 
   return (
     <>
-      <section className="search-section">
+      <section className={styles.searchSection}>
         <SearchForm />
       </section>
-      <div className="result-section-with-detail">
-        <section className="results-section">
+      <div className={styles.resultSectionWithDetails}>
+        <section className={styles.resultsSection}>
           <PeopleList people={data?.results || []} />
           <Pagination peopleResponse={data} searchParams={searchParams} />
         </section>
-        <div id="details" className="details"></div>
+        <div id="details" className={styles.details}></div>
       </div>
       <TriggerButton />
       <ThemeToggle />

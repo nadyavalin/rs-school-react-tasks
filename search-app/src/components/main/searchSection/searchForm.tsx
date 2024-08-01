@@ -1,3 +1,4 @@
+import styles from "./styles.module.css";
 import React, { useState } from "react";
 import { getItemFromLocalStorage } from "../../../utils/utils";
 import { useRouter } from "next/router";
@@ -31,16 +32,16 @@ export const SearchForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="search-form" data-testid="search-form">
+    <form onSubmit={handleSubmit} className={styles.searchForm} data-testid="search-form">
       <input
-        className="search-input"
+        className={styles.searchInput}
         type="text"
         placeholder=""
         value={searchTerm}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
-      <button type="submit" className="search-button">
+      <button type="submit" className={styles.searchButton}>
         Search
       </button>
     </form>

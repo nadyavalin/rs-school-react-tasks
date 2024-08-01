@@ -1,3 +1,4 @@
+import styles from "./styles.module.css";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { unselectAll } from "../../../../store/peopleSlice";
 
@@ -22,9 +23,9 @@ export const Flyout = () => {
   };
 
   return (
-    <div className="flyout">
+    <div className={styles.flyout}>
       <p>You have selected {selectedItems.length} items.</p>
-      <div className="flyout__buttons">
+      <div className={styles.flyoutButtons}>
         <button onClick={handleUnselectAll}>Unselect All</button>
         <button onClick={handleDownload}>Download</button>
       </div>

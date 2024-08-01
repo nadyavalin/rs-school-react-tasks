@@ -1,3 +1,4 @@
+import styles from "./styles.module.css";
 import Link from "next/link";
 import { IPerson } from "../../../types/types";
 
@@ -8,10 +9,10 @@ interface PersonDetailsProp {
 export function SideSectionItem({ personDetails }: PersonDetailsProp) {
   return (
     <>
-      <Link href={`/`} className="close-button">
+      <Link href={`/`} className={styles.closeButton}>
         Close
       </Link>
-      <aside className="side-section" data-testid="side-section-item">
+      <aside className={styles.sideSection} data-testid="side-section-item">
         <h2>Details</h2>
         <div>
           <h3>{personDetails?.name}</h3>

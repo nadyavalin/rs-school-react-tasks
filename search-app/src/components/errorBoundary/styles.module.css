@@ -3,3 +3,12 @@
   left: 10px;
   top: 10px;
 }
+
+.errorMessage {
+  color: var(--accent-color);
+  font-weight: 300;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
