@@ -20,6 +20,8 @@ body {
   background-attachment: fixed;
   text-align: center;
   color: var(--text-color);
+  background-color: var(--transparent-color);
+  background-blend-mode: darken;
 
   --main-theme-color: #6e75ff;
   --bg-color: #090033;
@@ -27,6 +29,7 @@ body {
   --transparent-color: rgb(9, 0, 51, 0.7);
   --transparent-color-hover: rgba(119, 94, 229, 0.3);
   --transparent-color-disabled: rgba(119, 94, 229, 0.2);
+  --text-main-color: #4d54da;
   --text-color: #dedbff;
   --color-hover: #a0a5ff;
   --main-color: #7378d8;
@@ -39,6 +42,7 @@ body[theme="light"] {
   --transparent-color: rgba(180, 166, 243, 0.7);
   --transparent-color-hover: rgba(233, 233, 233, 0.6);
   --transparent-color-disabled: rgba(180, 166, 243, 0.4);
+  --text-main-color: #00067c;
   --text-color: #090033;
   --color-hover: #4d54da;
   --main-color: #7277ff;
@@ -48,12 +52,6 @@ body div {
   display: flex;
   flex-direction: column;
   min-height: 80vh;
-}
-
-.bg-color {
-  background-color: var(--transparent-color);
-  background-blend-mode: darken;
-  color: var(--text-light);
 }
 
 a {
