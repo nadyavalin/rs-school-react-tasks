@@ -4,7 +4,7 @@ import { Loader } from "../../loader/loader";
 import { useGetPeopleQuery } from "../../../api/api";
 import { useSearchParams } from "next/navigation";
 
-export const SideSection = ({ params }: { params: { slug: string } }) => {
+export const SideSection = ({ slug }: { slug: string }) => {
   const searchParams = useSearchParams();
 
   const { data, isLoading } = useGetPeopleQuery({
@@ -18,11 +18,7 @@ export const SideSection = ({ params }: { params: { slug: string } }) => {
 
   return (
     <SideSectionItem
-      personDetails={
-        params
-          ? data?.results.find((result: IPerson) => result.name === params.slug)
-          : data?.results[0]
-      }
+      personDetails={data?.results.find((result: IPerson) => result.name === slug)}
     />
   );
 };

@@ -14,8 +14,8 @@ export const Person = ({ person }: { person: IPerson }) => {
   };
 
   return (
-    <Link key={`${person.name}`} href={`/${person.name}${location.search}`}>
-      <li key={person.name} className={styles.resultsItem}>
+    <Link href={`/${person.name}${location.search}`}>
+      <li className={styles.resultsItem}>
         <input
           type="checkbox"
           checked={isChecked}

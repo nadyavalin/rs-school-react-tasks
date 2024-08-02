@@ -1,15 +1,5 @@
-import App from "@/components/App";
-import { Provider } from "react-redux";
-import { store } from "../store/store";
+import { Main } from "@/components/main/main";
 
-function Home() {
-  return (
-    <>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </>
-  );
+export default function Home() {
+  return <Main />;
 }
-
-export default Home;
