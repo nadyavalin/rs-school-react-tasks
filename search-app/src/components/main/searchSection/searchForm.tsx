@@ -1,14 +1,13 @@
 import styles from "./styles.module.css";
-import React, { useState } from "react";
-import { getItemFromLocalStorage } from "../../../utils/utils";
 import { useRouter } from "next/router";
 
-export const SearchForm = () => {
-  const router = useRouter();
+interface SearchFormProps {
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
+}
 
-  const [searchTerm, setSearchTerm] = useState<string>(
-    getItemFromLocalStorage<string>("searchTerm") ?? "",
-  );
+export const SearchForm = ({ searchTerm, setSearchTerm }: SearchFormProps) => {
+  const router = useRouter();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(event.target.value.trim());

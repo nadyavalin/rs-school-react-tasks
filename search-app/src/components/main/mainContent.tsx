@@ -7,12 +7,14 @@ import { useGetPeopleQuery } from "../../api/api";
 import { ThemeToggle } from "./toggleTheme/themeToggle";
 import { useSearchParams } from "next/navigation";
 import { TriggerButton } from "../errorBoundary/triggerButton";
+import { useSearchTermLocalStorage } from "@/hooks/useSearchTermLocalStorage";
 
 export const MainContent = ({ children }: { children: React.ReactNode }) => {
+  const { searchTerm, setSearchTerm } = useSearchTermLocalStorage();
   const searchParams = useSearchParams();
 
   const { data, isLoading, error } = useGetPeopleQuery({
-    searchTerm: searchParams.get("search") || "",
+    searchTerm: searchTerm || searchParams.get("search") || "",
     page: Number(searchParams.get("page")) || 1,
   });
 
@@ -36,7 +38,7 @@ export const MainContent = ({ children }: { children: React.ReactNode }) => {
     <>
       <main className={styles.main}>
         <section className={styles.searchSection}>
-          <SearchForm />
+          <SearchForm searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </section>
         <div className={styles.resultSectionWithDetails}>
           <section className={styles.resultsSection}>
