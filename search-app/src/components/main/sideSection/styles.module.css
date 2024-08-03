@@ -1,29 +1,24 @@
 .sideSection {
-  width: 300px;
+  min-width: 250px;
   height: 90%;
   padding: 10px;
-  margin: 10px;
+  margin: 20px 20px 0 0;
   border-radius: 10px;
-  border: var(--main-light) solid 1px;
+  border: var(--main-color) solid 1px;
   background-color: var(--transparent-color);
 }
 
-.closeButton {
-  width: 100px;
-  position: relative;
-  right: 10px;
+.crossContainer {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  border-radius: 8px;
-  font-size: 1em;
-  font-weight: 400;
-  font-family: inherit;
+  justify-content: flex-end;
+}
+
+.cross {
   cursor: pointer;
-  transition: background-color 0.4s ease;
-  color: var(--main-theme-color);
-  border: 1px solid var(--main-theme-color);
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  margin: 0;
 }
 
 @media (hover: hover) {

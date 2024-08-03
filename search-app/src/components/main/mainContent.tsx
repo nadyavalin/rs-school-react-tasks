@@ -8,7 +8,7 @@ import { ThemeToggle } from "./toggleTheme/themeToggle";
 import { useSearchParams } from "next/navigation";
 import { TriggerButton } from "../errorBoundary/triggerButton";
 
-export const MainContent = () => {
+export const MainContent = ({ children }: { children: React.ReactNode }) => {
   const searchParams = useSearchParams();
 
   const { data, isLoading, error } = useGetPeopleQuery({
@@ -34,18 +34,20 @@ export const MainContent = () => {
 
   return (
     <>
-      <section className={styles.searchSection}>
-        <SearchForm />
-      </section>
-      <div className={styles.resultSectionWithDetails}>
-        <section className={styles.resultsSection}>
-          <PeopleList people={data?.results || []} />
-          <Pagination peopleResponse={data} searchParams={searchParams} />
+      <main className={styles.main}>
+        <section className={styles.searchSection}>
+          <SearchForm />
         </section>
-        <div id="details" className={styles.details}></div>
-      </div>
-      <TriggerButton />
-      <ThemeToggle />
+        <div className={styles.resultSectionWithDetails}>
+          <section className={styles.resultsSection}>
+            <PeopleList people={data?.results || []} />
+            <Pagination peopleResponse={data} searchParams={searchParams} />
+          </section>
+          {children}
+        </div>
+        <TriggerButton />
+        <ThemeToggle />
+      </main>
     </>
   );
 };

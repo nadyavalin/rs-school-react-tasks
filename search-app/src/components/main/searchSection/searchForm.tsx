@@ -21,7 +21,7 @@ export const SearchForm = () => {
     if (searchTerm === "") {
       router.push("/");
     } else {
-      router.push(`/people?search=${searchTerm}`);
+      router.push(`/?search=${searchTerm}`);
     }
   };
 
