@@ -1,7 +1,6 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   flex-grow: 1;
 }
 
@@ -21,7 +20,6 @@
 .resultsSection {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   gap: 10px;
   margin: 0 20px;
