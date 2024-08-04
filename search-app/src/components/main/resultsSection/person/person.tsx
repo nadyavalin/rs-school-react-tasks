@@ -22,7 +22,7 @@ export const Person = ({ person }: { person: IPerson }) => {
           onChange={handleCheckboxChange}
           onClick={(e) => e.stopPropagation()}
         />
-        <p>&#10066; Person name: {person.name}</p>
+        <p>&#10066; Name: {person.name}</p>
         <p className={styles.text}>Height: {person.height}</p>
         <p className={styles.text}>Mass: {person.mass}</p>
         <p className={styles.text}>Birth Year: {person.birth_year}</p>

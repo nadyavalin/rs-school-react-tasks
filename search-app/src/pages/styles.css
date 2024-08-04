@@ -6,8 +6,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --main-color: #646cff;
-  --main-color-hover: #a0a5ff;
   --accent-color: #ff0000;
   --border-shadow-color: rgba(255, 255, 255, 0.5);
   --loader-mask: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
@@ -43,7 +41,7 @@ body {
 }
 
 body[theme="light"] {
-  --main-theme-color: #ccc1ff;
+  --main-theme-color: #2c1a7e;
   --bg-color: #b4a6f3;
   --bg-image: url("../../public/light-fon.jpg");
   --transparent-color: rgba(180, 166, 243, 0.7);
@@ -102,6 +100,6 @@ p {
   }
 
   button:hover {
-    background-color: var(--main-color-hover);
+    background-color: var(--color-hover);
   }
 }
