@@ -12,7 +12,6 @@ describe("SearchForm", () => {
   const initialSearchTerm = "initialSearchTerm";
 
   beforeEach(() => {
-    // Сбрасываем mock перед каждым тестом
     setSearchTermMock.mockClear();
     const pushMock = vi.fn();
     useRouter.mockReturnValue({ push: pushMock });

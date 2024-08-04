@@ -1,6 +1,6 @@
-import { ErrorBoundary } from "@/components/errorBoundary/errorBoundary";
-import { Header } from "@/components/header/header";
-import { Footer } from "@/components/footer/footer";
+import { ErrorBoundary } from "../errorBoundary/errorBoundary";
+import { Header } from "../header/header";
+import { Footer } from "../footer/footer";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

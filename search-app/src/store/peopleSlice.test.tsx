@@ -7,8 +7,14 @@ import { peopleApi } from "../api/api";
 import stateReducer from "./stateSlice";
 import { IPerson } from "../types/types";
 import { it, describe } from "vitest";
+import * as localStorageUtils from "../utils/utils";
 
 vi.mock("../utils/utils");
+
+const getItemFromLocalStorageMock = vi.fn();
+vi.spyOn(localStorageUtils, "getItemFromLocalStorage").mockImplementation(
+  getItemFromLocalStorageMock,
+);
 
 const person: IPerson = {
   name: "John Doe",
@@ -27,7 +33,7 @@ describe("People Slice Tests", () => {
   let store: ReturnType<typeof configureStore<RootState>>;
 
   beforeEach(() => {
-    vitest.clearAllMocks();
+    vi.clearAllMocks();
     store = configureStore({
       reducer: {
         state: stateReducer,
@@ -51,5 +57,32 @@ describe("People Slice Tests", () => {
     store.dispatch(unselectAll());
     expect(store.getState().people.selectedItems).toEqual([]);
     expect(setItemToLocalStorage).toHaveBeenCalledWith("selectedItems", []);
+  });
+
+  it("should toggle an existing item", () => {
+    store.dispatch(selectItem(person));
+    expect(store.getState().people.selectedItems).toEqual([person]);
+
+    store.dispatch(selectItem(person));
+    expect(store.getState().people.selectedItems).toEqual([]);
+    expect(setItemToLocalStorage).toHaveBeenCalledWith("selectedItems", []);
+
+    store.dispatch(selectItem(person));
+    expect(store.getState().people.selectedItems).toEqual([person]);
+  });
+
+  it("should have an empty list if localStorage is empty", () => {
+    getItemFromLocalStorageMock.mockReturnValue(null);
+
+    const storeWithInitialState = configureStore({
+      reducer: {
+        state: stateReducer,
+        [peopleApi.reducerPath]: peopleApi.reducer,
+        theme: themeSlice.reducer,
+        people: peopleSlice.reducer,
+      },
+    });
+
+    expect(storeWithInitialState.getState().people.selectedItems).toEqual([]);
   });
 });

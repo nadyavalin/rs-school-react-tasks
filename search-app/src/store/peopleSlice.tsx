@@ -20,7 +20,7 @@ export const peopleSlice = createSlice({
       const person = action.payload;
       const existingIndex = state.selectedItems.findIndex((item) => item.name === person.name);
       if (existingIndex !== -1) {
-        state.selectedItems.splice(existingIndex, 1);
+        state.selectedItems = state.selectedItems.filter((_, index) => index !== existingIndex);
       } else {
         state.selectedItems = [...state.selectedItems, person];
       }
