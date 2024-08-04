@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { ErrorBoundary } from "./errorBoundary";
+import { test, describe } from "vitest";
 
 describe("ErrorBoundary Component", () => {
   test("renders children without errors", () => {

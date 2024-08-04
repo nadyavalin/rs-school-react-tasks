@@ -3,6 +3,7 @@ import { PeopleList } from "./peopleList";
 import { Provider } from "react-redux";
 import { store } from "../../../../store/store";
 import { getPeople } from "../../../../store/stateSlice";
+import { describe, it, expect } from "vitest";
 
 describe("PeopleList component", () => {
   it("renders a list of people cards", () => {
@@ -36,7 +37,7 @@ describe("PeopleList component", () => {
       </Provider>,
     );
 
-    expect(screen.getByText("Luke Skywalker")).toBeInTheDocument();
+    expect(screen.getByText(/luke skywalker/i)).toBeInTheDocument();
   });
 
   it("renders 'The list is empty' message if the array is empty", () => {

@@ -1,4 +1,5 @@
 import { setItemToLocalStorage, getItemFromLocalStorage } from "./utils";
+import { it, describe } from "vitest";
 
 describe("localStorageUtils", () => {
   beforeEach(() => {

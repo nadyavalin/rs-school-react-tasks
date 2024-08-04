@@ -1,7 +1,7 @@
 import styles from "./styles.module.css";
 import Link from "next/link";
 import { IPerson } from "../../../types/types";
-import { cross } from "@/components/svg/svg";
+import { cross } from "../../svg/svg";
 
 interface PersonDetailsProp {
   personDetails?: IPerson;

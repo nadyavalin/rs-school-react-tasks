@@ -1,7 +1,8 @@
+import styles from "./styles.module.css";
 import { render, screen } from "@testing-library/react";
 import { Pagination } from "./pagination";
-import { BrowserRouter as Router } from "react-router-dom";
 import { PeopleResponse } from "../../../../types/types";
+import { test, describe } from "vitest";
 
 describe("Pagination Component", () => {
   const mockPeopleResponse: PeopleResponse = {
@@ -14,14 +15,10 @@ describe("Pagination Component", () => {
   const mockSearchParams = new URLSearchParams("page=1");
 
   test("renders pagination links correctly with data", () => {
-    render(
-      <Router>
-        <Pagination peopleResponse={mockPeopleResponse} searchParams={mockSearchParams} />
-      </Router>,
-    );
+    render(<Pagination peopleResponse={mockPeopleResponse} searchParams={mockSearchParams} />);
 
-    expect(screen.getByText("Prev")).toBeInTheDocument();
-    expect(screen.getByText("Next")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Prev" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Next" })).toBeInTheDocument();
     expect(screen.getByText("1")).toBeInTheDocument();
     expect(screen.getByText("2")).toBeInTheDocument();
     expect(screen.getByText("3")).toBeInTheDocument();
@@ -36,12 +33,11 @@ describe("Pagination Component", () => {
     };
 
     render(
-      <Router>
-        <Pagination peopleResponse={mockPeopleResponseNoPrevious} searchParams={mockSearchParams} />
-      </Router>,
+      <Pagination peopleResponse={mockPeopleResponseNoPrevious} searchParams={mockSearchParams} />,
     );
 
-    expect(screen.getByRole("link", { name: "Prev" })).toHaveClass("pagination-link_disabled");
+    const prevLink = screen.getByRole("link", { name: "Prev" });
+    expect(prevLink).toHaveClass(styles.paginationLinkDisabled);
   });
 
   test("renders next link as disabled if no next page", () => {
@@ -53,38 +49,29 @@ describe("Pagination Component", () => {
     };
 
     render(
-      <Router>
-        <Pagination peopleResponse={mockPeopleResponseNoNext} searchParams={mockSearchParams} />
-      </Router>,
+      <Pagination peopleResponse={mockPeopleResponseNoNext} searchParams={mockSearchParams} />,
     );
 
-    expect(screen.getByRole("link", { name: "Next" })).toHaveClass("pagination-link_disabled");
+    const nextLink = screen.getByRole("link", { name: "Next" });
+    expect(nextLink).toHaveClass(styles.paginationLinkDisabled);
   });
 
   test("highlights the active page number", () => {
     const mockSearchParamsActivePage2 = new URLSearchParams("page=2");
 
     render(
-      <Router>
-        <Pagination
-          peopleResponse={mockPeopleResponse}
-          searchParams={mockSearchParamsActivePage2}
-        />
-      </Router>,
+      <Pagination peopleResponse={mockPeopleResponse} searchParams={mockSearchParamsActivePage2} />,
     );
 
-    expect(screen.getByRole("link", { name: "2" })).toHaveClass("pagination-link_active");
+    const numberLink = screen.getByRole("link", { name: "2" });
+    expect(numberLink).toHaveClass(styles.paginationLinkActive);
   });
 
   test("renders pagination correctly with no data", () => {
-    render(
-      <Router>
-        <Pagination peopleResponse={undefined} searchParams={mockSearchParams} />
-      </Router>,
-    );
+    render(<Pagination peopleResponse={undefined} searchParams={mockSearchParams} />);
 
-    expect(screen.getByRole("link", { name: "Prev" })).toHaveClass("pagination-link_disabled");
-    expect(screen.getByRole("link", { name: "Next" })).toHaveClass("pagination-link_disabled");
+    expect(screen.getByRole("link", { name: "Prev" })).toHaveClass(styles.paginationLinkDisabled);
+    expect(screen.getByRole("link", { name: "Next" })).toHaveClass(styles.paginationLinkDisabled);
     expect(screen.getByText("1")).toBeInTheDocument();
   });
 });

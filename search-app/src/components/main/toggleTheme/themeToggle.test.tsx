@@ -4,6 +4,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { toggleTheme } from "../../../utils/themeUtils";
 import { ThemeToggle } from "./themeToggle";
 import { themeSlice } from "../../../store/themeSlice";
+import { test, describe } from "vitest";
 
 vitest.mock("../../../utils/themeUtils", () => ({
   toggleTheme: vitest.fn(() => ({ type: "toggleTheme" })),

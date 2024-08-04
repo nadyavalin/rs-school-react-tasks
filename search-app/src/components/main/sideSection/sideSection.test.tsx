@@ -1,9 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { SideSection } from "./sideSection";
+import { test, describe } from "vitest";
 import * as api from "../../../api/api";
+import { useSearchParams } from "next/navigation";
 
-vi.mock("react-router-dom", () => ({
-  useParams: vi.fn(),
+vi.mock("next/navigation", () => ({
   useSearchParams: vi.fn(),
 }));
 
@@ -25,43 +26,46 @@ describe("SideSection", () => {
   const useGetPeopleQueryMock = vi.fn();
   vi.spyOn(api, "useGetPeopleQuery").mockImplementation(useGetPeopleQueryMock);
 
-  const useSearchParamsMock = vi.fn();
-  // vi.spyOn(reactRouterDom, "useSearchParams").mockImplementation(useSearchParamsMock);
-
-  const useParamsMock = vi.fn();
-  // vi.spyOn(reactRouterDom, "useParams").mockImplementation(useParamsMock);
-
   beforeEach(() => {
-    useSearchParamsMock.mockReturnValue([new URLSearchParams()]);
-    useParamsMock.mockReturnValue({});
+    useSearchParams.mockReturnValue({
+      get: (param) => {
+        if (param === "search") return "John";
+        if (param === "page") return "1";
+        return null;
+      },
+    });
+
     useGetPeopleQueryMock.mockReturnValue({ data: { results: [mockPerson] }, isLoading: false });
   });
 
   afterEach(() => {
-    useSearchParamsMock.mockClear();
-    useParamsMock.mockClear();
-    useGetPeopleQueryMock.mockClear();
+    vi.clearAllMocks();
   });
 
   test("renders loader while loading", () => {
     useGetPeopleQueryMock.mockReturnValue({ data: null, isLoading: true });
 
-    render(<SideSection />);
+    render(<SideSection slug="John" />);
 
     expect(screen.getByTestId("loader")).toBeInTheDocument();
   });
 
-  test("renders correct props when key is present", () => {
-    useParamsMock.mockReturnValue({ key: "John" });
-
-    render(<SideSection />);
+  test("renders correct props when person is found", () => {
+    render(<SideSection slug="John" />);
 
     expect(sideSectionItemMock).toHaveBeenCalledWith({ personDetails: mockPerson });
   });
 
-  test("renders default props when key is absent", () => {
-    render(<SideSection />);
+  test("renders default props when person is not found", () => {
+    const notFoundPerson = { ...mockPerson, name: "Doe" };
 
-    expect(sideSectionItemMock).toHaveBeenCalledWith({ personDetails: mockPerson });
+    useGetPeopleQueryMock.mockReturnValue({
+      data: { results: [notFoundPerson] },
+      isLoading: false,
+    });
+
+    render(<SideSection slug="John" />);
+
+    expect(sideSectionItemMock).toHaveBeenCalledWith({ personDetails: undefined });
   });
 });

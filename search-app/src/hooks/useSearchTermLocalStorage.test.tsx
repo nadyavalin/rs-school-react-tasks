@@ -1,6 +1,7 @@
 import { useSearchTermLocalStorage } from "./useSearchTermLocalStorage";
 import { getItemFromLocalStorage } from "../utils/utils";
 import { act, renderHook } from "@testing-library/react";
+import { it, describe } from "vitest";
 import * as localStorageUtils from "../utils/utils";
 
 vi.mock("../utils/utils");
