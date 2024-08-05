@@ -14,7 +14,7 @@ export const MainContent = ({ children }: { children: React.ReactNode }) => {
   const searchParams = useSearchParams();
 
   const { data, isLoading, error } = useGetPeopleQuery({
-    searchTerm: searchTerm || searchParams.get("search") || "",
+    searchTerm: searchParams.get("search") || "",
     page: Number(searchParams.get("page")) || 1,
   });
 

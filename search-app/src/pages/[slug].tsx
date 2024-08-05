@@ -1,11 +1,14 @@
 import { Loader } from "../components/loader/loader";
 import { MainContent } from "../components/main/mainContent";
 import { SideSection } from "../components/main/sideSection/sideSection";
-import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
 
-export default function Details() {
-  const router = useRouter();
-  const slug = router.query.slug as string;
+interface Props {
+  slug: string;
+}
+
+export default function Details(props: Props) {
+  const { slug } = props;
 
   if (!slug) {
     return <Loader />;
@@ -16,4 +19,20 @@ export default function Details() {
 
 Details.getLayout = function getLayout(page: React.ReactNode) {
   return <MainContent>{page}</MainContent>;
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { slug } = context.params ?? {};
+
+  if (!slug || Array.isArray(slug)) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      slug,
+    },
+  };
 };

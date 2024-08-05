@@ -1,4 +1,4 @@
-import { createSlice as createStateSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IPerson, PeopleResponse } from "../types/types";
 
 export type ResponseState = {
@@ -16,7 +16,7 @@ const initialResponseState: ResponseState = {
   isLoading: false,
 };
 
-const stateSlice = createStateSlice({
+const stateSlice = createSlice({
   name: "name",
   initialState: initialResponseState,
   reducers: {
