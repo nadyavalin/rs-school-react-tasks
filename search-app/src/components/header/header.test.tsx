@@ -1,6 +1,5 @@
 import { render } from "@testing-library/react";
 import { Header } from "./header";
-import { it, describe } from "vitest";
 
 describe("Header component", () => {
   it("renders correctly", () => {

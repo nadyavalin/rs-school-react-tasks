@@ -1,5 +1,4 @@
 import { themeSlice, toggleTheme } from "./themeSlice";
-import { it, describe } from "vitest";
 
 describe("themeSlice", () => {
   it("should change isLightMode to true when toggleTheme is called", () => {

@@ -6,7 +6,6 @@ import { themeSlice } from "./themeSlice";
 import { peopleApi } from "../api/api";
 import stateReducer from "./stateSlice";
 import { IPerson } from "../types/types";
-import { it, describe } from "vitest";
 import * as localStorageUtils from "../utils/utils";
 
 vi.mock("../utils/utils");

@@ -1,6 +1,5 @@
 import { IPerson, PeopleResponse } from "../../types/types";
 import { mockData } from "./mockData";
-import { it, describe } from "vitest";
 
 export const data: PeopleResponse = {
   count: 82,

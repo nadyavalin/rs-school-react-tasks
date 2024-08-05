@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { SideSectionItem } from "./sideSectionItem";
 import { IPerson } from "../../../types/types";
-import { describe, test, expect } from "vitest";
 
 describe("SideSectionItem Component", () => {
   const mockPersonDetails: IPerson = {

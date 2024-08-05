@@ -1,8 +1,7 @@
-import React from "react";
 import { render } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
-import App from "./_app";
+import App from "../pages/_app";
 
 vi.mock("../components/rootLayout/rootLayout", () => {
   const MockRootLayout = ({ children }: { children: React.ReactNode }) => (

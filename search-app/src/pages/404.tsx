@@ -17,3 +17,12 @@ export default function ErrorPage() {
     </>
   );
 }
+
+export async function getStaticProps() {
+  const errorMessage = "Sorry, an unexpected error has occurred.";
+  return {
+    props: {
+      errorMessage,
+    },
+  };
+}

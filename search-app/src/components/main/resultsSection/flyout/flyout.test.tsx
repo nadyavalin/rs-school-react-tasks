@@ -3,7 +3,6 @@ import { Flyout } from "./flyout";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { peopleSlice } from "../../../../store/peopleSlice";
-import { test, describe } from "vitest";
 
 describe("Flyout Component", () => {
   let store: ReturnType<typeof configureStore>;

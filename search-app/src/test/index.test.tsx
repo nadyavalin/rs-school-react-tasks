@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { MainContent } from "../components/main/mainContent";
-import Home from ".";
+import Home from "../pages/index";
 
 vi.mock("../components/main/mainContent", () => {
   return {

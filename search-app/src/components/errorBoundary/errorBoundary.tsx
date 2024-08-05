@@ -1,8 +1,10 @@
+"use client";
+
 import styles from "./styles.module.css";
-import React, { ReactNode, ErrorInfo } from "react";
+import React, { ErrorInfo } from "react";
 
 interface ErrorBoundaryProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 interface ErrorBoundaryState {

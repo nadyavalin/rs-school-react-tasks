@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import { SideSection } from "./sideSection";
-import { test, describe } from "vitest";
 import * as api from "../../../api/api";
 import { useSearchParams } from "next/navigation";
 

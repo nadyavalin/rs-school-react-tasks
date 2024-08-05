@@ -6,8 +6,8 @@ import { Loader } from "../loader/loader";
 import { useGetPeopleQuery } from "../../api/api";
 import { ThemeToggle } from "./toggleTheme/themeToggle";
 import { useSearchParams } from "next/navigation";
-import { TriggerButton } from "../errorBoundary/triggerButton";
 import { useSearchTermLocalStorage } from "../../hooks/useSearchTermLocalStorage";
+import { TriggerButton } from "../errorBoundary/triggerButton";
 
 export const MainContent = ({ children }: { children: React.ReactNode }) => {
   const { searchTerm, setSearchTerm } = useSearchTermLocalStorage();

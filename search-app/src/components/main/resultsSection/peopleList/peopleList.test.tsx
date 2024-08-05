@@ -3,7 +3,6 @@ import { PeopleList } from "./peopleList";
 import { Provider } from "react-redux";
 import { store } from "../../../../store/store";
 import { getPeople } from "../../../../store/stateSlice";
-import { describe, it, expect } from "vitest";
 
 describe("PeopleList component", () => {
   it("renders a list of people cards", () => {

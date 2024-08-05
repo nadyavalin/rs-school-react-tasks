@@ -1,6 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { SearchForm } from "./searchForm";
-import { test, describe, beforeEach, vi } from "vitest";
 import { useRouter } from "next/router";
 
 vi.mock("next/router", () => ({

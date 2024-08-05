@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import reducer, { getPeople, setIsLoading, ResponseState } from "./stateSlice";
 import { PeopleResponse } from "../types/types";
-import { it, describe } from "vitest";
 
 describe("Redux Slice Tests", () => {
   let store: ReturnType<typeof configureStore<ResponseState>>;

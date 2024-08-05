@@ -9,7 +9,6 @@ import {
 import { themeSlice, ThemeState } from "../store/themeSlice";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 import { toggleTheme } from "./themeUtils";
-import { it, describe } from "vitest";
 
 describe("themeUtils", () => {
   let store: EnhancedStore<

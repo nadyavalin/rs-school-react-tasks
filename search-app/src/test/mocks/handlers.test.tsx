@@ -1,6 +1,5 @@
 import { setupServer } from "msw/node";
 import { handlers } from "./handlers";
-import { it, describe } from "vitest";
 
 const server = setupServer(...handlers);
 beforeAll(() => server.listen());
