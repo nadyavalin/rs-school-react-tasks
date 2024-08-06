@@ -1,4 +1,4 @@
-import { useSearchParams } from "next/navigation";
+import * as navigation from "next/navigation";
 import { render, screen } from "@testing-library/react";
 import { SideSection } from "./sideSection";
 import * as api from "../../../api/api";
@@ -6,6 +6,9 @@ import * as api from "../../../api/api";
 vi.mock("next/navigation", () => ({
   useSearchParams: vi.fn(),
 }));
+
+const useSearchParamsMock = vi.fn();
+vi.spyOn(navigation, "useSearchParams").mockImplementation(useSearchParamsMock);
 
 const sideSectionItemMock = vi.fn();
 
@@ -26,8 +29,8 @@ describe("SideSection", () => {
   vi.spyOn(api, "useGetPeopleQuery").mockImplementation(useGetPeopleQueryMock);
 
   beforeEach(() => {
-    useSearchParams.mockReturnValue({
-      get: (param) => {
+    useSearchParamsMock.mockReturnValue({
+      get: (param: string) => {
         if (param === "search") return "John";
         if (param === "page") return "1";
         return null;

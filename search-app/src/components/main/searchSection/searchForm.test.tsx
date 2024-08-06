@@ -1,10 +1,13 @@
-import { useRouter } from "next/router";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { SearchForm } from "./searchForm";
+import * as router from "next/router";
 
 vi.mock("next/router", () => ({
   useRouter: vi.fn(),
 }));
+
+const useRouterMock = vi.fn();
+vi.spyOn(router, "useRouter").mockImplementation(useRouterMock);
 
 describe("SearchForm", () => {
   const setSearchTermMock = vi.fn();
@@ -13,7 +16,7 @@ describe("SearchForm", () => {
   beforeEach(() => {
     setSearchTermMock.mockClear();
     const pushMock = vi.fn();
-    useRouter.mockReturnValue({ push: pushMock });
+    useRouterMock.mockReturnValue({ push: pushMock });
   });
 
   test("renders search form with initial value", () => {
@@ -34,7 +37,7 @@ describe("SearchForm", () => {
 
   test("submits with an empty search term", () => {
     const pushMock = vi.fn();
-    useRouter.mockReturnValue({ push: pushMock });
+    useRouterMock.mockReturnValue({ push: pushMock });
 
     render(<SearchForm searchTerm="" setSearchTerm={setSearchTermMock} />);
 
@@ -49,7 +52,7 @@ describe("SearchForm", () => {
 
   test("submits with a search term", () => {
     const pushMock = vi.fn();
-    useRouter.mockReturnValue({ push: pushMock });
+    useRouterMock.mockReturnValue({ push: pushMock });
 
     render(<SearchForm searchTerm="search term" setSearchTerm={setSearchTermMock} />);
 
