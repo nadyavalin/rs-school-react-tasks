@@ -1,13 +1,13 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { Person } from "./person";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { peopleApi } from "../../../../api/api";
 import { IPerson } from "../../../../types/types";
 import { selectItem, peopleSlice } from "../../../../store/peopleSlice";
 import stateReducer from "../../../../store/stateSlice";
 import { themeSlice } from "../../../../store/themeSlice";
+import { Person } from "./person";
 
 const store = configureStore({
   reducer: {

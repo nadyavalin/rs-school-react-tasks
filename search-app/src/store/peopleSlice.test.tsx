@@ -4,9 +4,9 @@ import { peopleApi } from "../api/api";
 import { RootState } from "./store";
 import { peopleSlice, selectItem, unselectAll } from "./peopleSlice";
 import { themeSlice } from "./themeSlice";
-import stateReducer from "./stateSlice";
-import { setItemToLocalStorage } from "../utils/utils";
+import stateReducer, { getPeople, setIsLoading } from "./stateSlice";
 import * as localStorageUtils from "../utils/utils";
+import { setItemToLocalStorage } from "../utils/utils";
 
 vi.mock("../utils/utils");
 
@@ -83,5 +83,27 @@ describe("People Slice Tests", () => {
     });
 
     expect(storeWithInitialState.getState().people.selectedItems).toEqual([]);
+  });
+
+  it("should handle empty PeopleResponse correctly", () => {
+    const emptyPeopleResponse = {
+      count: 0,
+      next: null,
+      previous: null,
+      results: [],
+    };
+
+    store.dispatch(getPeople(emptyPeopleResponse));
+    expect(store.getState().state.peopleResponse).toEqual(emptyPeopleResponse);
+  });
+
+  it("should retain state continuity between actions", () => {
+    expect(store.getState().state.isLoading).toEqual(false);
+
+    store.dispatch(setIsLoading(true));
+    expect(store.getState().state.isLoading).toEqual(true);
+
+    store.dispatch(setIsLoading(false));
+    expect(store.getState().state.isLoading).toEqual(false);
   });
 });

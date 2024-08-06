@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { PeopleResponse } from "../types/types";
-import reducer, { getPeople, setIsLoading, ResponseState } from "./stateSlice";
+import { PeopleResponse, IPerson } from "../types/types";
+import reducer, { getPeople, setIsLoading, ResponseState, createSearchArray } from "./stateSlice";
 
 describe("Redux Slice Tests", () => {
   let store: ReturnType<typeof configureStore<ResponseState>>;
@@ -79,5 +79,85 @@ describe("Redux Slice Tests", () => {
 
     store.dispatch(setIsLoading(false));
     expect(store.getState().isLoading).toBe(false);
+  });
+
+  it("should handle an empty getPeople response", () => {
+    const emptyPeopleResponse: PeopleResponse = {
+      count: 0,
+      next: null,
+      previous: null,
+      results: [],
+    };
+
+    store.dispatch(getPeople(emptyPeopleResponse));
+
+    expect(store.getState().peopleResponse).toEqual(emptyPeopleResponse);
+    expect(store.getState().isLoading).toBe(false);
+  });
+
+  it("should maintain consistent state between actions", () => {
+    const initialPeopleResponse: PeopleResponse = {
+      count: 2,
+      next: null,
+      previous: null,
+      results: [
+        {
+          name: "Test Person 1",
+          birth_year: "unknown",
+          eye_color: "unknown",
+          gender: "unknown",
+          hair_color: "unknown",
+          height: "unknown",
+          mass: "unknown",
+          skin_color: "unknown",
+          created: "unknown",
+          edited: "unknown",
+        },
+        {
+          name: "Test Person 2",
+          birth_year: "unknown",
+          eye_color: "unknown",
+          gender: "unknown",
+          hair_color: "unknown",
+          height: "unknown",
+          mass: "unknown",
+          skin_color: "unknown",
+          created: "unknown",
+          edited: "unknown",
+        },
+      ],
+    };
+
+    store.dispatch(setIsLoading(true));
+    expect(store.getState().isLoading).toBe(true);
+
+    store.dispatch(getPeople(initialPeopleResponse));
+    expect(store.getState().peopleResponse).toEqual(initialPeopleResponse);
+    expect(store.getState().isLoading).toBe(false);
+
+    store.dispatch(setIsLoading(true));
+    expect(store.getState().isLoading).toBe(true);
+  });
+
+  it("should return a correct search array", () => {
+    const searchTerm = "Nadya Tkachuk";
+    const searchArray = createSearchArray(searchTerm);
+
+    const expectedArray: IPerson[] = [
+      {
+        name: searchTerm,
+        birth_year: "unknown",
+        eye_color: "unknown",
+        gender: "unknown",
+        hair_color: "unknown",
+        height: "unknown",
+        mass: "unknown",
+        skin_color: "unknown",
+        created: "unknown",
+        edited: "unknown",
+      },
+    ];
+
+    expect(searchArray).toEqual(expectedArray);
   });
 });

@@ -1,8 +1,8 @@
+import { GetServerSidePropsContext } from "next";
 import { render } from "@testing-library/react";
+import { PeopleResponse } from "../types/types";
 import { MainContent } from "../components/main/mainContent";
 import Home, { getServerSideProps } from "../pages/index";
-import { PeopleResponse } from "../types/types";
-import { GetServerSidePropsContext } from "next";
 
 vi.mock("../components/main/mainContent", () => {
   return {
