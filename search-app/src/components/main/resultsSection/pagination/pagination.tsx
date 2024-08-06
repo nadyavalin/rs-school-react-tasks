@@ -1,6 +1,6 @@
-import styles from "./styles.module.css";
-import Link from "next/link";
 import classNames from "classnames";
+import Link from "next/link";
+import styles from "./styles.module.css";
 import { PeopleResponse } from "../../../../types/types";
 
 interface PaginationProps {

@@ -1,13 +1,13 @@
+import { useSearchParams } from "next/navigation";
 import styles from "./styles.module.css";
+import { useGetPeopleQuery } from "../../api/api";
+import { TriggerButton } from "../errorBoundary/triggerButton";
+import { useSearchTermLocalStorage } from "../../hooks/useSearchTermLocalStorage";
 import { SearchForm } from "./searchSection/searchForm";
 import { PeopleList } from "./resultsSection/peopleList/peopleList";
 import { Pagination } from "./resultsSection/pagination/pagination";
 import { Loader } from "../loader/loader";
-import { useGetPeopleQuery } from "../../api/api";
 import { ThemeToggle } from "./toggleTheme/themeToggle";
-import { useSearchParams } from "next/navigation";
-import { useSearchTermLocalStorage } from "../../hooks/useSearchTermLocalStorage";
-import { TriggerButton } from "../errorBoundary/triggerButton";
 
 export const MainContent = ({ children }: { children: React.ReactNode }) => {
   const { searchTerm, setSearchTerm } = useSearchTermLocalStorage();

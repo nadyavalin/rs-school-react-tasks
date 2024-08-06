@@ -1,7 +1,7 @@
+import { useSearchParams } from "next/navigation";
 import { render, screen } from "@testing-library/react";
 import { SideSection } from "./sideSection";
 import * as api from "../../../api/api";
-import { useSearchParams } from "next/navigation";
 
 vi.mock("next/navigation", () => ({
   useSearchParams: vi.fn(),

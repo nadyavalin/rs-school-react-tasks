@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import { SideSectionItem } from "./sideSectionItem";
 import { IPerson } from "../../../types/types";
+import { SideSectionItem } from "./sideSectionItem";
 
 describe("SideSectionItem Component", () => {
   const mockPersonDetails: IPerson = {

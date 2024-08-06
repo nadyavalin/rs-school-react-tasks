@@ -1,8 +1,8 @@
-import { render, screen } from "@testing-library/react";
-import { PeopleList } from "./peopleList";
 import { Provider } from "react-redux";
+import { render, screen } from "@testing-library/react";
 import { store } from "../../../../store/store";
 import { getPeople } from "../../../../store/stateSlice";
+import { PeopleList } from "./peopleList";
 
 describe("PeopleList component", () => {
   it("renders a list of people cards", () => {

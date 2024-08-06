@@ -1,9 +1,9 @@
-import { render, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { toggleTheme } from "../../../utils/themeUtils";
-import { ThemeToggle } from "./themeToggle";
 import { themeSlice } from "../../../store/themeSlice";
+import { ThemeToggle } from "./themeToggle";
 
 vi.mock("../../../utils/themeUtils", () => ({
   toggleTheme: vi.fn(() => ({ type: "toggleTheme" })),

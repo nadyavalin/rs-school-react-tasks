@@ -1,6 +1,6 @@
+import { useRouter } from "next/router";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { SearchForm } from "./searchForm";
-import { useRouter } from "next/router";
 
 vi.mock("next/router", () => ({
   useRouter: vi.fn(),

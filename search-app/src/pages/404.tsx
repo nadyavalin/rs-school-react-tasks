@@ -1,6 +1,6 @@
-import styles from "./styles.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import styles from "./styles.module.css";
 import image404 from "../../public/404.jpg";
 
 export default function ErrorPage() {

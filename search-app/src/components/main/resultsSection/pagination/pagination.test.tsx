@@ -1,8 +1,7 @@
-import styles from "./styles.module.css";
 import { render, screen } from "@testing-library/react";
+import styles from "./styles.module.css";
 import { Pagination } from "./pagination";
 import { PeopleResponse } from "../../../../types/types";
-import { test, describe } from "vitest";
 
 describe("Pagination Component", () => {
   const mockPeopleResponse: PeopleResponse = {

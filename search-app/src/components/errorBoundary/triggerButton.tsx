@@ -1,6 +1,6 @@
-import { ErrorBoundary } from "./errorBoundary";
-import styles from "./styles.module.css";
 import React, { useState } from "react";
+import styles from "./styles.module.css";
+import { ErrorBoundary } from "./errorBoundary";
 
 export const TriggerButton = () => {
   const [isError, setIsError] = useState(false);

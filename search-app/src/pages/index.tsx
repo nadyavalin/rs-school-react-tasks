@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
-import { MainContent } from "../components/main/mainContent";
 import { PeopleResponse } from "../types/types";
+import { MainContent } from "../components/main/mainContent";
 
 export default function Home() {
   return null;

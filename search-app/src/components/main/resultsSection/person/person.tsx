@@ -1,5 +1,5 @@
-import styles from "./styles.module.css";
 import Link from "next/link";
+import styles from "./styles.module.css";
 import { IPerson } from "../../../../types/types";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import { selectItem } from "../../../../store/peopleSlice";

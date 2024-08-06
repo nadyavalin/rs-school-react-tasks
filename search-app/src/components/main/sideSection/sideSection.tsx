@@ -1,8 +1,8 @@
-import { SideSectionItem } from "./sideSectionItem";
-import { IPerson } from "../../../types/types";
-import { Loader } from "../../loader/loader";
-import { useGetPeopleQuery } from "../../../api/api";
 import { useSearchParams } from "next/navigation";
+import { useGetPeopleQuery } from "../../../api/api";
+import { IPerson } from "../../../types/types";
+import { SideSectionItem } from "./sideSectionItem";
+import { Loader } from "../../loader/loader";
 
 export const SideSection = ({ slug }: { slug: string }) => {
   const searchParams = useSearchParams();

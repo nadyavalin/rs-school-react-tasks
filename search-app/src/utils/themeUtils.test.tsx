@@ -6,9 +6,9 @@ import {
   Tuple,
   UnknownAction,
 } from "@reduxjs/toolkit";
-import { themeSlice, ThemeState } from "../store/themeSlice";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 import { toggleTheme } from "./themeUtils";
+import { themeSlice, ThemeState } from "../store/themeSlice";
 
 describe("themeUtils", () => {
   let store: EnhancedStore<

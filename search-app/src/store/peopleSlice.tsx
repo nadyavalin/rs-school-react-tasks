@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { useEffect } from "react";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IPerson } from "../types/types";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { getItemFromLocalStorage, setItemToLocalStorage } from "../utils/utils";
-import { IPerson } from "../types/types";
 
 export interface PeopleState {
   selectedItems: IPerson[];

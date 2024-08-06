@@ -1,6 +1,6 @@
 import { setupListeners } from "@reduxjs/toolkit/query/react";
-import { themeSlice } from "../store/themeSlice";
 import { store } from "../store/store";
+import { themeSlice } from "../store/themeSlice";
 
 export const { toggleTheme } = themeSlice.actions;
 setupListeners(store.dispatch);

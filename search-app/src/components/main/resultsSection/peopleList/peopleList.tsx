@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
-import { Person } from "../person/person";
 import { PeopleResponse } from "../../../../types/types";
+import { Person } from "../person/person";
 import { Flyout } from "../flyout/flyout";
 
 export const PeopleList = ({ people }: { people: PeopleResponse["results"] }) => {

@@ -1,9 +1,9 @@
-import "./styles.css";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
+import { NextPage } from "next";
+import "./styles.css";
 import { store } from "../store/store";
 import RootLayout from "../components/rootLayout/rootLayout";
-import { NextPage } from "next";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: React.ReactNode) => React.ReactNode;

@@ -1,5 +1,5 @@
-import styles from "./styles.module.css";
 import { useDispatch } from "react-redux";
+import styles from "./styles.module.css";
 import { toggleTheme } from "../../../utils/themeUtils";
 
 export const ThemeToggle = () => {

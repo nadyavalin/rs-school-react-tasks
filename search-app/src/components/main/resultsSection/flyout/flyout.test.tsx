@@ -1,7 +1,7 @@
-import { render, screen } from "@testing-library/react";
-import { Flyout } from "./flyout";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
+import { render, screen } from "@testing-library/react";
+import { Flyout } from "./flyout";
 import { peopleSlice } from "../../../../store/peopleSlice";
 
 describe("Flyout Component", () => {

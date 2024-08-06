@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { peopleSlice, selectItem, unselectAll } from "./peopleSlice";
-import { setItemToLocalStorage } from "../utils/utils";
-import { RootState } from "./store";
-import { themeSlice } from "./themeSlice";
-import { peopleApi } from "../api/api";
-import stateReducer from "./stateSlice";
 import { IPerson } from "../types/types";
+import { peopleApi } from "../api/api";
+import { RootState } from "./store";
+import { peopleSlice, selectItem, unselectAll } from "./peopleSlice";
+import { themeSlice } from "./themeSlice";
+import stateReducer from "./stateSlice";
+import { setItemToLocalStorage } from "../utils/utils";
 import * as localStorageUtils from "../utils/utils";
 
 vi.mock("../utils/utils");
