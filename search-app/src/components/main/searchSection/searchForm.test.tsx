@@ -61,4 +61,34 @@ describe("SearchForm", () => {
 
     expect(pushMock).toHaveBeenCalledWith("/?search=search term");
   });
+
+  test("handles Enter key press on input", () => {
+    const pushMock = vi.fn();
+    useRouterMock.mockReturnValue({ push: pushMock });
+
+    render(<SearchForm searchTerm="search term" setSearchTerm={setSearchTermMock} />);
+
+    const searchInput = screen.getByRole("textbox") as HTMLInputElement;
+    fireEvent.keyDown(searchInput, { key: "Enter", code: "Enter", charCode: 13 });
+
+    expect(pushMock).toHaveBeenCalledWith("/?search=search term");
+  });
+
+  test("does not call setSearchTerm on input change if value is the same", () => {
+    render(<SearchForm searchTerm={initialSearchTerm} setSearchTerm={setSearchTermMock} />);
+
+    const searchInput = screen.getByRole("textbox") as HTMLInputElement;
+    fireEvent.change(searchInput, { target: { value: initialSearchTerm } });
+
+    expect(setSearchTermMock).not.toHaveBeenCalled();
+  });
+
+  test("trims input value before setting search term", () => {
+    render(<SearchForm searchTerm="" setSearchTerm={setSearchTermMock} />);
+
+    const searchInput = screen.getByRole("textbox") as HTMLInputElement;
+    fireEvent.change(searchInput, { target: { value: "  test search  " } });
+
+    expect(setSearchTermMock).toHaveBeenCalledWith("test search");
+  });
 });

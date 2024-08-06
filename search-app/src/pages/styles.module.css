@@ -1,3 +1,9 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .imageContainer {
   display: flex;
   align-items: center;
@@ -25,4 +31,9 @@
   font-size: 100px;
   padding: 0;
   margin: 0;
+}
+
+.errorMessage {
+  color: var(--accent-color);
+  font-weight: 600;
 }
