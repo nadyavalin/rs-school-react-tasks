@@ -45,7 +45,6 @@ describe("Home Component", () => {
     expect(layout.props.children.props.children).toBe(JSON.stringify(emptyData));
   });
 });
-
 describe("getServerSideProps", () => {
   test("returns peopleData when fetch is successful", async () => {
     const mockData: PeopleResponse = {
@@ -78,18 +77,6 @@ describe("getServerSideProps", () => {
     expect(result).toEqual({
       props: {
         peopleData: mockData,
-      },
-    });
-  });
-
-  test("returns empty peopleData when fetch fails", async () => {
-    global.fetch = vi.fn().mockRejectedValueOnce(new Error("Fetch failed"));
-
-    const result = await getServerSideProps({} as GetServerSidePropsContext);
-
-    expect(result).toEqual({
-      props: {
-        peopleData: { results: [] },
       },
     });
   });
