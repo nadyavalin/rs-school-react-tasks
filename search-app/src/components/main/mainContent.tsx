@@ -1,3 +1,5 @@
+"use client";
+
 import { useSearchParams } from "next/navigation";
 import styles from "./styles.module.css";
 import { useGetPeopleQuery } from "../../api/api";
