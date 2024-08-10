@@ -1,3 +1,7 @@
-export default function Page() {
-  return null;
+import { MainContent } from "../components/main/mainContent";
+
+function Page() {
+  return <MainContent />;
 }
+
+export default Page;

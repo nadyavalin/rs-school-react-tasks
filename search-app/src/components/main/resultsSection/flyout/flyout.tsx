@@ -1,17 +1,22 @@
+import { useEffect, useState } from "react";
+import { IPerson } from "../../../../types/types";
 import styles from "./styles.module.css";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { unselectAll } from "../../../../store/peopleSlice";
 
-export const Flyout = () => {
-  const dispatch = useAppDispatch();
-  const selectedItems = useAppSelector((state) => state.people.selectedItems);
+interface FlyoutProps {
+  initialSelectedItems: IPerson[];
+}
 
-  if (selectedItems.length === 0) {
-    return null;
-  }
+export const Flyout = ({ initialSelectedItems }: FlyoutProps) => {
+  const [selectedItems, setSelectedItems] = useState<IPerson[]>(initialSelectedItems || []);
+
+  useEffect(() => {
+    if (initialSelectedItems && Array.isArray(initialSelectedItems)) {
+      setSelectedItems(initialSelectedItems);
+    }
+  }, [initialSelectedItems]);
 
   const handleUnselectAll = () => {
-    dispatch(unselectAll());
+    setSelectedItems([]);
   };
 
   const handleDownload = () => {
@@ -21,6 +26,10 @@ export const Flyout = () => {
     link.download = `${selectedItems.length}_people.csv`;
     link.click();
   };
+
+  if (selectedItems.length === 0) {
+    return null;
+  }
 
   return (
     <div className={styles.flyout}>

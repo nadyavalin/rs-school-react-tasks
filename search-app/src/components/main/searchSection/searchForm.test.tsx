@@ -1,13 +1,14 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { SearchForm } from "./searchForm";
-import * as router from "next/router";
+import { vi } from "vitest";
+import { useRouter as useRouterOriginal } from "next/navigation";
 
-vi.mock("next/router", () => ({
+vi.mock("next/navigation", () => ({
   useRouter: vi.fn(),
 }));
 
 const useRouterMock = vi.fn();
-vi.spyOn(router, "useRouter").mockImplementation(useRouterMock);
+(useRouterOriginal as unknown as { useRouter: typeof useRouterMock }).useRouter = useRouterMock;
 
 describe("SearchForm", () => {
   const setSearchTermMock = vi.fn();

@@ -1,8 +1,8 @@
 "use client";
 
+import { PropsWithChildren, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import styles from "./styles.module.css";
-import { useGetPeopleQuery } from "../../api/api";
 import { TriggerButton } from "../errorBoundary/triggerButton";
 import { useSearchTermLocalStorage } from "../../hooks/useSearchTermLocalStorage";
 import { SearchForm } from "./searchSection/searchForm";
@@ -10,23 +10,45 @@ import { PeopleList } from "./resultsSection/peopleList/peopleList";
 import { Pagination } from "./resultsSection/pagination/pagination";
 import { Loader } from "../loader/loader";
 import { ThemeToggle } from "./toggleTheme/themeToggle";
+import { fetchPeople } from "../../api/api";
+import { PeopleResponse } from "../../types/types";
 
-export const MainContent = ({ children }: { children: React.ReactNode }) => {
+export const MainContent = ({ children }: PropsWithChildren) => {
   const { searchTerm, setSearchTerm } = useSearchTermLocalStorage();
   const searchParams = useSearchParams();
 
-  const { data, isLoading, error } = useGetPeopleQuery({
-    searchTerm: searchParams.get("search") || "",
-    page: Number(searchParams.get("page")) || 1,
-  });
+  const [data, setData] = useState<PeopleResponse | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const searchTermFromParams = searchParams.get("search") || "";
+    const page = Number(searchParams.get("page")) || 1;
+
+    const fetchAndSetData = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const params = new URLSearchParams();
+        if (searchTermFromParams) {
+          params.set("search", searchTermFromParams);
+        }
+
+        const response = await fetchPeople(params, page);
+        setData(response);
+      } catch (error) {
+        setError(error as Error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAndSetData();
+  }, [searchParams]);
 
   if (error) {
     if ("status" in error) {
-      return (
-        <p>
-          Error: {error.status} - {JSON.stringify(error.data)}
-        </p>
-      );
+      return <p>{/* Error: {error.status} - {JSON.stringify(error.data)} */}</p>;
     } else {
       return <p>Error: {error.message}</p>;
     }

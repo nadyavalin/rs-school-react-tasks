@@ -1,16 +1,31 @@
 import Link from "next/link";
 import styles from "./styles.module.css";
 import { IPerson } from "../../../../types/types";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { selectItem } from "../../../../store/peopleSlice";
+import { useEffect, useState } from "react";
 
-export const Person = ({ person }: { person: IPerson }) => {
-  const dispatch = useAppDispatch();
-  const selectedItems = useAppSelector((state) => state.people.selectedItems);
-  const isChecked = selectedItems.some((item) => item.name === person.name);
+interface PersonProps {
+  person: IPerson;
+  selectedItems: IPerson[];
+  setSelectedItems: (selected: IPerson[]) => void;
+}
+
+export const Person = ({ person, selectedItems, setSelectedItems }: PersonProps) => {
+  const [isSelected, setIsSelected] = useState(false);
+
+  useEffect(() => {
+    setIsSelected(selectedItems && selectedItems.includes(person));
+  }, [selectedItems, person]);
 
   const handleCheckboxChange = () => {
-    dispatch(selectItem(person));
+    if (!Array.isArray(selectedItems)) {
+      return;
+    }
+
+    const newSelectedItems = isSelected
+      ? selectedItems.filter((item) => item !== person)
+      : [...selectedItems, person];
+
+    setSelectedItems(newSelectedItems);
   };
 
   return (
@@ -18,7 +33,7 @@ export const Person = ({ person }: { person: IPerson }) => {
       <li className={styles.resultsItem}>
         <input
           type="checkbox"
-          checked={isChecked}
+          checked={isSelected}
           onChange={handleCheckboxChange}
           onClick={(e) => e.stopPropagation()}
         />
