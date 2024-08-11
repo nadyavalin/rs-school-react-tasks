@@ -23,14 +23,13 @@
   font-family: inherit;
   color: var(--text-color);
   border: 1px solid var(--main-theme-color);
-  background-color: var(--transparent-color);
   cursor: pointer;
   transition: background-color 0.4s ease;
   height: 30px;
 }
 
 .paginationLinkActive {
-  background-color: var(--main-theme-color);
+  background-color: var(--main-color);
   color: var(--text-color);
 }
 
