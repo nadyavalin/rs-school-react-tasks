@@ -1,23 +1,16 @@
-import { useEffect, useState } from "react";
-import { IPerson } from "../../../../types/types";
 import styles from "./styles.module.css";
+import { useSelectedItems } from "../selectedItemsContext/selectedItemsContext";
 
-interface FlyoutProps {
-  initialSelectedItems: IPerson[];
-}
-
-export const Flyout = ({ initialSelectedItems }: FlyoutProps) => {
-  const [selectedItems, setSelectedItems] = useState<IPerson[]>(initialSelectedItems || []);
-
-  useEffect(() => {
-    if (initialSelectedItems && Array.isArray(initialSelectedItems)) {
-      setSelectedItems(initialSelectedItems);
-    }
-  }, [initialSelectedItems]);
+export const Flyout = () => {
+  const { selectedItems, setSelectedItems } = useSelectedItems();
 
   const handleUnselectAll = () => {
     setSelectedItems([]);
   };
+
+  if (selectedItems.length === 0) {
+    return null;
+  }
 
   const handleDownload = () => {
     const csv = selectedItems.map((row) => Object.values(row).join(",")).join("\n");
@@ -26,10 +19,6 @@ export const Flyout = ({ initialSelectedItems }: FlyoutProps) => {
     link.download = `${selectedItems.length}_people.csv`;
     link.click();
   };
-
-  if (selectedItems.length === 0) {
-    return null;
-  }
 
   return (
     <div className={styles.flyout}>

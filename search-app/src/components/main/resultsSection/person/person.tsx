@@ -2,14 +2,14 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 import { IPerson } from "../../../../types/types";
 import { useEffect, useState } from "react";
+import { useSelectedItems } from "../selectedItemsContext/selectedItemsContext";
 
 interface PersonProps {
   person: IPerson;
-  selectedItems: IPerson[];
-  setSelectedItems: (selected: IPerson[]) => void;
 }
 
-export const Person = ({ person, selectedItems, setSelectedItems }: PersonProps) => {
+export const Person = ({ person }: PersonProps) => {
+  const { selectedItems, setSelectedItems } = useSelectedItems();
   const [isSelected, setIsSelected] = useState(false);
 
   useEffect(() => {

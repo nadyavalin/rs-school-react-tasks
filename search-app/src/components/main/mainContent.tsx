@@ -8,7 +8,7 @@ import { SearchForm } from "./searchSection/searchForm";
 import { PeopleList } from "./resultsSection/peopleList/peopleList";
 import { Pagination } from "./resultsSection/pagination/pagination";
 import { Loader } from "../loader/loader";
-import { ThemeToggle } from "./toggleTheme/themeToggle";
+import { ThemeToggle } from "./theme/themeToggle/themeToggle";
 import { fetchPeople } from "../../api/api";
 import { PeopleResponse } from "../../types/types";
 

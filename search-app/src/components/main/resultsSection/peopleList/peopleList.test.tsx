@@ -1,7 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import { PeopleList } from "./peopleList";
+import { SelectedItemsProvider } from "../selectedItemsContext/selectedItemsContext"; // Импортируем провайдер
 
 describe("PeopleList component", () => {
+  const renderWithProvider = (ui: React.ReactNode) => {
+    return render(<SelectedItemsProvider>{ui}</SelectedItemsProvider>);
+  };
+
   it("renders a list of people cards", () => {
     const people = [
       {
@@ -18,13 +23,16 @@ describe("PeopleList component", () => {
       },
     ];
 
-    render(<PeopleList people={people} />);
+    renderWithProvider(<PeopleList people={people} />);
 
     expect(screen.getByText(/luke skywalker/i)).toBeInTheDocument();
+    expect(screen.getByText(/Height: 172/i)).toBeInTheDocument();
+    expect(screen.getByText(/Mass: 77/i)).toBeInTheDocument();
+    expect(screen.getByText(/Birth Year: 19BBY/i)).toBeInTheDocument();
   });
 
   it("renders 'The list is empty' message if the array is empty", () => {
-    render(<PeopleList people={[]} />);
+    renderWithProvider(<PeopleList people={[]} />);
 
     expect(screen.getByText("The list is empty")).toBeInTheDocument();
   });

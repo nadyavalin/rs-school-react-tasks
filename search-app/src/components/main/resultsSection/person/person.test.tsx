@@ -1,7 +1,7 @@
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { IPerson } from "../../../../types/types";
 import { Person } from "./person";
+import { SelectedItemsProvider } from "../selectedItemsContext/selectedItemsContext";
 
 const person: IPerson = {
   name: "Luke Skywalker",
@@ -16,27 +16,41 @@ const person: IPerson = {
   edited: "2014-12-20T21:17:56.891000Z",
 };
 
-const mockSetSelectedItems = vi.fn();
-
 describe("Person Component", () => {
+  const renderWithProvider = (ui: React.ReactNode) => {
+    return render(<SelectedItemsProvider>{ui}</SelectedItemsProvider>);
+  };
+
   it("renders correctly with the given person data", () => {
-    render(<Person person={person} selectedItems={[]} setSelectedItems={mockSetSelectedItems} />);
+    renderWithProvider(<Person person={person} />);
+
     expect(screen.getByText(/Name: Luke Skywalker/i)).toBeInTheDocument();
     expect(screen.getByText(/Height: 172/i)).toBeInTheDocument();
     expect(screen.getByText(/Mass: 77/i)).toBeInTheDocument();
-    expect(screen.getByText(/Birth/i)).toBeInTheDocument();
+    expect(screen.getByText(/Birth Year: 19BBY/i)).toBeInTheDocument();
   });
 
-  it("checkbox interaction works correctly", () => {
-    render(
-      <Person person={person} selectedItems={[person]} setSelectedItems={mockSetSelectedItems} />,
-    );
+  it("checkbox interaction works correctly - selects the item", () => {
+    renderWithProvider(<Person person={person} />);
 
     const checkbox = screen.getByRole("checkbox");
-    expect(checkbox).toBeChecked();
+
+    expect(checkbox).not.toBeChecked();
 
     fireEvent.click(checkbox);
 
-    expect(mockSetSelectedItems).toHaveBeenCalled();
+    expect(checkbox).toBeChecked();
+  });
+
+  it("checkbox interaction works correctly - deselects the item", () => {
+    renderWithProvider(<Person person={person} />);
+
+    const checkbox = screen.getByRole("checkbox");
+
+    fireEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
+
+    fireEvent.click(checkbox);
+    expect(checkbox).not.toBeChecked();
   });
 });

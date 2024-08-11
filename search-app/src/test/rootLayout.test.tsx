@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { ThemeProvider } from "../components/main/toggleTheme/themeContext";
+import { ThemeProvider } from "../components/main/theme/themeContext/themeContext";
 import RootLayout from "../app/layout";
 
 vi.mock("../components/header/header", () => ({
