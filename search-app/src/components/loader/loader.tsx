@@ -1,9 +1,9 @@
-import "./styles.css";
+import styles from "./styles.module.css";
 
 export const Loader = () => {
   return (
-    <div className="loader-container">
-      <div className="loader" data-testid="loader" />
+    <div className={styles.loaderContainer}>
+      <div className={styles.loader} data-testid="loader" />
     </div>
   );
 };

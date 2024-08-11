@@ -1,12 +1,11 @@
-import { SideSectionItem } from "./sideSectionItem";
-import { useParams, useSearchParams } from "react-router-dom";
-import { IPerson } from "../../../types/types";
-import { Loader } from "../../loader/loader";
+import { useSearchParams } from "next/navigation";
 import { useGetPeopleQuery } from "../../../api/api";
+import { IPerson } from "../../../types/types";
+import { SideSectionItem } from "./sideSectionItem";
+import { Loader } from "../../loader/loader";
 
-export const SideSection = () => {
-  const { key } = useParams();
-  const [searchParams] = useSearchParams();
+export const SideSection = ({ slug }: { slug: string }) => {
+  const searchParams = useSearchParams();
 
   const { data, isLoading } = useGetPeopleQuery({
     searchTerm: searchParams.get("search") || "",
@@ -19,9 +18,7 @@ export const SideSection = () => {
 
   return (
     <SideSectionItem
-      personDetails={
-        key ? data?.results.find((result: IPerson) => result.name === key) : data?.results[0]
-      }
+      personDetails={data?.results.find((result: IPerson) => result.name === slug)}
     />
   );
 };

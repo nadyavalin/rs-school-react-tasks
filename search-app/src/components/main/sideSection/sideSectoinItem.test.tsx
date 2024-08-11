@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import { SideSectionItem } from "./sideSectionItem";
-import { BrowserRouter as Router } from "react-router-dom";
 import { IPerson } from "../../../types/types";
+import { SideSectionItem } from "./sideSectionItem";
 
 describe("SideSectionItem Component", () => {
   const mockPersonDetails: IPerson = {
@@ -18,11 +17,7 @@ describe("SideSectionItem Component", () => {
   };
 
   test("renders person details correctly", () => {
-    render(
-      <Router>
-        <SideSectionItem personDetails={mockPersonDetails} />
-      </Router>,
-    );
+    render(<SideSectionItem personDetails={mockPersonDetails} />);
 
     expect(screen.getByText("Details")).toBeInTheDocument();
     expect(screen.getByText("Luke Skywalker")).toBeInTheDocument();
@@ -38,21 +33,13 @@ describe("SideSectionItem Component", () => {
   });
 
   test("renders close button with correct link", () => {
-    render(
-      <Router>
-        <SideSectionItem personDetails={mockPersonDetails} />
-      </Router>,
-    );
+    render(<SideSectionItem personDetails={mockPersonDetails} />);
 
     const closeButton = screen.getByRole("link", { name: "Close" });
     expect(closeButton).toHaveAttribute("href", "/");
   });
 
   test("clicking on a detail item triggers an additional API call", () => {
-    render(
-      <Router>
-        <SideSectionItem personDetails={mockPersonDetails} />
-      </Router>,
-    );
+    render(<SideSectionItem personDetails={mockPersonDetails} />);
   });
 });

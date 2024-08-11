@@ -1,7 +1,10 @@
-import React, { ReactNode, ErrorInfo } from "react";
+"use client";
+
+import styles from "./styles.module.css";
+import React, { ErrorInfo } from "react";
 
 interface ErrorBoundaryProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 interface ErrorBoundaryState {
@@ -31,7 +34,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
   render() {
     if (this.state.errorInfo) {
       return (
-        <h1 className="error-message">
+        <h1 className={styles.errorMessage}>
           Something went wrong: <br />
           <b>
             <u>{this.state.error && this.state.error.toString()}</u>

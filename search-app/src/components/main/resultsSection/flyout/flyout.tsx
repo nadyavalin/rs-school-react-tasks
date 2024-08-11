@@ -1,9 +1,8 @@
-import "./styles.css";
+import styles from "./styles.module.css";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
-import { selectItem } from "../../../../store/peopleSlice";
-import { PeopleResponse } from "../../../../types/types";
+import { unselectAll } from "../../../../store/peopleSlice";
 
-export const Flyout = ({ people }: { people: PeopleResponse["results"] }) => {
+export const Flyout = () => {
   const dispatch = useAppDispatch();
   const selectedItems = useAppSelector((state) => state.people.selectedItems);
 
@@ -12,35 +11,11 @@ export const Flyout = ({ people }: { people: PeopleResponse["results"] }) => {
   }
 
   const handleUnselectAll = () => {
-    dispatch(selectItem({ itemId: "all" }));
+    dispatch(unselectAll());
   };
 
   const handleDownload = () => {
-    const selectedPeopleData = selectedItems
-      .map((itemId) => {
-        const item = people.find((person) => person.name === itemId);
-
-        if (!item) {
-          return null;
-        }
-
-        return [
-          item.name,
-          item.birth_year,
-          item.eye_color,
-          item.gender,
-          item.hair_color,
-          item.height,
-          item.mass,
-          item.skin_color,
-          item.created,
-          item.edited,
-        ];
-      })
-      .filter(Boolean);
-
-    const csv = selectedPeopleData.map((row) => row?.join(",")).join("\n");
-
+    const csv = selectedItems.map((row) => Object.values(row).join(",")).join("\n");
     const link = document.createElement("a");
     link.href = `data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`;
     link.download = `${selectedItems.length}_people.csv`;
@@ -48,9 +23,9 @@ export const Flyout = ({ people }: { people: PeopleResponse["results"] }) => {
   };
 
   return (
-    <div className="flyout">
+    <div className={styles.flyout}>
       <p>You have selected {selectedItems.length} items.</p>
-      <div className="flyout__buttons">
+      <div className={styles.flyoutButtons}>
         <button onClick={handleUnselectAll}>Unselect All</button>
         <button onClick={handleDownload}>Download</button>
       </div>

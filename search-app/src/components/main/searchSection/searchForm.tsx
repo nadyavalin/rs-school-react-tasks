@@ -1,14 +1,13 @@
-import "./styles.css";
-import React, { useState } from "react";
-import { getItemFromLocalStorage } from "../../../utils/utils";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
+import styles from "./styles.module.css";
 
-export const SearchForm = () => {
-  const [searchTerm, setSearchTerm] = useState<string>(
-    getItemFromLocalStorage<string>("searchTerm") ?? "",
-  );
+interface SearchFormProps {
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
+}
 
-  const navigate = useNavigate();
+export const SearchForm = ({ searchTerm, setSearchTerm }: SearchFormProps) => {
+  const router = useRouter();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(event.target.value.trim());
@@ -19,9 +18,9 @@ export const SearchForm = () => {
   ): void => {
     event.preventDefault();
     if (searchTerm === "") {
-      navigate("/");
+      router.push("/");
     } else {
-      navigate(`/people?search=${searchTerm}`);
+      router.push(`/?search=${searchTerm}`);
     }
   };
 
@@ -32,16 +31,16 @@ export const SearchForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="search-form" data-testid="search-form">
+    <form onSubmit={handleSubmit} className={styles.searchForm} data-testid="search-form">
       <input
-        className="search-input"
+        className={styles.searchInput}
         type="text"
         placeholder=""
         value={searchTerm}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
-      <button type="submit" className="search-button">
+      <button type="submit" className={styles.searchButton}>
         Search
       </button>
     </form>
