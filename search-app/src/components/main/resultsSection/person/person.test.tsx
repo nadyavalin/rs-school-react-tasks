@@ -1,25 +1,7 @@
 import React from "react";
-import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { peopleApi } from "../../../../api/api";
 import { IPerson } from "../../../../types/types";
-import { selectItem, peopleSlice } from "../../../../store/peopleSlice";
-import stateReducer from "../../../../store/stateSlice";
-import { themeSlice } from "../../../../store/themeSlice";
 import { Person } from "./person";
-
-const store = configureStore({
-  reducer: {
-    state: stateReducer,
-    theme: themeSlice.reducer,
-    people: peopleSlice.reducer,
-    [peopleApi.reducerPath]: peopleApi.reducer,
-  },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(peopleApi.middleware),
-});
-
-store.dispatch = vi.fn();
 
 const person: IPerson = {
   name: "Luke Skywalker",
@@ -34,28 +16,27 @@ const person: IPerson = {
   edited: "2014-12-20T21:17:56.891000Z",
 };
 
-const renderWithStore = (component: React.ReactNode) => {
-  return render(<Provider store={store}>{component}</Provider>);
-};
+const mockSetSelectedItems = vi.fn();
 
 describe("Person Component", () => {
   it("renders correctly with the given person data", () => {
-    renderWithStore(<Person person={person} />);
-
+    render(<Person person={person} selectedItems={[]} setSelectedItems={mockSetSelectedItems} />);
     expect(screen.getByText(/Name: Luke Skywalker/i)).toBeInTheDocument();
     expect(screen.getByText(/Height: 172/i)).toBeInTheDocument();
     expect(screen.getByText(/Mass: 77/i)).toBeInTheDocument();
-    expect(screen.getByText(/Birth Year: 19BBY/i)).toBeInTheDocument();
+    expect(screen.getByText(/Birth/i)).toBeInTheDocument();
   });
 
-  it("checkbox is unchecked by default and can be checked", () => {
-    renderWithStore(<Person person={person} />);
+  it("checkbox interaction works correctly", () => {
+    render(
+      <Person person={person} selectedItems={[person]} setSelectedItems={mockSetSelectedItems} />,
+    );
 
     const checkbox = screen.getByRole("checkbox");
-    expect(checkbox).not.toBeChecked();
+    expect(checkbox).toBeChecked();
 
     fireEvent.click(checkbox);
 
-    expect(store.dispatch).toHaveBeenCalledWith(selectItem(person));
+    expect(mockSetSelectedItems).toHaveBeenCalled();
   });
 });

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useState, useContext, PropsWithChildren } from "react";
+import { createContext, useState, useContext, PropsWithChildren } from "react";
 
 interface ThemeContextType {
   theme: string;

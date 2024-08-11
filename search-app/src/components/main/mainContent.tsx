@@ -3,7 +3,6 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import styles from "./styles.module.css";
-import { TriggerButton } from "../errorBoundary/triggerButton";
 import { useSearchTermLocalStorage } from "../../hooks/useSearchTermLocalStorage";
 import { SearchForm } from "./searchSection/searchForm";
 import { PeopleList } from "./resultsSection/peopleList/peopleList";
@@ -47,11 +46,7 @@ export const MainContent = ({ children }: PropsWithChildren) => {
   }, [searchParams]);
 
   if (error) {
-    if ("status" in error) {
-      return <p>{/* Error: {error.status} - {JSON.stringify(error.data)} */}</p>;
-    } else {
-      return <p>Error: {error.message}</p>;
-    }
+    return <p>Error: {error.message}</p>;
   }
 
   if (isLoading) {
@@ -71,7 +66,6 @@ export const MainContent = ({ children }: PropsWithChildren) => {
           </section>
           {children}
         </div>
-        <TriggerButton />
         <ThemeToggle />
       </main>
     </>

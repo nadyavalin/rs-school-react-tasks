@@ -1,7 +1,4 @@
-import { Provider } from "react-redux";
 import { render, screen } from "@testing-library/react";
-import { store } from "../../../../store/store";
-import { getPeople } from "../../../../store/stateSlice";
 import { PeopleList } from "./peopleList";
 
 describe("PeopleList component", () => {
@@ -21,39 +18,13 @@ describe("PeopleList component", () => {
       },
     ];
 
-    store.dispatch(
-      getPeople({
-        count: 1,
-        next: null,
-        previous: null,
-        results: people,
-      }),
-    );
-
-    render(
-      <Provider store={store}>
-        <PeopleList people={people} />
-      </Provider>,
-    );
+    render(<PeopleList people={people} />);
 
     expect(screen.getByText(/luke skywalker/i)).toBeInTheDocument();
   });
 
   it("renders 'The list is empty' message if the array is empty", () => {
-    store.dispatch(
-      getPeople({
-        count: 0,
-        next: null,
-        previous: null,
-        results: [],
-      }),
-    );
-
-    render(
-      <Provider store={store}>
-        <PeopleList people={[]} />
-      </Provider>,
-    );
+    render(<PeopleList people={[]} />);
 
     expect(screen.getByText("The list is empty")).toBeInTheDocument();
   });
