@@ -13,23 +13,19 @@ export const Person = ({ person, selectedItems, setSelectedItems }: PersonProps)
   const [isSelected, setIsSelected] = useState(false);
 
   useEffect(() => {
-    setIsSelected(selectedItems && selectedItems.includes(person));
+    setIsSelected(selectedItems.some((item) => item.name === person.name));
   }, [selectedItems, person]);
 
   const handleCheckboxChange = () => {
-    if (!Array.isArray(selectedItems)) {
-      return;
-    }
-
     const newSelectedItems = isSelected
-      ? selectedItems.filter((item) => item !== person)
+      ? selectedItems.filter((item) => item.name !== person.name)
       : [...selectedItems, person];
 
     setSelectedItems(newSelectedItems);
   };
 
   return (
-    <Link href={`/${person.name}${location.search}`}>
+    <Link key={person.name} href={`/${person.name}${location.search}`}>
       <li className={styles.resultsItem}>
         <input
           type="checkbox"

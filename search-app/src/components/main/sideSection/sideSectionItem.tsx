@@ -4,10 +4,10 @@ import { IPerson } from "../../../types/types";
 import { cross } from "../../svg/svg";
 
 interface PersonDetailsProp {
-  personDetails?: IPerson;
+  person?: IPerson | null;
 }
 
-export function SideSectionItem({ personDetails }: PersonDetailsProp) {
+export function SideSectionItem({ person }: PersonDetailsProp) {
   return (
     <>
       <aside className={styles.sideSection} data-testid="side-section-item">
@@ -25,18 +25,18 @@ export function SideSectionItem({ personDetails }: PersonDetailsProp) {
 
         <h2>Details</h2>
         <div>
-          <h3>{personDetails?.name}</h3>
+          <h3>{person?.name}</h3>
         </div>
         <ul>
-          <li>Birth year: {personDetails?.birth_year}</li>
-          <li>Eye color: {personDetails?.eye_color}</li>
-          <li>Gender: {personDetails?.gender}</li>
-          <li>Hair color: {personDetails?.hair_color}</li>
-          <li>Height: {personDetails?.height}</li>
-          <li>Mass: {personDetails?.mass}</li>
-          <li>Skin color: {personDetails?.skin_color}</li>
-          <li>Created: {personDetails?.created}</li>
-          <li>Edited: {personDetails?.edited}</li>
+          <li>Birth year: {person?.birth_year}</li>
+          <li>Eye color: {person?.eye_color}</li>
+          <li>Gender: {person?.gender}</li>
+          <li>Hair color: {person?.hair_color}</li>
+          <li>Height: {person?.height}</li>
+          <li>Mass: {person?.mass}</li>
+          <li>Skin color: {person?.skin_color}</li>
+          <li>Created: {person?.created}</li>
+          <li>Edited: {person?.edited}</li>
         </ul>
       </aside>
     </>

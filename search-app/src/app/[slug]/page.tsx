@@ -1,14 +1,29 @@
+import { ReactElement } from "react";
 import { MainContent } from "../../components/main/mainContent";
-import { SideSection } from "../../components/main/sideSection/sideSection";
+import { fetchPerson } from "../../api/api";
+import { IPerson } from "../../types/types";
+import { SideSectionItem } from "../../components/main/sideSection/sideSectionItem";
 
-function Details({ slug }: { slug: string }) {
-  return (
-    <>
-      <MainContent>
-        <SideSection slug={slug} />
-      </MainContent>
-    </>
-  );
+interface DetailsPageProps {
+  params: {
+    slug: string;
+  };
 }
 
-export default Details;
+export default async function Details({
+  params: { slug },
+}: DetailsPageProps): Promise<ReactElement> {
+  let person: IPerson | null = null;
+
+  try {
+    person = await fetchPerson(slug);
+  } catch (error) {
+    console.log(error);
+  }
+
+  return (
+    <MainContent>
+      <SideSectionItem person={person} />
+    </MainContent>
+  );
+}

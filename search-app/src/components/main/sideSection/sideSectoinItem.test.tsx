@@ -3,7 +3,7 @@ import { IPerson } from "../../../types/types";
 import { SideSectionItem } from "./sideSectionItem";
 
 describe("SideSectionItem Component", () => {
-  const mockPersonDetails: IPerson = {
+  const mockPersonDetails: IPerson | null = {
     name: "Luke Skywalker",
     birth_year: "19BBY",
     eye_color: "blue",
@@ -17,7 +17,7 @@ describe("SideSectionItem Component", () => {
   };
 
   test("renders person details correctly", () => {
-    render(<SideSectionItem personDetails={mockPersonDetails} />);
+    render(<SideSectionItem person={mockPersonDetails} />);
 
     expect(screen.getByText("Details")).toBeInTheDocument();
     expect(screen.getByText("Luke Skywalker")).toBeInTheDocument();
@@ -33,13 +33,12 @@ describe("SideSectionItem Component", () => {
   });
 
   test("renders close button with correct link", () => {
-    render(<SideSectionItem personDetails={mockPersonDetails} />);
+    render(<SideSectionItem person={mockPersonDetails} />);
 
     const closeButton = screen.getByRole("link", { name: "Close" });
     expect(closeButton).toHaveAttribute("href", "/");
   });
-
   test("clicking on a detail item triggers an additional API call", () => {
-    render(<SideSectionItem personDetails={mockPersonDetails} />);
+    render(<SideSectionItem person={mockPersonDetails} />);
   });
 });

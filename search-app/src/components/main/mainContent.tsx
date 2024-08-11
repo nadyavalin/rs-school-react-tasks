@@ -17,7 +17,7 @@ export const MainContent = ({ children }: PropsWithChildren) => {
   const { searchTerm, setSearchTerm } = useSearchTermLocalStorage();
   const searchParams = useSearchParams();
 
-  const [data, setData] = useState<PeopleResponse | null>(null);
+  const [data, setData] = useState<PeopleResponse | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 

@@ -13,7 +13,7 @@ export default function ErrorPage() {
           Turn to main page! ======&gt;&gt;&gt;
         </Link>
         <div className={styles.imageContainer} data-testid="404">
-          <Image src={image404} alt="404" width="400" height="400" className={styles.img404} />
+          <Image src={image404} alt="404" width="300" height="300" className={styles.img404} />
         </div>
       </main>
     </>
