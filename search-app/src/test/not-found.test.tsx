@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import ErrorPage from "../app/not-found";
+import ErrorPage, { getStaticProps } from "../app/not-found";
 
 describe("ErrorPage", () => {
   beforeEach(() => {
@@ -31,5 +31,16 @@ describe("ErrorPage", () => {
   test("image container has the correct data-testid", () => {
     const imageContainer = screen.getByTestId("404");
     expect(imageContainer).toBeInTheDocument();
+  });
+});
+
+describe("getStaticProps", () => {
+  it("should return the correct props", async () => {
+    const result = await getStaticProps();
+    expect(result).toEqual({
+      props: {
+        errorMessage: "Sorry, an unexpected error has occurred.",
+      },
+    });
   });
 });
