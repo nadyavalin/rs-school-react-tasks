@@ -17,7 +17,6 @@ body {
   height: 100%;
   min-height: 100vh;
   margin: 0;
-  background-color: var(--bg-color);
   background-image: var(--bg-image);
   background-attachment: fixed;
   text-align: center;
@@ -41,7 +40,7 @@ body[theme="light"] {
   --main-theme-color: #2c1a7e;
   --bg-color: #b4a6f3;
   --bg-image: url("../../public/light-fon.jpg");
-  --transparent-color: rgba(180, 166, 243, 0.7);
+  --transparent-color: rgba(180, 166, 243, 0.9);
   --transparent-color-hover: rgba(233, 233, 233, 0.6);
   --transparent-color-disabled: rgba(180, 166, 243, 0.4);
   --text-main-color: #00067c;
