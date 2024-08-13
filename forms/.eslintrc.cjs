@@ -10,7 +10,7 @@ module.exports = {
     "eslint-config-prettier",
     "prettier",
   ],
-  ignorePatterns: ["dist", "node_modules", ".eslintrc.cjs"],
+  ignorePatterns: ["dist", "./node_modules", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
   plugins: ["react-refresh", "react-compiler", "@typescript-eslint"],
   rules: {
