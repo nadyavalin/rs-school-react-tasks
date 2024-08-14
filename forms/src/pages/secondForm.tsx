@@ -1,7 +1,9 @@
+import "./styles.css";
+
 export function SecondForm() {
   return (
     <>
-      <div>Second Form</div>
+      <h1>Second Form</h1>
     </>
   );
 }

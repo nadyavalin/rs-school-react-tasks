@@ -1,23 +1,29 @@
-import { useForm } from "react-hook-form";
+import { useState } from "react";
+import "./styles.css";
 
-export function FirstForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+interface FormState {
+  name: string;
+}
+
+interface ErrorState {
+  name?: string;
+}
+
+export const FirstForm = () => {
+  const [form] = useState<FormState>({
+    name: "",
+  });
+  const [errors] = useState<ErrorState>({});
 
   return (
     <>
-      <div>First Form</div>
-      <form onSubmit={handleSubmit((data) => console.log(data))}>
-        <input {...register("firstName")} />
-        <input {...register("lastName", { required: true })} />
-        {errors.lastName && <p>Last name is required.</p>}
-        <input {...register("age", { pattern: /\d+/ })} />
-        {errors.age && <p>Please enter number for age.</p>}
-        <input type="submit" />
+      <h1>First Form</h1>
+      <form>
+        <label htmlFor="name">Name:</label>
+        <input type="text" name="name" value={form.name} />
+        {errors.name && <p>{errors.name}</p>}
+        <button type="submit">Submit</button>
       </form>
     </>
   );
-}
+};

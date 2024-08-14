@@ -1,4 +1,4 @@
-import "../main.css";
+import "../index.css";
 import { Outlet, Link } from "react-router-dom";
 
 const Layout = () => {
@@ -12,10 +12,10 @@ const Layout = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/first-form">First Form</Link>
+              <Link to="/firstForm">First Form</Link>
             </li>
             <li>
-              <Link to="/second-form">Second Form</Link>
+              <Link to="/secondForm">Second Form</Link>
             </li>
           </ul>
         </nav>
