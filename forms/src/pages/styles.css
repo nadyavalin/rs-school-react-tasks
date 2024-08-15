@@ -1,15 +1,88 @@
 form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
+  align-items: flex-end;
+  gap: 30px;
+  margin-bottom: 20px;
 }
 
 input {
-  border: 1px solid var(--link-color);
+  border: 0.5px solid var(--border-color);
   border-radius: 10px;
   height: 25px;
   width: 400px;
   padding: 5px;
+  margin-left: 10px;
+}
+
+select {
+  margin-left: 10px;
+  width: 412px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #333;
+}
+
+.form__item {
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
+.form__checkbox {
+  display: flex;
+  align-items: center;
+  height: 5px;
+}
+
+input[type="checkbox"] {
+  border: 0.5px solid var(--border-color);
+  border-radius: 10px;
+  width: 30px;
+  margin: 22px 10px 0 1px;
+}
+
+.input__picture-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.input__picture {
+  display: inline-block;
+  width: 390px;
+  padding: 10px;
+  background-color: var(--background-color);
+  border-radius: 10px;
+  transition:
+    border-color ease-in-out 0.15s,
+    box-shadow ease-in-out 0.15s;
+}
+
+.input__picture::file-selector-button {
+  margin-right: 10px;
+  padding: 5px 15px;
+  font-size: 16px;
+  background-color: var(--accent-green-color);
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out;
+}
+
+.input__picture::file-selector-button:hover {
+  background-color: var(--link-hover-color);
+}
+
+.error {
+  color: var(--accent-red-color);
+  font-size: 12px;
+  margin: 0 2px;
+  text-align: end;
+  display: block;
+  height: 20px;
 }
