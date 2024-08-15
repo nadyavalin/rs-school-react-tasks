@@ -34,15 +34,14 @@ select {
 
 .form__checkbox {
   display: flex;
-  align-items: center;
-  height: 5px;
 }
 
 input[type="checkbox"] {
   border: 0.5px solid var(--border-color);
   border-radius: 10px;
   width: 30px;
-  margin: 22px 10px 0 1px;
+  margin-right: 10px;
+  margin-bottom: 25px;
 }
 
 .input__picture-block {
@@ -76,6 +75,17 @@ input[type="checkbox"] {
 
 .input__picture::file-selector-button:hover {
   background-color: var(--link-hover-color);
+}
+
+.agreement__block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.agreement__text {
+  margin: 0;
 }
 
 .error {

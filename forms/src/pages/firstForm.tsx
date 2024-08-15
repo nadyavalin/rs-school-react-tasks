@@ -1,6 +1,41 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import * as Yup from "yup";
 import "./styles.css";
+
+const validationSchema = Yup.object().shape({
+  name: Yup.string()
+    .required("Name is required")
+    .matches(/^[A-Z]/, "The name must start with a capital letter"),
+  age: Yup.number()
+    .required("Age is required")
+    .positive("Age must be a positive number")
+    .integer("Age must be an integer")
+    .typeError("Age cannot be empty"),
+  email: Yup.string().email("Incorrect email format").required("Email is required"),
+  password: Yup.string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters long")
+    .test("has-uppercase", "The password must contain at least one capital letter", (value) =>
+      /[A-Z]/.test(value),
+    )
+    .test("has-lowercase", "The password must contain at least one lowercase letter", (value) =>
+      /[a-z]/.test(value),
+    )
+    .test("has-number", "The password must contain at least one number", (value) =>
+      /\d/.test(value),
+    )
+    .test("has-special", "The password must contain at least one special character", (value) =>
+      /[$@!%*?&]/.test(value),
+    ),
+  confirmPassword: Yup.string()
+    .required("Password confirmation is required")
+    .oneOf([Yup.ref("password")], "Passwords must match"),
+  gender: Yup.string().required("Gender is required"),
+  country: Yup.string().required("Country is required"),
+  picture: Yup.mixed().required("Picture is required"),
+  terms: Yup.bool().oneOf([true], "You must agree to the terms"),
+});
 
 interface FormState {
   name: string;
@@ -27,7 +62,7 @@ interface ErrorState {
 }
 
 export const FirstForm = () => {
-  const [form, setForm] = useState<FormState>({
+  const [formState, setFormState] = useState<FormState>({
     name: "",
     age: "",
     email: "",
@@ -42,18 +77,10 @@ export const FirstForm = () => {
   const dispatch = useDispatch();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, type } = event.target;
-
-    let value: string | boolean;
-    if (type === "checkbox") {
-      value = (event.target as HTMLInputElement).checked;
-    } else {
-      value = event.target.value;
-    }
-
-    setForm({
-      ...form,
-      [name]: value,
+    const { name, value, type, checked } = event.target;
+    setFormState({
+      ...formState,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
@@ -70,7 +97,7 @@ export const FirstForm = () => {
           if (reader.result) {
             const base64String = reader.result.toString();
             dispatch({ type: "SET_PICTURE", payload: base64String });
-            setForm({ ...form, picture: base64String });
+            setFormState({ ...form, picture: base64String });
           }
         };
         reader.readAsDataURL(file);
@@ -79,38 +106,21 @@ export const FirstForm = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const newErrors: ErrorState = {};
-    if (!form.name) {
-      newErrors.name = "Name is required";
+    try {
+      await validationSchema.validate(formState, { abortEarly: false });
+      setErrors({});
+      dispatch({ type: "SUBMIT_FORM", payload: formState });
+    } catch (err) {
+      const validationErrors = {};
+      err.inner.forEach((error: Error) => {
+        validationErrors[error.path] = error.message;
+      });
+      setErrors(validationErrors);
     }
-    if (!form.age) {
-      newErrors.age = "Age is required";
-    }
-    if (!form.email) {
-      newErrors.email = "Email is required";
-    }
-    if (!form.password) {
-      newErrors.password = "Password is required";
-    }
-    if (!form.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-    }
-    if (!form.gender) {
-      newErrors.gender = "Gender is required";
-    }
-    if (!form.country) {
-      newErrors.country = "Country is required";
-    }
-    if (!form.picture) {
-      newErrors.picture = "Picture is required";
-    }
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      console.log("Form submitted", form);
+    if (Object.keys(errors).length === 0) {
+      console.log("Form submitted");
     }
   };
 
@@ -121,28 +131,33 @@ export const FirstForm = () => {
         <div className="form__item">
           <label>
             Name:
-            <input type="text" name="name" value={form.name} onChange={handleChange} />
+            <input type="text" name="name" value={formState.name} onChange={handleChange} />
             <p className="error">{errors.name}</p>
           </label>
         </div>
         <div className="form__item">
           <label>
             Age:
-            <input type="number" name="age" value={form.age} onChange={handleChange} />
+            <input type="number" name="age" value={formState.age} onChange={handleChange} />
             <p className="error">{errors.age}</p>
           </label>
         </div>
         <div className="form__item">
           <label>
             Email:
-            <input type="email" name="email" value={form.email} onChange={handleChange} />
+            <input type="email" name="email" value={formState.email} onChange={handleChange} />
             <p className="error">{errors.email}</p>
           </label>
         </div>
         <div className="form__item">
           <label>
             Password:
-            <input type="password" name="password" value={form.password} onChange={handleChange} />
+            <input
+              type="password"
+              name="password"
+              value={formState.password}
+              onChange={handleChange}
+            />
             <p className="error">{errors.password}</p>
           </label>
         </div>
@@ -152,7 +167,7 @@ export const FirstForm = () => {
             <input
               type="password"
               name="confirmPassword"
-              value={form.confirmPassword}
+              value={formState.confirmPassword}
               onChange={handleChange}
             />
             <p className="error">{errors.confirmPassword}</p>
@@ -161,7 +176,7 @@ export const FirstForm = () => {
         <div className="form__item">
           <label>
             Gender:
-            <select name="gender" value={form.gender} onChange={handleChange}>
+            <select name="gender" value={formState.gender} onChange={handleChange}>
               <option value="">Select...</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -172,7 +187,7 @@ export const FirstForm = () => {
         <div className="form__item">
           <label>
             Country:
-            <select name="country" value={form.country} onChange={handleChange}>
+            <select name="country" value={formState.country} onChange={handleChange}>
               <option value="">Select...</option>
               <option value="us">USA</option>
               <option value="ca">Canada</option>
@@ -201,12 +216,14 @@ export const FirstForm = () => {
               className="input__checkbox"
               type="checkbox"
               name="terms"
-              checked={form.terms}
+              checked={formState.terms}
               onChange={handleChange}
             />
-            <p className="error">{errors.terms}</p>
           </label>
-          <div> I accept the Terms of Agreement</div>
+          <div className="agreement__block">
+            <p className="agreement__text"> I accept the Terms of Agreement</p>
+            <p className="error">{errors.terms}</p>
+          </div>
         </div>
         <button type="submit">Submit</button>
       </form>

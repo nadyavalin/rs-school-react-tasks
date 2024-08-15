@@ -1,14 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const formSlice = createSlice({
+export const formSlice = createSlice({
   name: "form",
   initialState: {
     name: "",
     age: "",
     email: "",
+    password: "",
+    confirmPassword: "",
     gender: "",
     country: "",
     picture: null,
+    terms: false,
   },
   reducers: {
     updateForm(state, action) {
