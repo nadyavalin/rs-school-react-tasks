@@ -6,7 +6,7 @@ import { FirstForm } from "./pages/firstForm";
 import { SecondForm } from "./pages/secondForm";
 import { NoPage } from "./pages/noPage";
 import { Provider } from "react-redux";
-import { store } from "./store/store";
+import store from "./store/store";
 
 export default function App() {
   return (
