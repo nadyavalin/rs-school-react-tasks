@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FormState } from "../types/types";
 
 const initialState = {
@@ -10,12 +10,18 @@ const formSlice = createSlice({
   name: "form",
   initialState,
   reducers: {
-    addForm(state, action) {
-      state.forms.push(action.payload);
-      state.lastSubmittedForm = action.payload;
+    addForm(state, action: PayloadAction<FormState>) {
+      state.forms.push({ ...action.payload, isNew: true });
+      state.lastSubmittedForm = { ...action.payload, isNew: true };
+    },
+    removeNewIndicator(state, action: PayloadAction<number>) {
+      const formIndex = state.forms.findIndex((form) => form.id === action.payload);
+      if (formIndex !== -1) {
+        state.forms[formIndex].isNew = false;
+      }
     },
   },
 });
 
-export const { addForm } = formSlice.actions;
+export const { addForm, removeNewIndicator } = formSlice.actions;
 export default formSlice.reducer;

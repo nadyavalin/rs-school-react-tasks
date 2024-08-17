@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const validationSchema = Yup.object().shape({
+export const formSchema = Yup.object().shape({
   name: Yup.string()
     .required("Name is required")
     .matches(/^[A-Z]/, "The name must start with a capital letter")
@@ -31,6 +31,6 @@ export const validationSchema = Yup.object().shape({
     .oneOf([Yup.ref("password")], "Passwords must match"),
   gender: Yup.string().required("Gender is required"),
   country: Yup.string().required("Country is required"),
-  picture: Yup.mixed().required("Picture is required"),
+  picture: Yup.mixed().required("Invalid file type or size"),
   terms: Yup.bool().oneOf([true], "You must agree to the terms"),
 });

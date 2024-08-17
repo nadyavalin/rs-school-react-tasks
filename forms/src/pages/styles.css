@@ -30,12 +30,6 @@ select {
   color: #333;
 }
 
-.form__item {
-  display: flex;
-  align-items: center;
-  height: 30px;
-}
-
 .form__checkbox {
   display: flex;
 }
@@ -92,23 +86,14 @@ input[type="checkbox"] {
   margin: 0;
 }
 
-.error {
-  color: var(--accent-red-color);
-  font-size: 12px;
-  margin: 0 2px;
-  text-align: end;
-  display: block;
-  height: 20px;
-}
-
-.sumbitted-data {
+.submitted-data {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
 }
 
-.sumbitted-data__item {
+.submitted-data__item {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -121,15 +106,35 @@ input[type="checkbox"] {
   box-shadow: 10px 5px 5px var(--box-shadow);
 }
 
-.sumbitted-data__text {
+.submitted-data__text {
   font-size: 16px;
 }
 
-.sumbitted-data__text span {
+.submitted-data__text span {
   font-weight: 600;
 }
 
 .submitted-data__preview {
   border: 1px solid var(--accent-green-color);
   border-radius: 5px;
+}
+
+.form__item {
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
+.error {
+  color: var(--accent-red-color);
+  font-size: 12px;
+  margin: 0 2px;
+  text-align: end;
+  display: block;
+  height: 20px;
+}
+
+.submitted-data__item.highlight {
+  border: 3px solid var(--accent-red-color);
+  background-color: var(--accent-green-color);
 }

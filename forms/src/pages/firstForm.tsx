@@ -5,10 +5,16 @@ import * as Yup from "yup";
 import "./styles.css";
 import { addForm } from "../store/formSlice";
 import { ErrorState, FormState } from "../types/types";
-import { validationSchema } from "../components/validationSchema/validationScheme";
+import { formSchema } from "../validation/formSchema";
+import {
+  pictureSizeLimitMb,
+  pictureSizeLimitBit,
+  pictureSizeLimitBite,
+} from "../constants/constants";
 
 export const FirstForm = () => {
   const [formState, setFormState] = useState<FormState>({
+    id: 1,
     name: "",
     age: "",
     email: "",
@@ -37,10 +43,10 @@ export const FirstForm = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const maxSize = 5 * 1024 * 1024;
+      const maxSize = pictureSizeLimitMb * pictureSizeLimitBite * pictureSizeLimitBit;
       const allowedExtensions = ["image/png", "image/jpeg"];
       if (!allowedExtensions.includes(file.type) || file.size > maxSize) {
-        setErrors({ ...errors, picture: "Error: Invalid file type or size." });
+        setErrors({ ...errors, picture: "Invalid file type or size" });
       } else {
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -59,7 +65,7 @@ export const FirstForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await validationSchema.validate(formState, { abortEarly: false });
+      await formSchema.validate(formState, { abortEarly: false });
       dispatch(addForm(formState));
       navigate("/");
     } catch (validationErrors) {
@@ -163,8 +169,8 @@ export const FirstForm = () => {
               <p className="error">{errors.picture}</p>
             </div>
           </div>
-          <div className="form__checkbox">
-            <label>
+          <div>
+            <label className="form__checkbox">
               <input
                 className="input__checkbox"
                 type="checkbox"
@@ -172,11 +178,11 @@ export const FirstForm = () => {
                 checked={formState.terms}
                 onChange={handleChange}
               />
+              <div className="agreement__block">
+                <p className="agreement__text">I accept the Terms of Agreement</p>
+                <p className="error">{errors.terms}</p>
+              </div>
             </label>
-            <div className="agreement__block">
-              <p className="agreement__text">I accept the Terms of Agreement</p>
-              <p className="error">{errors.terms}</p>
-            </div>
           </div>
           <button type="submit">Submit</button>
         </form>

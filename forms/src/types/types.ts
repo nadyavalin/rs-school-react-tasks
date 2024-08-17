@@ -1,4 +1,5 @@
 export interface FormState {
+  id: number;
   name: string;
   age: string;
   email: string;
@@ -8,6 +9,7 @@ export interface FormState {
   country: string;
   picture: null | string;
   terms: boolean;
+  isNew?: boolean;
 }
 
 export interface ErrorState {
