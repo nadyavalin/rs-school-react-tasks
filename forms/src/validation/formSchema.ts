@@ -1,12 +1,12 @@
 import * as Yup from "yup";
 
 import {
-  pictureSizeLimitBit,
-  pictureSizeLimitBite,
-  pictureSizeLimitMb,
+  PICTURE_SIZE_LIMIT_BIT,
+  PICTURE_SIZE_LIMIT_BITE,
+  PICTURE_SIZE_LIMIT_MB,
 } from "../constants/constants";
 
-const maxSize = pictureSizeLimitMb * pictureSizeLimitBite * pictureSizeLimitBit;
+const maxSize = PICTURE_SIZE_LIMIT_MB * PICTURE_SIZE_LIMIT_BITE * PICTURE_SIZE_LIMIT_BIT;
 const allowedExtensions = ["image/png", "image/jpeg"];
 
 export const formSchema = Yup.object().shape({

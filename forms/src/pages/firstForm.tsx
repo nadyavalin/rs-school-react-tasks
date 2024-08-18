@@ -7,9 +7,9 @@ import { addForm } from "../store/formSlice";
 import { ErrorState, FormState } from "../types/types";
 import { formSchema } from "../validation/formSchema";
 import {
-  pictureSizeLimitMb,
-  pictureSizeLimitBit,
-  pictureSizeLimitBite,
+  PICTURE_SIZE_LIMIT_MB,
+  PICTURE_SIZE_LIMIT_BIT,
+  PICTURE_SIZE_LIMIT_BITE,
 } from "../constants/constants";
 import { RootState } from "../store/store";
 
@@ -51,7 +51,7 @@ export const FirstForm = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const maxSize = pictureSizeLimitMb * pictureSizeLimitBite * pictureSizeLimitBit;
+      const maxSize = PICTURE_SIZE_LIMIT_MB * PICTURE_SIZE_LIMIT_BITE * PICTURE_SIZE_LIMIT_BIT;
       const allowedExtensions = ["image/png", "image/jpeg"];
       if (!allowedExtensions.includes(file.type) || file.size > maxSize) {
         setErrors({ ...errors, picture: "Invalid file type or size" });
