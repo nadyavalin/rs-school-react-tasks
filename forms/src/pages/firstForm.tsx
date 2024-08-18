@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
@@ -31,6 +31,13 @@ export const FirstForm = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState<ErrorState>({});
   const countries = useSelector((state: RootState) => state.countries.countries);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    const isValid = Object.values(formState).every((value) => value !== "" && value !== null);
+    setIsFormValid(isValid);
+  }, [formState]);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value, type } = event.target;
@@ -78,6 +85,7 @@ export const FirstForm = () => {
           }
         });
         setErrors(formattedErrors);
+        setHasSubmitted(true);
       }
     }
   };
@@ -86,7 +94,7 @@ export const FirstForm = () => {
     <>
       <main className="main">
         <h1>First Form</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <div className="form__item">
             <label htmlFor="name">Name:</label>
             <div className="form__item_input">
@@ -212,7 +220,9 @@ export const FirstForm = () => {
               </div>
             </label>
           </div>
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={!hasSubmitted && !isFormValid}>
+            Submit
+          </button>
         </form>
       </main>
     </>

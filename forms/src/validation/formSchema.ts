@@ -22,19 +22,12 @@ export const formSchema = Yup.object().shape({
   email: Yup.string().email("Incorrect email format").required("Email is required"),
   password: Yup.string()
     .required("Password is required")
+    .matches(/^[A-Za-z\d$@!%*?&]+$/, "Password can only contain English letters")
     .min(8, "Password must be at least 8 characters long")
-    .test("has-uppercase", "The password must contain at least one capital letter", (value) =>
-      /[A-Z]/.test(value),
-    )
-    .test("has-lowercase", "The password must contain at least one lowercase letter", (value) =>
-      /[a-z]/.test(value),
-    )
-    .test("has-number", "The password must contain at least one number", (value) =>
-      /\d/.test(value),
-    )
-    .test("has-special", "The password must contain at least one special character", (value) =>
-      /[$@!%*?&]/.test(value),
-    ),
+    .matches(/[A-Z]/, "The password must contain at least one capital letter")
+    .matches(/[a-z]/, "The password must contain at least one lowercase letter")
+    .matches(/\d/, "The password must contain at least one number")
+    .matches(/[$@!%*?&]/, "The password must contain at least one special character"),
   confirmPassword: Yup.string()
     .required("Password confirmation is required")
     .oneOf([Yup.ref("password")], "Passwords must match"),

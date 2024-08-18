@@ -41,7 +41,7 @@ export const SecondForm = () => {
   return (
     <main className="main">
       <h1>Second Form</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <div className="form__item">
           <label htmlFor="name">Name:</label>
           <div className="form__item_input">
