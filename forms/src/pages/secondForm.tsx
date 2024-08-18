@@ -1,13 +1,13 @@
 import { useCallback } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, UseFormReturn } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { yupResolver } from "@hookform/resolvers/yup";
 import "./styles.css";
 import { addForm } from "../store/formSlice";
 import { FormState } from "../types/types";
 import { formSchema } from "../validation/formSchema";
 import { RootState } from "../store/store";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export const SecondForm = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export const SecondForm = () => {
     handleSubmit,
     control,
     formState: { errors, isValid },
-  } = useForm<FormState>({
+  }: UseFormReturn<FormState> = useForm<FormState>({
     resolver: yupResolver(formSchema),
     mode: "onChange",
   });
@@ -34,9 +34,11 @@ export const SecondForm = () => {
           navigate("/");
         }
       };
-      if (data.picture && data.picture[0]) reader.readAsDataURL(data.picture[0]);
-      else {
-        dispatch(addForm({ ...data, isNew: true }));
+
+      if (data.picture && data.picture[0]) {
+        reader.readAsDataURL(data.picture[0]);
+      } else {
+        dispatch(addForm({ ...data, picture: null, isNew: true }));
         navigate("/");
       }
     },
@@ -101,7 +103,13 @@ export const SecondForm = () => {
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <input type="text" id="country" {...field} list="countryList" />
+                <input
+                  type="text"
+                  id="country"
+                  {...field}
+                  list="countryList"
+                  {...register("country")}
+                />
               )}
             />
             <datalist id="countryList">
@@ -134,6 +142,7 @@ export const SecondForm = () => {
                   className="input__checkbox"
                   type="checkbox"
                   checked={field.value}
+                  {...register("terms")}
                   onChange={(e) => field.onChange(e.target.checked)}
                 />
               )}

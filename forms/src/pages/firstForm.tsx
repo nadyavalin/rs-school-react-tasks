@@ -17,13 +17,13 @@ export const FirstForm = () => {
   const [formState, setFormState] = useState<FormState>({
     id: 1,
     name: "",
-    age: "",
+    age: 1,
     email: "",
     password: "",
     confirmPassword: "",
     gender: "",
     country: "",
-    picture: null,
+    picture: "",
     terms: false,
   });
 

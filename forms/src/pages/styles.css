@@ -148,3 +148,7 @@ button[disabled] {
   pointer-events: none;
   background-color: var(--background-color-hover);
 }
+
+.no-page {
+  font-size: 200px;
+}

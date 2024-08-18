@@ -1,7 +1,7 @@
 export interface FormState {
   id: number;
   name: string;
-  age: string;
+  age: number;
   email: string;
   password: string;
   confirmPassword: string;
@@ -14,7 +14,7 @@ export interface FormState {
 
 export interface ErrorState {
   name?: string;
-  age?: string;
+  age?: number;
   email?: string;
   password?: string;
   confirmPassword?: string;

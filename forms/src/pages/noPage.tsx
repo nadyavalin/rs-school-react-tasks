@@ -1,7 +1,9 @@
 export function NoPage() {
   return (
     <>
-      <div>404</div>
+      <main className="main">
+        <div className="no-page">404</div>
+      </main>
     </>
   );
 }
