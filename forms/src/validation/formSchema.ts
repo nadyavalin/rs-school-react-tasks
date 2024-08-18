@@ -35,7 +35,7 @@ export const formSchema = Yup.object().shape({
   country: Yup.string().required("Country is required"),
   picture: Yup.mixed()
     .required("Picture is required")
-    .test("fileSize", "The file must be less than 5 MB", (value) => {
+    .test("fileSize", "The file must be less than 2 MB", (value) => {
       if (!(value instanceof FileList) || value.length === 0) {
         return true;
       }

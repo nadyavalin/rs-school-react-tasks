@@ -36,7 +36,7 @@ export const SecondForm = () => {
       if (data.picture && data.picture[0]) {
         reader.readAsDataURL(data.picture[0]);
       } else {
-        dispatch(addForm({ ...data, picture: null, isNew: true }));
+        dispatch(addForm({ ...data, isNew: true }));
         navigate("/");
       }
     },
