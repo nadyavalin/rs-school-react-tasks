@@ -1,6 +1,6 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { useEffect } from "react";
 import { removeNewIndicator } from "../store/formSlice";
 
 const Home = () => {
@@ -15,7 +15,7 @@ const Home = () => {
             dispatch(removeNewIndicator(form.id));
           }
         });
-      }, 3000);
+      }, 2500);
 
       return () => clearTimeout(timer);
     }

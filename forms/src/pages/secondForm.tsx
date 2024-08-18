@@ -30,10 +30,15 @@ export const SecondForm = () => {
       reader.onloadend = () => {
         if (reader.result) {
           const base64String = reader.result.toString();
-          dispatch(addForm({ ...data, picture: base64String }));
+          dispatch(addForm({ ...data, picture: base64String, isNew: true }));
           navigate("/");
         }
       };
+      if (data.picture && data.picture[0]) reader.readAsDataURL(data.picture[0]);
+      else {
+        dispatch(addForm({ ...data, isNew: true }));
+        navigate("/");
+      }
     },
     [dispatch, navigate],
   );
