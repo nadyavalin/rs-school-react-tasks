@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import "./styles.css";
 import { addForm } from "../store/formSlice";
@@ -11,6 +11,7 @@ import {
   pictureSizeLimitBit,
   pictureSizeLimitBite,
 } from "../constants/constants";
+import { RootState } from "../store/store";
 
 export const FirstForm = () => {
   const [formState, setFormState] = useState<FormState>({
@@ -29,13 +30,13 @@ export const FirstForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errors, setErrors] = useState<ErrorState>({});
+  const countries = useSelector((state: RootState) => state.countries.countries);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value, type } = event.target;
     const isCheckbox = type === "checkbox";
     setFormState({
       ...formState,
-      [event.target.name]: event.target.value,
       [name]: isCheckbox ? (event.target as HTMLInputElement).checked : value,
     });
   };
@@ -87,74 +88,99 @@ export const FirstForm = () => {
         <h1>First Form</h1>
         <form onSubmit={handleSubmit}>
           <div className="form__item">
-            <label>
-              Name:
-              <input type="text" name="name" value={formState.name} onChange={handleChange} />
+            <label htmlFor="name">Name:</label>
+            <div className="form__item_input">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formState.name}
+                onChange={handleChange}
+              />
               <p className="error">{errors.name}</p>
-            </label>
+            </div>
           </div>
           <div className="form__item">
-            <label>
-              Age:
-              <input type="number" name="age" value={formState.age} onChange={handleChange} />
+            <label htmlFor="age">Age:</label>
+            <div className="form__item_input">
+              <input
+                type="number"
+                id="age"
+                name="age"
+                value={formState.age}
+                onChange={handleChange}
+              />
               <p className="error">{errors.age}</p>
-            </label>
+            </div>
           </div>
           <div className="form__item">
-            <label>
-              Email:
-              <input type="email" name="email" value={formState.email} onChange={handleChange} />
+            <label htmlFor="email">Email:</label>
+            <div className="form__item_input">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formState.email}
+                onChange={handleChange}
+              />
               <p className="error">{errors.email}</p>
-            </label>
+            </div>
           </div>
           <div className="form__item">
-            <label>
-              Password:
+            <label htmlFor="password">Password:</label>
+            <div className="form__item_input">
               <input
                 type="password"
+                id="password"
                 name="password"
                 value={formState.password}
                 onChange={handleChange}
               />
               <p className="error">{errors.password}</p>
-            </label>
+            </div>
           </div>
           <div className="form__item">
-            <label>
-              Confirm Password:
+            <label htmlFor="confirmPassword">Confirm Password:</label>
+            <div className="form__item_input">
               <input
                 type="password"
+                id="confirmPassword"
                 name="confirmPassword"
                 value={formState.confirmPassword}
                 onChange={handleChange}
               />
               <p className="error">{errors.confirmPassword}</p>
-            </label>
+            </div>
           </div>
           <div className="form__item">
-            <label>
-              Gender:
-              <select name="gender" value={formState.gender} onChange={handleChange}>
+            <label htmlFor="gender">Gender:</label>
+            <div className="form__item_input">
+              <select id="gender" name="gender" value={formState.gender} onChange={handleChange}>
                 <option value="">Select...</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </select>
               <p className="error">{errors.gender}</p>
-            </label>
+            </div>
           </div>
           <div className="form__item">
-            <label>
-              Country:
-              <select name="country" value={formState.country} onChange={handleChange}>
-                <option value="">Select...</option>
-                <option value="USA">USA</option>
-                <option value="Canad">Canada</option>
-                <option value="UK">UK</option>
-                <option value="Australia">Australia</option>
-                <option value="Russia">Russia</option>
-              </select>
+            <label htmlFor="country">Country:</label>
+            <div className="form__item_input">
+              <input
+                type="text"
+                id="country"
+                name="country"
+                list="countryList"
+                value={formState.country}
+                onChange={handleChange}
+              />
+              <datalist id="countryList">
+                {countries.map((country) => (
+                  <option key={country} value={country} />
+                ))}
+              </datalist>
               <p className="error">{errors.country}</p>
-            </label>
+            </div>
           </div>
           <div className="form__item">
             <label htmlFor="picture">Upload photo:</label>
@@ -162,6 +188,7 @@ export const FirstForm = () => {
               <input
                 className="input__picture"
                 type="file"
+                id="picture"
                 name="picture"
                 accept="image/png, image/jpg, image/jpeg"
                 onChange={handleFileChange}
@@ -170,10 +197,11 @@ export const FirstForm = () => {
             </div>
           </div>
           <div>
-            <label className="form__checkbox">
+            <label htmlFor="terms" className="form__checkbox">
               <input
                 className="input__checkbox"
                 type="checkbox"
+                id="terms"
                 name="terms"
                 checked={formState.terms}
                 onChange={handleChange}

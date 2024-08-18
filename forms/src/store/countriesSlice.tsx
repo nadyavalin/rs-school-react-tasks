@@ -1,22 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  countries: [],
-  picture: null,
+interface CountryState {
+  countries: string[];
+}
+
+const initialState: CountryState = {
+  countries: ["USA", "Canada", "UK", "Australia", "Russia", "France"],
 };
 
-const countriesSlice = createSlice({
+const countrySlice = createSlice({
   name: "countries",
   initialState,
-  reducers: {
-    setCountries(state, action) {
-      state.countries = action.payload;
-    },
-    setPicture(state, action) {
-      state.picture = action.payload;
-    },
-  },
+  reducers: {},
 });
 
-export const { setCountries, setPicture } = countriesSlice.actions;
-export default countriesSlice.reducer;
+export default countrySlice.reducer;

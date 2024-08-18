@@ -125,6 +125,11 @@ input[type="checkbox"] {
   height: 30px;
 }
 
+.form__item_input {
+  display: flex;
+  flex-direction: column;
+}
+
 .error {
   color: var(--accent-red-color);
   font-size: 12px;

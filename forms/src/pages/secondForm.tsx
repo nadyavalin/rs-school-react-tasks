@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import "./styles.css";
 import { addForm } from "../store/formSlice";
@@ -12,11 +12,12 @@ import {
   pictureSizeLimitBite,
   pictureSizeLimitMb,
 } from "../constants/constants";
+import { RootState } from "../store/store";
 
 const maxSize = pictureSizeLimitMb * pictureSizeLimitBite * pictureSizeLimitBit;
-const allowedExtensions = ["image/png", " image/jpg,", "image/jpeg"];
+const allowedExtensions = ["image/png", "image/jpeg"];
 
-const validatePicture = (file: string | undefined) => {
+const validatePicture = (file: File | undefined) => {
   if (!file) return false;
   return allowedExtensions.includes(file.type) && file.size <= maxSize;
 };
@@ -24,6 +25,7 @@ const validatePicture = (file: string | undefined) => {
 export const SecondForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const countries = useSelector((state: RootState) => state.countries.countries);
 
   const {
     register,
@@ -38,7 +40,7 @@ export const SecondForm = () => {
 
   const onSubmit = useCallback(
     (data: FormState) => {
-      const file = data.picture?.[0];
+      const file = data.picture[0] as File | null;
 
       if (!validatePicture(file)) {
         setError("picture", {
@@ -70,64 +72,69 @@ export const SecondForm = () => {
       <h1>Second Form</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form__item">
-          <label>
-            Name:
-            <input type="text" {...register("name")} />
+          <label htmlFor="name">Name:</label>
+          <div className="form__item_input">
+            <input id="name" type="text" {...register("name")} />
             <p className="error">{errors.name?.message}</p>
-          </label>
+          </div>
         </div>
         <div className="form__item">
-          <label>
-            Age:
+          <label htmlFor="age">Age:</label>
+          <div className="form__item_input">
             <input type="number" {...register("age")} />
             <p className="error">{errors.age?.message}</p>
-          </label>
+          </div>
         </div>
         <div className="form__item">
-          <label>
-            Email:
+          <label htmlFor="email">Email:</label>
+          <div className="form__item_input">
             <input type="email" {...register("email")} />
             <p className="error">{errors.email?.message}</p>
-          </label>
+          </div>
         </div>
         <div className="form__item">
-          <label>
-            Password:
+          <label htmlFor="password">Password:</label>
+          <div className="form__item_input">
             <input type="password" {...register("password")} />
             <p className="error">{errors.password?.message}</p>
-          </label>
+          </div>
         </div>
         <div className="form__item">
-          <label>
-            Confirm Password:
-            <input type="password" {...register("confirmPassword")} />
+          <label htmlFor="confirmPassword">Confirm Password:</label>
+          <div className="form__item_input">
+            <input id="confirmPassword" type="password" {...register("confirmPassword")} />
             <p className="error">{errors.confirmPassword?.message}</p>
-          </label>
+          </div>
         </div>
         <div className="form__item">
-          <label>
-            Gender:
+          <label htmlFor="gender">Gender:</label>
+          <div className="form__item_input">
             <select {...register("gender")}>
               <option value="">Select...</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
             <p className="error">{errors.gender?.message}</p>
-          </label>
+          </div>
         </div>
         <div className="form__item">
-          <label>
-            Country:
-            <select {...register("country")}>
-              <option value="">Select...</option>
-              <option value="USA">USA</option>
-              <option value="Canada">Canada</option>
-              <option value="UK">UK</option>
-              <option value="Australia">Australia</option>
-              <option value="Russia">Russia</option>
-            </select>
+          <label htmlFor="country">Country:</label>
+          <div className="form__item_input">
+            <Controller
+              name="country"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <input type="text" id="country" {...field} list="countryList" />
+              )}
+            />
+            <datalist id="countryList">
+              {countries.map((country) => (
+                <option key={country} value={country} />
+              ))}
+            </datalist>
             <p className="error">{errors.country?.message}</p>
-          </label>
+          </div>
         </div>
         <div className="form__item">
           <label htmlFor="picture">Upload photo:</label>

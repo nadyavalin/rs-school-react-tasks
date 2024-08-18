@@ -8,7 +8,7 @@ export interface FormState {
   gender: string;
   country: string;
   picture: string | null;
-  terms?: boolean | undefined;
+  terms: boolean;
   isNew?: boolean;
 }
 
