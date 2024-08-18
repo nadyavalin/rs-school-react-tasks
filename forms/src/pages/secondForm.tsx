@@ -29,12 +29,10 @@ export const SecondForm = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         if (reader.result) {
-          const base64String = reader.result.toString();
-          dispatch(addForm({ ...data, picture: base64String, isNew: true }));
+          dispatch(addForm({ ...data, picture: reader.result.toString() }));
           navigate("/");
         }
       };
-
       if (data.picture && data.picture[0]) {
         reader.readAsDataURL(data.picture[0]);
       } else {
