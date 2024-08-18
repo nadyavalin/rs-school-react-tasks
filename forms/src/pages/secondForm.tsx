@@ -7,20 +7,7 @@ import "./styles.css";
 import { addForm } from "../store/formSlice";
 import { FormState } from "../types/types";
 import { formSchema } from "../validation/formSchema";
-import {
-  pictureSizeLimitBit,
-  pictureSizeLimitBite,
-  pictureSizeLimitMb,
-} from "../constants/constants";
 import { RootState } from "../store/store";
-
-const maxSize = pictureSizeLimitMb * pictureSizeLimitBite * pictureSizeLimitBit;
-const allowedExtensions = ["image/png", "image/jpeg"];
-
-const validatePicture = (file: File | undefined) => {
-  if (!file) return false;
-  return allowedExtensions.includes(file.type) && file.size <= maxSize;
-};
 
 export const SecondForm = () => {
   const dispatch = useDispatch();
@@ -32,7 +19,6 @@ export const SecondForm = () => {
     handleSubmit,
     control,
     formState: { errors, isValid },
-    setError,
   } = useForm<FormState>({
     resolver: yupResolver(formSchema),
     mode: "onChange",
@@ -40,16 +26,6 @@ export const SecondForm = () => {
 
   const onSubmit = useCallback(
     (data: FormState) => {
-      const file = data.picture[0] as File | null;
-
-      if (!validatePicture(file)) {
-        setError("picture", {
-          type: "manual",
-          message: "Invalid file type or size",
-        });
-        return;
-      }
-
       const reader = new FileReader();
       reader.onloadend = () => {
         if (reader.result) {
@@ -58,13 +34,8 @@ export const SecondForm = () => {
           navigate("/");
         }
       };
-      if (file) reader.readAsDataURL(file);
-      else {
-        dispatch(addForm(data));
-        navigate("/");
-      }
     },
-    [dispatch, navigate, setError],
+    [dispatch, navigate],
   );
 
   return (

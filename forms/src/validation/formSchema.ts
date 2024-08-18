@@ -1,5 +1,14 @@
 import * as Yup from "yup";
 
+import {
+  pictureSizeLimitBit,
+  pictureSizeLimitBite,
+  pictureSizeLimitMb,
+} from "../constants/constants";
+
+const maxSize = pictureSizeLimitMb * pictureSizeLimitBite * pictureSizeLimitBit;
+const allowedExtensions = ["image/png", "image/jpeg"];
+
 export const formSchema = Yup.object().shape({
   name: Yup.string()
     .required("Name is required")
@@ -31,6 +40,21 @@ export const formSchema = Yup.object().shape({
     .oneOf([Yup.ref("password")], "Passwords must match"),
   gender: Yup.string().required("Gender is required"),
   country: Yup.string().required("Country is required"),
-  picture: Yup.mixed().required("Invalid file type or size"),
+  picture: Yup.mixed()
+    .required("Picture is required")
+    .test("fileSize", "The file must be less than 5 MB", (value) => {
+      if (!(value instanceof FileList) || value.length === 0) {
+        return true;
+      }
+      const file = value[0];
+      return file.size <= maxSize;
+    })
+    .test("fileFormat", "The file must be of type PNG or JPEG", (value) => {
+      if (!(value instanceof FileList) || value.length === 0) {
+        return true;
+      }
+      const file = value[0];
+      return allowedExtensions.includes(file.type);
+    }),
   terms: Yup.bool().oneOf([true], "You must agree to the terms"),
 });

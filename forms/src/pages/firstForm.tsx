@@ -190,7 +190,7 @@ export const FirstForm = () => {
                 type="file"
                 id="picture"
                 name="picture"
-                accept="image/png, image/jpg, image/jpeg"
+                accept="image/png, image/jpeg"
                 onChange={handleFileChange}
               />
               <p className="error">{errors.picture}</p>
