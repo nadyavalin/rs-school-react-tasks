@@ -163,7 +163,7 @@ export const FirstForm = () => {
                 className="input__picture"
                 type="file"
                 name="picture"
-                accept="image/png, image/jpeg"
+                accept="image/png, image/jpg, image/jpeg"
                 onChange={handleFileChange}
               />
               <p className="error">{errors.picture}</p>

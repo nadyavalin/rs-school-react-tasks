@@ -7,8 +7,8 @@ export interface FormState {
   confirmPassword: string;
   gender: string;
   country: string;
-  picture: null | string;
-  terms: boolean;
+  picture: string | null;
+  terms?: boolean | undefined;
   isNew?: boolean;
 }
 

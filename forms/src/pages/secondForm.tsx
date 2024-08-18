@@ -7,6 +7,19 @@ import "./styles.css";
 import { addForm } from "../store/formSlice";
 import { FormState } from "../types/types";
 import { formSchema } from "../validation/formSchema";
+import {
+  pictureSizeLimitBit,
+  pictureSizeLimitBite,
+  pictureSizeLimitMb,
+} from "../constants/constants";
+
+const maxSize = pictureSizeLimitMb * pictureSizeLimitBite * pictureSizeLimitBit;
+const allowedExtensions = ["image/png", " image/jpg,", "image/jpeg"];
+
+const validatePicture = (file: string | undefined) => {
+  if (!file) return false;
+  return allowedExtensions.includes(file.type) && file.size <= maxSize;
+};
 
 export const SecondForm = () => {
   const dispatch = useDispatch();
@@ -16,13 +29,25 @@ export const SecondForm = () => {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isValid },
+    setError,
   } = useForm<FormState>({
     resolver: yupResolver(formSchema),
+    mode: "onChange",
   });
 
   const onSubmit = useCallback(
     (data: FormState) => {
+      const file = data.picture?.[0];
+
+      if (!validatePicture(file)) {
+        setError("picture", {
+          type: "manual",
+          message: "Invalid file type or size",
+        });
+        return;
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
         if (reader.result) {
@@ -31,13 +56,13 @@ export const SecondForm = () => {
           navigate("/");
         }
       };
-      if (data.picture && data.picture[0]) reader.readAsDataURL(data.picture[0]);
+      if (file) reader.readAsDataURL(file);
       else {
         dispatch(addForm(data));
         navigate("/");
       }
     },
-    [dispatch, navigate],
+    [dispatch, navigate, setError],
   );
 
   return (
@@ -136,7 +161,9 @@ export const SecondForm = () => {
             </div>
           </label>
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={!isValid}>
+          Submit
+        </button>
       </form>
     </main>
   );

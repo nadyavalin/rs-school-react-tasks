@@ -10,10 +10,12 @@
   -moz-osx-font-smoothing: grayscale;
 
   --font-black-color: #000000;
+  --font-white-color: #ffffff;
   --font-color: rgba(73, 73, 73, 0.87);
   --box-shadow: rgba(73, 73, 73, 0.4);
   --border-color: #c3c3c3;
   --accent-green-color: #50db00;
+  --active-menu-color: #9ae7ff;
   --link-color: #006633;
   --link-hover-color: #46be00;
   --background-color: #f0faea;
